@@ -31,10 +31,7 @@ export default {
    */
   css: ['@/assets/styles/global-style-guide.scss'],
   styleResources: {
-    scss: [
-      '@/assets/styles/_variables.scss',
-      '@/assets/styles/_mixins.scss'
-    ]
+    scss: ['@/assets/styles/_variables.scss', '@/assets/styles/_mixins.scss']
   },
   /*
    ** Plugins to load before mounting the App
@@ -59,7 +56,18 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    [
+      'nuxt-fontawesome',
+      {
+        imports: [
+          {
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          }
+        ]
+      }
+    ]
   ],
   /*
    ** Axios module configuration
@@ -71,4 +79,4 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {}
-};
+}

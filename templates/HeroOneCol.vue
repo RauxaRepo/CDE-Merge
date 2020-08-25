@@ -1,21 +1,25 @@
 <template>
-  <div class="wrapper">
+  <div>
     <header class="hero">
-      <ComponentSelector />
+      <ComponentSelector container="HeroOneCol-Hero" type="hero" />
     </header>
-    <main><ComponentSelector /></main>
+    <main><ComponentSelector container="HeroOneCol-Main" type="main" /></main>
   </div>
 </template>
 
 <script>
-import ComponentSelector from '@/components/core/ComponentSelector';
+import ComponentSelector from '@/components/core/ComponentSelector'
 
 export default {
   name: 'HeroOneCol',
   components: {
     ComponentSelector
   }
-};
+}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+main {
+  margin: 2rem 0;
+}
+</style>

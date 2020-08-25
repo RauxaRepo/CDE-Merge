@@ -7,12 +7,16 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
-  extends: [
-    '@nuxtjs',
-    'plugin:nuxt/recommended'
-  ],
-  plugins: [
-  ],
+  extends: ['@nuxtjs', 'plugin:nuxt/recommended'],
+  plugins: [],
   // add your custom rules here
-  rules: {}
+  rules: {
+    'no-console': 'off',
+    'arrow-parens': 'off',
+    'object-shorthand': 'off',
+    'space-before-function-paren': 'off',
+    'vue/require-prop-types': 'off',
+    'vue/html-self-closing': 'off',
+    'no-debugger': 'off'
+  }
 }
