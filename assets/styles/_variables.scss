@@ -1,0 +1,13 @@
+// Colors
+
+$white: #fff;
+$black: #000;
+$blue: lightblue;
+
+// Responsive
+$breakpoints: (
+  'small':  567px,
+  'medium':  768px,
+  'large': 992px,
+  'xl':  1200px
+) !default;
