@@ -24,12 +24,17 @@ export const state = () => ({
   }
 })
 export const mutations = {
-  updateContainer(state, container) {
+  updateComponent(state, container) {
     state.currentTemplate = {
       ...state.currentTemplate,
       containers: {
         ...state.currentTemplate.containers,
-        [container.name]: container.component
+        [container.name]: [
+          ...state.currentTemplate.containers[container.name].filter(
+            component => component.id !== container.component.id
+          ),
+          container.component
+        ]
       }
     }
   },
@@ -38,8 +43,14 @@ export const mutations = {
       ...state.currentTemplate,
       containers: {
         ...state.currentTemplate.containers,
-        [container.name]: null
+        [container.name]: []
       }
+    }
+  },
+  clearCurrentTemplate(state) {
+    state.currentTemplate = {
+      ...state.currentTemplate,
+      containers: []
     }
   },
   toggleEditMode(state) {

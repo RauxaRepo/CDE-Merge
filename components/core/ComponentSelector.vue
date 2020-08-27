@@ -32,15 +32,19 @@ export default {
     }
   },
   props: ['type', 'container'],
+  mounted: function() {
+    if (!this.$store.state.currentTemplate.containers[this.container]) {
+      this.$store.commit('clearContainer', {
+        name: this.container
+      })
+    }
+  },
   methods: {
     handleComponentSelected: function(evt) {
       return (this.selectedComponent = evt.target ? evt.target.value : '')
     },
     handleRemoveComponent: function() {
       this.selectedComponent = null
-      this.$store.commit('clearContainer', {
-        name: this.container
-      })
     }
   },
   computed: {

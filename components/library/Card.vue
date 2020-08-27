@@ -9,15 +9,14 @@
 
 <script>
 import TextInput from '@/components/core/inputs/TextInput'
-import { updateContainer } from '@/utils'
+import { libComponentMixin } from '@/shared/mixins'
 
-const name = 'Card'
 export default {
-  name,
+  name: 'Card',
   components: {
     TextInput
   },
-  props: ['container'],
+  mixins: [libComponentMixin],
   data: function() {
     return {
       fields: {
@@ -26,20 +25,6 @@ export default {
           'Lorem Ipsum is simply dummy text'
       }
     }
-  },
-  watch: {
-    fields: {
-      deep: true,
-      handler: function(fields) {
-        this.updateContainer(this.$store, this.container, name, fields)
-      }
-    }
-  },
-  mounted: function() {
-    this.updateContainer(this.$store, this.container, name, this.fields)
-  },
-  methods: {
-    updateContainer
   }
 }
 </script>

@@ -14,7 +14,7 @@
       <div ref="templateContainer">
         <component :is="componentInstance" />
       </div>
-      <button @click="handleExport">Export</button>
+      <button @click="handleExport">Export HTML</button>
     </div>
     {{ currentTemplate }}
   </div>
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     handleTemplateSelected: function(evt) {
+      this.$store.commit('clearCurrentTemplate')
       return (this.selectedTemplate = evt.target ? evt.target.value : '')
     },
     handleExport: function() {
@@ -64,6 +65,9 @@ h1 {
   margin-bottom: 1.5rem;
 }
 .template-selector-container {
+  margin-bottom: 3rem;
+}
+button {
   margin-bottom: 3rem;
 }
 </style>
