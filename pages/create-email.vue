@@ -53,7 +53,7 @@ export default {
       if (!name) {
         return null
       }
-      return () => import(`@/templates/${name}`)
+      return () => import(`@/components/templates/${name}`)
     }
   }
 }

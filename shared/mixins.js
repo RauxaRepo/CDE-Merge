@@ -1,40 +1,45 @@
 import { getUID } from '@/shared/utils'
 
-export const libComponentMixin = {
-  props: ['container', 'existingComponent'],
-  data: function() {
-    return {
-      id: null
+export const templateMixin = {
+  methods: {
+    addSelector(containerName) {
+      this.containers = this.containers.map(container => {
+        return container.name === containerName
+          ? {
+              name: containerName,
+              selectors: [
+                ...container.selectors,
+                {
+                  id: getUID(),
+                  visible: true
+                }
+              ]
+            }
+          : container
+      })
     }
-  },
+  }
+}
+export const libComponentMixin = {
+  props: ['containerName', 'existingComponent', 'id'],
   watch: {
     fields: {
       deep: true,
       handler: function(fields) {
-        this.updateComponent({
-          $store: this.$store,
-          container: this.container,
-          name: this.$options.name,
-          fields
-        })
+        this.updateComponent(fields)
       }
     }
   },
   mounted: function() {
-    this.id = getUID(this.existingComponent)
-    this.updateComponent({
-      $store: this.$store,
-      container: this.container,
-      name: this.$options.name,
-      fields: this.fields
-    })
+    this.updateComponent(this.fields)
   },
   methods: {
-    updateComponent({ $store, container, name, fields }) {
-      $store.commit('updateComponent', {
-        name: container,
+    updateComponent(fields) {
+      this.$store.commit('updateComponent', {
+        name: this.containerName,
         component: {
-          name,
+          id: this.id,
+          name: this.$options.name,
           fields: { ...fields }
         }
       })

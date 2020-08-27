@@ -34,7 +34,7 @@ export default {
   background: $blue;
   border-radius: 8px;
   padding: .5rem;
-  max-width: 300px;
+  margin-bottom: 1rem;
 }
 h2 {
   font-size: 1.5rem;

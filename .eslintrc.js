@@ -17,6 +17,8 @@ module.exports = {
     'space-before-function-paren': 'off',
     'vue/require-prop-types': 'off',
     'vue/html-self-closing': 'off',
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'vue/v-on-style': 'off',
+    indent: 'off'
   }
 }

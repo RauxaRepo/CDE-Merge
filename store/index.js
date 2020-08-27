@@ -1,10 +1,11 @@
+import { move, getUID } from '@/shared/utils'
 export const state = () => ({
   editMode: true,
   currentTemplate: {
     containers: []
   },
   templates: {
-    list: ['HeroOneCol']
+    list: ['HeroTwoCol', 'HeroOneCol']
   },
   components: {
     list: [
@@ -23,28 +24,45 @@ export const state = () => ({
     ]
   }
 })
+const getContainerToUpdate = (state, containerName) => {
+  return state.currentTemplate.containers.find(
+    container => container.name === containerName
+  )
+}
 export const mutations = {
-  updateComponent(state, container) {
-    state.currentTemplate = {
-      ...state.currentTemplate,
-      containers: {
-        ...state.currentTemplate.containers,
-        [container.name]: [
-          ...state.currentTemplate.containers[container.name].filter(
-            component => component.id !== container.component.id
-          ),
-          container.component
-        ]
-      }
+  updateComponent(state, update) {
+    const containerToUpdate = getContainerToUpdate(state, update.name)
+    containerToUpdate.components = [
+      ...containerToUpdate.components.map(component =>
+        component.id === update.component.id ? update.component : component
+      )
+    ]
+  },
+  newComponent(state, containerName) {
+    const containerToUpdate = getContainerToUpdate(state, containerName)
+    containerToUpdate.components = [
+      ...containerToUpdate.components,
+      { id: getUID() }
+    ]
+  },
+  removeComponent(state, { containerName, id }) {
+    const containerToUpdate = getContainerToUpdate(state, containerName)
+    if (containerToUpdate.components.length > 1) {
+      containerToUpdate.components = [
+        ...containerToUpdate.components.filter(component => component.id !== id)
+      ]
+    } else {
+      containerToUpdate.components = [{ id }]
     }
   },
-  clearContainer(state, container) {
+  moveComponent(state, { containerName, index, delta }) {
+    const containerToUpdate = getContainerToUpdate(state, containerName)
+    containerToUpdate.components = move(containerToUpdate.components, index, delta)
+  },
+  setContainers(state, containers) {
     state.currentTemplate = {
       ...state.currentTemplate,
-      containers: {
-        ...state.currentTemplate.containers,
-        [container.name]: []
-      }
+      containers
     }
   },
   clearCurrentTemplate(state) {
