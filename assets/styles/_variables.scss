@@ -4,10 +4,13 @@ $white: #fff;
 $black: #000;
 $blue: lightblue;
 
-// Responsive
-$breakpoints: (
-  'small':  567px,
-  'medium':  768px,
-  'large': 992px,
-  'xl':  1200px
-) !default;
+// Breakpoints
+$xxxsmall: 320px;
+$xxsmall: 375px;
+$xsmall: 425px;
+$small: 576px;
+$medium: 768px;
+$large: 992px;
+$xlarge: 1200px;
+$xxlarge: 1440px;
+$xxxlarge: 1920px;

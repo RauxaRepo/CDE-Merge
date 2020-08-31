@@ -1,8 +1,8 @@
 <template>
   <div class="card">
-    <h2><TextInput v-model.lazy="fields.title" /></h2>
+    <h2><TextInput v-model.lazy="fields.title" inline="true" /></h2>
     <div class="text">
-      <p><TextInput v-model.lazy="fields.content" /></p>
+      <TextInput v-model.lazy="fields.content" />
     </div>
   </div>
 </template>
@@ -20,9 +20,9 @@ export default {
   data: function() {
     return {
       fields: {
-        title: 'Body Title',
+        title: '<p>Body Title</p>',
         content:
-          'Lorem Ipsum is simply dummy text'
+          '<p>Lorem Ipsum is simply dummy text</p>'
       }
     }
   }
@@ -40,10 +40,5 @@ h2 {
   font-size: 1.5rem;
   line-height: 1.4;
   margin-bottom: .5rem;
-}
-p {
-  font-size: 1rem;
-  line-height: 1.4;
-  margin-bottom: 1rem;
 }
 </style>

@@ -21,7 +21,7 @@ export const templateMixin = {
   }
 }
 export const libComponentMixin = {
-  props: ['containerName', 'existingComponent', 'id'],
+  props: ['containerName', 'existingComponent', 'component'],
   watch: {
     fields: {
       deep: true,
@@ -31,14 +31,18 @@ export const libComponentMixin = {
     }
   },
   mounted: function() {
-    this.updateComponent(this.fields)
+    if (this.component && this.component.name) {
+      this.fields = this.component.fields
+    } else {
+      this.updateComponent(this.fields)
+    }
   },
   methods: {
     updateComponent(fields) {
       this.$store.commit('updateComponent', {
         name: this.containerName,
         component: {
-          id: this.id,
+          id: this.component.id,
           name: this.$options.name,
           fields: { ...fields }
         }

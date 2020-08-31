@@ -1,6 +1,6 @@
 <template>
-  <div class="hero">
-    <h2><TextInput v-model.lazy="fields.title" /></h2>
+  <div class="hero-container">
+    <h2><TextInput v-model.lazy="fields.title" inline="true" /></h2>
     <h3>
       <TextInput v-model.lazy="fields.description" />
     </h3>
@@ -20,8 +20,8 @@ export default {
   data: function() {
     return {
       fields: {
-        title: 'Title',
-        description: 'Lorem Ipsum is simply dummy text of the printing '
+        title: '<p>Body Title</p>',
+        description: '<p>Lorem Ipsum is simply dummy text of the printing</p>'
       }
     }
   }
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hero {
+.hero-container {
   background: $black;
   color: $white;
   padding: 1rem;

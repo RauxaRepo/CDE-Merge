@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2><TextInput v-model.lazy="fields.title" /></h2>
+    <h2><TextInput v-model="fields.title" inline="true" /></h2>
     <div class="text">
-      <p><TextInput v-model.lazy="fields.content" /></p>
+      <TextInput v-model="fields.content" />
     </div>
   </div>
 </template>
@@ -20,9 +20,9 @@ export default {
   data: function() {
     return {
       fields: {
-        title: 'Body Title',
+        title: '<p>Body Title</p>',
         content:
-          'Lorem Ipsum is simply dummy text of the printing, Lorem Ipsum is simply dummy text of the printing'
+          '<p>Lorem Ipsum is simply dummy text of the printing, Lorem Ipsum is simply dummy text of the printing</p>'
       }
     }
   }
@@ -32,11 +32,6 @@ export default {
 <style lang="scss" scoped>
 h2 {
   font-size: 3rem;
-  line-height: 1.4;
-  margin-bottom: 1rem;
-}
-p {
-  font-size: 1rem;
   line-height: 1.4;
   margin-bottom: 1rem;
 }

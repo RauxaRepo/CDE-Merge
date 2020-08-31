@@ -19,6 +19,7 @@ module.exports = {
     'vue/html-self-closing': 'off',
     'no-debugger': 'off',
     'vue/v-on-style': 'off',
+    'vue/no-v-html': 'off',
     indent: 'off'
   }
 }

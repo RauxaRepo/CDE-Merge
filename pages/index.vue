@@ -5,29 +5,36 @@
         cde-merge
       </h1>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
+        <b-button
+          tag="router-link"
+          to="/emails"
+          type="is-link"
+          icon-right="email"
         >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+          Create Email
+        </b-button>
+      </div>
+      <div class="list">
+        <EmailList />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import EmailList from '@/components/core/EmailList.vue'
+
+export default {
+  components: {
+    EmailList
+  },
+  beforeCreate: function() {
+    this.$store.commit('clearCurrentEmail')
+  },
+  mounted() {
+    this.$store.dispatch('getEmails')
+  }
+}
 </script>
 
 <style>
@@ -50,15 +57,10 @@ export default {}
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
 .links {
-  padding-top: 15px;
+  padding: 2rem 0;
+}
+.list {
+  text-align: left;
 }
 </style>

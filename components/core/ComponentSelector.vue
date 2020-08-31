@@ -16,24 +16,24 @@
       </select>
       <div>
         <button @click="handleRemoveComponent">
-          <font-awesome-icon :icon="['fas', 'trash']" />
+          <b-icon icon="delete"> </b-icon>
         </button>
       </div>
       <div>
-        <button v-if="index !== 0" @click="handleMoveComponent(-1)">
-          <font-awesome-icon :icon="['fas', 'chevron-up']" />
+        <button :disabled="index === 0" @click="handleMoveComponent(-1)">
+          <b-icon icon="chevron-up"> </b-icon>
         </button>
       </div>
       <div>
-        <button v-if="index < count - 1" @click="handleMoveComponent(1)">
-          <font-awesome-icon :icon="['fas', 'chevron-down']" />
+        <button :disabled="index === count - 1" @click="handleMoveComponent(1)">
+          <b-icon icon="chevron-down"> </b-icon>
         </button>
       </div>
     </div>
     <div v-if="selectedComponent">
       <div ref="templateContainer">
         <component
-          :id="id"
+          :component="component"
           :container-name="containerName"
           :is="componentInstance"
         />
@@ -49,7 +49,12 @@ export default {
       selectedComponent: null
     }
   },
-  props: ['id', 'type', 'containerName', 'count', 'index'],
+  props: ['component', 'type', 'containerName', 'count', 'index', 'component'],
+  created: function() {
+    if (this.component) {
+      this.selectedComponent = this.component.name
+    }
+  },
   methods: {
     handleComponentSelected: function(evt) {
       return (this.selectedComponent = evt.target ? evt.target.value : '')
@@ -101,6 +106,7 @@ export default {
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
+  z-index: 10;
   button {
     background: none;
     border: none;

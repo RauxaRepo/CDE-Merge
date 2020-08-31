@@ -20,5 +20,9 @@ button {
   line-height: 2rem;
   font-size: 1rem;
   border: 1px dashed $black;
+  &:hover, &:focus {
+    background: $black;
+    color: $white;
+  }
 }
 </style>
