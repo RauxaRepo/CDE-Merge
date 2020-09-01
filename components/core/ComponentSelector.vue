@@ -51,7 +51,7 @@ export default {
   },
   props: ['component', 'type', 'containerName', 'count', 'index', 'component'],
   created: function() {
-    if (this.component) {
+    if (this.component && this.component.name) {
       this.selectedComponent = this.component.name
     }
   },

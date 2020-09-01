@@ -4,7 +4,8 @@ export const state = () => ({
   currentEmail: {
     name: '',
     template: null,
-    containers: []
+    containers: [],
+    assets: []
   },
   templates: {
     list: ['HeroTwoCol', 'HeroOneCol']
@@ -14,6 +15,10 @@ export const state = () => ({
   },
   components: {
     list: [
+      {
+        name: 'Image',
+        type: 'hero'
+      },
       {
         name: 'TextHero',
         type: 'hero'
@@ -29,11 +34,7 @@ export const state = () => ({
     ]
   }
 })
-const getContainerToUpdate = (state, containerName) => {
-  return state.currentEmail.containers.find(
-    container => container.name === containerName
-  )
-}
+
 export const emailKey = 'CDE-EMAILS'
 export const actions = {
   async getEmail({ commit }, id) {
@@ -118,9 +119,20 @@ export const actions = {
     }
   }
 }
+const getContainerToUpdate = (state, containerName) => {
+  return state.currentEmail.containers.find(
+    container => container.name === containerName
+  )
+}
 export const mutations = {
   setEmails(state, emails) {
     state.emails.list = emails
+  },
+  addAsset(state, newAsset) {
+    state.currentEmail.assets = [
+      ...state.currentEmail.assets.filter(asset => asset.name !== newAsset.name),
+      newAsset
+    ]
   },
   updateComponent(state, update) {
     const containerToUpdate = getContainerToUpdate(state, update.name)
@@ -168,7 +180,8 @@ export const mutations = {
     state.currentEmail = {
       name: '',
       template: null,
-      containers: []
+      containers: [],
+      assets: []
     }
   },
   toggleEditMode(state) {

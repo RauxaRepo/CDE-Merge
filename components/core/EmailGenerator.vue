@@ -40,20 +40,23 @@
       <b-button @click="handleSave" class="button action-element">
         Save
       </b-button>
+      <b-button v-if="selectedTemplate" @click="handleExportHTML" class="button">
+        Export HTML
+      </b-button>
     </div>
     <div v-if="selectedTemplate">
       <div ref="templateContainer">
         <component :is="componentInstance" />
       </div>
-      <b-button @click="handleExport" class="button">
-        Export HTML
-      </b-button>
     </div>
     {{ currentEmail }}
   </div>
 </template>
 
 <script>
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver'
+
 export default {
   props: ['id', 'title', 'email'],
   data: function() {
@@ -75,13 +78,39 @@ export default {
       this.$store.commit('clearCurrentEmail')
       this.selectedTemplate = value || ''
     },
-    handleExport: function() {
+    handleExportHTML: function() {
       this.$store.commit('toggleEditMode')
       this.$nextTick(function() {
         const html = this.$refs.templateContainer.innerHTML.replace(
           /data-v-[0-9a-z]*=""/g,
           ''
         )
+        console.log(html)
+        const zip = new JSZip()
+        zip.file(
+          'index.html',
+          `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+          </head>
+          <body>
+            ${html}
+          </body>
+          </html>
+        `
+        )
+        const assets = zip.folder('assets')
+        this.$store.state.currentEmail.assets.forEach(asset => {
+          const base64String = asset.src.split('base64,')[1]
+          assets.file(asset.name, base64String, { base64: true })
+        })
+        zip.generateAsync({ type: 'blob' }).then(function(content) {
+          saveAs(content, 'example.zip')
+        })
         this.$store.commit('toggleEditMode')
       })
     },

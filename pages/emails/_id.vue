@@ -1,9 +1,12 @@
 <template>
   <EmailGenerator
-    v-if="$store.state.currentEmail.id"
+    v-if="$store.state.currentEmail && $store.state.currentEmail.id"
     :id="$store.state.currentEmail.id"
     title="Update Email"
   />
+  <div v-else class="not-found">
+    Not found
+  </div>
 </template>
 
 <script>

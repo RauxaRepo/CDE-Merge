@@ -13,6 +13,12 @@
         >
           Create Email
         </b-button>
+        <b-upload class="file-label" @input="handleInput">
+          <span class="file-cta">
+            <b-icon class="file-icon" icon="upload"></b-icon>
+            <span class="file-label">Import Email</span>
+          </span>
+        </b-upload>
       </div>
       <div class="list">
         <EmailList />
@@ -33,6 +39,18 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getEmails')
+  },
+  methods: {
+    handleInput(file) {
+      console.log('handle')
+      const reader = new FileReader()
+      reader.readAsText(file)
+      reader.onloadend = () => {
+        const json = JSON.parse(reader.result)
+        delete json.id
+        this.$store.dispatch('saveEmail', json)
+      }
+    }
   }
 }
 </script>

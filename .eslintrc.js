@@ -20,6 +20,7 @@ module.exports = {
     'no-debugger': 'off',
     'vue/v-on-style': 'off',
     'vue/no-v-html': 'off',
+    'comma-dangle': 'off',
     indent: 'off'
   }
 }
