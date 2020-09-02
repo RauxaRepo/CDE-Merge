@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     handleInput(file) {
-      console.log('handle')
       const reader = new FileReader()
       reader.readAsText(file)
       reader.onloadend = () => {

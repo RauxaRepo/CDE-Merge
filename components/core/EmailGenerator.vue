@@ -37,11 +37,11 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <b-button @click="handleSave" class="button action-element">
+      <b-button @click="handleSave" class="button action-element" icon-right="content-save">
         Save
       </b-button>
-      <b-button v-if="selectedTemplate" @click="handleExportHTML" class="button">
-        Export HTML
+      <b-button v-if="selectedTemplate" @click="handleExportHTML" class="button" icon-right="export">
+        Export
       </b-button>
     </div>
     <div v-if="selectedTemplate">
@@ -161,7 +161,7 @@ h1 {
   .action-element {
     margin-bottom: 2rem;
     @media screen and (min-width: $small) {
-      margin-right: 2rem;
+      margin-right: 1rem;
     }
   }
 }

@@ -44,6 +44,6 @@ export default {
 <style lang="scss" scoped>
 .add-message {
   font-size: 2.5rem;
-  padding: 0.5rem;
+  padding: 4rem 0.5rem 0.5rem;
 }
 </style>

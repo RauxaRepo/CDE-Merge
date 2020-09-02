@@ -74,10 +74,8 @@ export const actions = {
         const emails = [...state.emails.list, { id: getUID(), ...newEmail }]
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(emailKey, JSON.stringify(emails))
-          resolve(emails)
-        } else {
-          resolve(emails)
         }
+        resolve(emails)
       })
       commit('setEmails', updatedEmails)
     } catch (err) {
@@ -92,10 +90,8 @@ export const actions = {
         })
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(emailKey, JSON.stringify(emails))
-          resolve(emails)
-        } else {
-          resolve(emails)
         }
+        resolve(emails)
       })
       commit('setEmails', updatedEmails)
     } catch (err) {
@@ -108,10 +104,8 @@ export const actions = {
         const emails = state.emails.list.filter(email => email.id !== id)
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(emailKey, JSON.stringify(emails))
-          resolve(emails)
-        } else {
-          resolve(emails)
         }
+        resolve(emails)
       })
       commit('setEmails', updatedEmails)
     } catch (err) {
