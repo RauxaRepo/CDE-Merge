@@ -63,7 +63,7 @@ export default {
       this.selectedComponent = null
       this.$store.commit('removeComponent', {
         containerName: this.containerName,
-        id: this.id
+        id: this.component.id
       })
     },
     handleMoveComponent: function(delta) {

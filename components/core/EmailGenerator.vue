@@ -6,7 +6,7 @@
     <h1>{{ title }}</h1>
     <div class="template-actions">
       <b-field
-        v-if="!id"
+        v-if="!emailId"
         label-position="on-border"
         label="Template"
         class="action-element template-selector-container"
@@ -58,7 +58,7 @@ import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 
 export default {
-  props: ['id', 'title', 'email'],
+  props: ['emailId', 'title', 'email'],
   data: function() {
     return {
       name: '',
@@ -68,7 +68,7 @@ export default {
     }
   },
   mounted: function() {
-    if (this.id) {
+    if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
       this.selectedTemplate = this.$store.state.currentEmail.template
     }
@@ -122,7 +122,7 @@ export default {
         template: this.selectedTemplate
       }
       if (this.selectedTemplate && this.name) {
-        if (this.id) {
+        if (this.emailId) {
           this.$store.dispatch('updateEmail', email)
         } else {
           this.$store.dispatch('saveEmail', email)

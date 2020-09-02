@@ -14,7 +14,7 @@ import LinkSelector from '@/components/core/inputs/LinkSelector'
 import { libComponentMixin } from '@/shared/mixins'
 
 export default {
-  name: 'Image',
+  name: 'SingleImage',
   components: {
     ImageSelector,
     LinkSelector

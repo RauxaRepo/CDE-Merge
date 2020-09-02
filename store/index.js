@@ -16,7 +16,7 @@ export const state = () => ({
   components: {
     list: [
       {
-        name: 'Image',
+        name: 'SingleImage',
         type: 'hero'
       },
       {
