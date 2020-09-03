@@ -1,0 +1,101 @@
+<template>
+  <td align="center" style="background-color:#ffffff;">
+    <table
+      role="presentation"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      align="center"
+      style="width:73%;max-width: 366px;"
+      class="w92"
+    >
+      <!-- headline -->
+      <tr>
+        <td
+          style="padding-bottom: 40px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:30px;color:#2774ae;text-align:left;"
+        >
+          <strong>
+            <TextInput v-model.lazy="fields.title" inline="true" />
+          </strong>
+        </td>
+      </tr>
+      <!-- body copy -->
+      <tr>
+        <td
+          style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:left;"
+        >
+          <TextInput v-model.lazy="fields.body" />
+        </td>
+      </tr>
+      <!-- sincerely + signature image + signoff -->
+      <tr>
+        <td
+          style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:left;"
+        >
+          <TextInput v-model.lazy="fields.signatureStart" inline="true" /><br /><br />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#3c3b3f;text-align:left;"
+        >
+          <ImageSelector
+            v-model="fields.file"
+            src="images/andrew_sig_templ.png"
+            width="124"
+            border="0"
+            alt=""
+            img-style="display:block;border:0;outline:0;width:100%;max-width:124px;height:auto;"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:left;"
+        >
+          <TextInput v-model.lazy="fields.signatureName" inline="true" /> <br />
+          <TextInput v-model.lazy="fields.signaturePosition" inline="true" /><br />
+          <TextInput v-model.lazy="fields.signatureCompany" inline="true" />
+        </td>
+      </tr>
+    </table>
+  </td>
+</template>
+
+<script>
+import ImageSelector from '@/components/core/inputs/ImageSelector'
+import TextInput from '@/components/core/inputs/TextInput'
+import { libComponentMixin } from '@/shared/mixins'
+
+export default {
+  name: 'ASAExecLetterBody',
+  components: {
+    ImageSelector,
+    TextInput
+  },
+  mixins: [libComponentMixin],
+  data: function() {
+    return {
+      fields: {
+        file: null,
+        link: '',
+        signatureStart: 'Sincerely,',
+        signatureName: 'Andrew Harrison',
+        signaturePosition: 'Chief Commercial Officer',
+        signatureCompany: 'Alaska Airlines',
+        title: 'Lorem ipsum dolor amet.',
+        body: '<p>${FIRST_NAME?capitalize},</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. Voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non&nbsp;proident.</p><p>Sun in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi. Architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur&nbsp;magni. </p><p> Dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur. Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat&nbsp;volup.</p>'
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.image {
+  position: relative;
+}
+img {
+  width: 100%;
+}
+</style>

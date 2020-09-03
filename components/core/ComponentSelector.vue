@@ -1,45 +1,51 @@
 <template>
-  <div class="component-container" :class="{ edit: $store.state.editMode }">
-    <div v-if="$store.state.editMode" class="selector">
-      <select
-        v-if="!selectedComponent"
-        name="componentSelector"
-        @change="handleComponentSelected"
-      >
-        <option value="" />
-        <option
-          v-for="component in filteredComponentList"
-          :key="component.name"
-        >
-          {{ component.name }}
-        </option>
-      </select>
-      <div>
-        <button @click="handleRemoveComponent">
-          <b-icon icon="delete"> </b-icon>
-        </button>
-      </div>
-      <div>
-        <button :disabled="index === 0" @click="handleMoveComponent(-1)">
-          <b-icon icon="chevron-up"> </b-icon>
-        </button>
-      </div>
-      <div>
-        <button :disabled="index === count - 1" @click="handleMoveComponent(1)">
-          <b-icon icon="chevron-down"> </b-icon>
-        </button>
-      </div>
-    </div>
-    <div v-if="selectedComponent">
-      <div ref="templateContainer">
-        <component
-          :component="component"
-          :container-name="containerName"
-          :is="componentInstance"
-        />
-      </div>
-    </div>
-  </div>
+  <tr class="component-container" :class="{ edit: $store.state.editMode }">
+    <td style="width:100%;display:table;">
+      <table style="width:100%;">
+        <tr v-if="$store.state.editMode" class="selector">
+          <select
+            v-if="!selectedComponent"
+            name="componentSelector"
+            @change="handleComponentSelected"
+          >
+            <option value="" />
+            <option
+              v-for="component in filteredComponentList"
+              :key="component.name"
+              :value="component.name"
+            >
+              {{ component.text || component.name }}
+            </option>
+          </select>
+          <div>
+            <button @click="handleRemoveComponent">
+              <b-icon icon="delete"> </b-icon>
+            </button>
+          </div>
+          <div>
+            <button :disabled="index === 0" @click="handleMoveComponent(-1)">
+              <b-icon icon="chevron-up"> </b-icon>
+            </button>
+          </div>
+          <div>
+            <button
+              :disabled="index === count - 1"
+              @click="handleMoveComponent(1)"
+            >
+              <b-icon icon="chevron-down"> </b-icon>
+            </button>
+          </div>
+        </tr>
+        <tr v-if="selectedComponent" ref="templateContainer">
+          <component
+            :component="component"
+            :container-name="containerName"
+            :is="componentInstance"
+          />
+        </tr>
+      </table>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -93,6 +99,7 @@ export default {
 
 <style lang="scss" scoped>
 .component-container {
+  display: block;
   position: relative;
   min-height: 5rem;
   &.edit {

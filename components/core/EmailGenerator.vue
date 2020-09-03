@@ -6,7 +6,7 @@
     <h1>{{ title }}</h1>
     <div class="template-actions">
       <b-field
-        v-if="!emailId"
+        v-if="!emailId && !$store.state.presetTemplate"
         label-position="on-border"
         label="Template"
         class="action-element template-selector-container"
@@ -49,13 +49,14 @@
         <component :is="componentInstance" />
       </div>
     </div>
-    {{ currentEmail }}
+    <!-- {{ currentEmail }} -->
   </div>
 </template>
 
 <script>
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
+import exportMarkup from '@/shared/export-markup'
 
 export default {
   props: ['emailId', 'title', 'email'],
@@ -64,7 +65,7 @@ export default {
       name: '',
       saveAttempted: false,
       isImageModalActive: false,
-      selectedTemplate: null
+      selectedTemplate: this.$store.state.presetTemplate || null
     }
   },
   mounted: function() {
@@ -86,22 +87,15 @@ export default {
           ''
         )
         console.log(html)
+        const emailName = this.$store.state.currentEmail.name;
         const zip = new JSZip()
         zip.file(
           'index.html',
-          `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-          </head>
-          <body>
-            ${html}
-          </body>
-          </html>
-        `
+          `${exportMarkup.preHTML}${html}${exportMarkup.postHTML}`
+        )
+        zip.file(
+          `${emailName}.json`,
+          `${JSON.stringify(this.$store.state.currentEmail)}`
         )
         const assets = zip.folder('assets')
         this.$store.state.currentEmail.assets.forEach(asset => {
@@ -109,7 +103,7 @@ export default {
           assets.file(asset.name, base64String, { base64: true })
         })
         zip.generateAsync({ type: 'blob' }).then(function(content) {
-          saveAs(content, 'example.zip')
+          saveAs(content, `${emailName}.zip`)
         })
         this.$store.commit('toggleEditMode')
       })

@@ -8,7 +8,7 @@
         <b-icon icon="content-save"></b-icon>
       </button>
       <b-field>
-        <b-input v-model="link" type="text"></b-input>
+        <b-input v-model="link" placeholder="https://rauxa.com/" type="text"></b-input>
       </b-field>
     </div>
     <button v-else @click="isActive = true">
@@ -74,7 +74,7 @@ export default {
       border-radius: 0;
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
-      min-width: 300px;
+      min-width: 240px;
     }
   }
 }

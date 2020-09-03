@@ -31,7 +31,7 @@ export const libComponentMixin = {
     }
   },
   mounted: function() {
-    if (this.component && this.component.name) {
+    if (this.component && this.component.name && this.component.fields) {
       this.fields = this.component.fields
     } else {
       this.updateComponent(this.fields)

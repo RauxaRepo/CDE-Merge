@@ -21,6 +21,8 @@ module.exports = {
     'vue/v-on-style': 'off',
     'vue/no-v-html': 'off',
     'comma-dangle': 'off',
+    'no-template-curly-in-string': 'off',
+    'vue/html-closing-bracket-newline': 'off',
     indent: 'off'
   }
 }

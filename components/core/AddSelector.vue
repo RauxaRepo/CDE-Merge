@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="$store.state.editMode"
+    v-if="$store.state.editMode && $store.state.multiComponents"
     @click="$store.commit('newComponent', containerName )"
   >
     Add Container
