@@ -16,6 +16,7 @@
         >
           <ImageSelector
             v-model="fields.file"
+            placeholder="/images/andrew_pic_tmpl.png"
             width="82"
             border="0"
             alt=""

@@ -36,10 +36,14 @@ export default {
     try {
       const updatedEmails = await new Promise(resolve => {
         const emails = [...state.emails.list, { id: getUID(), ...newEmail }]
-        if (typeof window !== 'undefined') {
-          window.localStorage.setItem(emailKey, JSON.stringify(emails))
+        if (!emails.length) {
+          debugger
+        } else {
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem(emailKey, JSON.stringify(emails))
+          }
+          resolve(emails)
         }
-        resolve(emails)
       })
       commit('setEmails', updatedEmails)
     } catch (err) {
@@ -52,10 +56,14 @@ export default {
         const emails = state.emails.list.map(email => {
           return email.id === updatedEmail.id ? updatedEmail : email
         })
-        if (typeof window !== 'undefined') {
-          window.localStorage.setItem(emailKey, JSON.stringify(emails))
+        if (!emails.length) {
+          debugger
+        } else {
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem(emailKey, JSON.stringify(emails))
+          }
+          resolve(emails)
         }
-        resolve(emails)
       })
       commit('setEmails', updatedEmails)
     } catch (err) {

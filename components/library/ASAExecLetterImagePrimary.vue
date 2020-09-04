@@ -38,6 +38,7 @@
           <ImageSelector
             v-else
             v-model="fields.file"
+            placeholder="/images/andrew_heroimg_tmpl.jpg"
             width="500"
             border="0"
             img-style="

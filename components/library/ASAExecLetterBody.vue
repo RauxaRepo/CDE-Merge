@@ -41,7 +41,7 @@
         >
           <ImageSelector
             v-model="fields.file"
-            src="images/andrew_sig_templ.png"
+            placeholder="/images/andrew_sig_templ.png"
             width="124"
             border="0"
             alt=""

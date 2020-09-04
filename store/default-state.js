@@ -33,6 +33,11 @@ export default {
         type: 'main'
       },
       {
+        name: 'ASAExecLetterPreHeader',
+        type: 'asa-preheader',
+        text: 'Preheader'
+      },
+      {
         name: 'ASAExecLetterTitleBasedPrimary',
         type: 'asa-hero',
         text: 'Title Based Primary'

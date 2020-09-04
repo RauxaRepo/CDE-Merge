@@ -37,10 +37,19 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <b-button @click="handleSave" class="button action-element" icon-right="content-save">
+      <b-button
+        @click="handleSave"
+        class="button action-element"
+        icon-right="content-save"
+      >
         Save
       </b-button>
-      <b-button v-if="selectedTemplate" @click="handleExportHTML" class="button" icon-right="export">
+      <b-button
+        v-if="selectedTemplate"
+        @click="handleExportHTML"
+        class="button"
+        icon-right="export"
+      >
         Export
       </b-button>
     </div>
@@ -55,6 +64,7 @@
 
 <script>
 import JSZip from 'jszip'
+import pretty from 'pretty'
 import { saveAs } from 'file-saver'
 import exportMarkup from '@/shared/export-markup'
 
@@ -80,33 +90,37 @@ export default {
       this.selectedTemplate = value || ''
     },
     handleExportHTML: function() {
-      this.$store.commit('toggleEditMode')
-      this.$nextTick(function() {
-        const html = this.$refs.templateContainer.innerHTML.replace(
-          /data-v-[0-9a-z]*=""/g,
-          ''
-        )
-        console.log(html)
-        const emailName = this.$store.state.currentEmail.name;
-        const zip = new JSZip()
-        zip.file(
-          'index.html',
-          `${exportMarkup.preHTML}${html}${exportMarkup.postHTML}`
-        )
-        zip.file(
-          `${emailName}.json`,
-          `${JSON.stringify(this.$store.state.currentEmail)}`
-        )
-        const assets = zip.folder('assets')
-        this.$store.state.currentEmail.assets.forEach(asset => {
-          const base64String = asset.src.split('base64,')[1]
-          assets.file(asset.name, base64String, { base64: true })
-        })
-        zip.generateAsync({ type: 'blob' }).then(function(content) {
-          saveAs(content, `${emailName}.zip`)
-        })
+      this.saveAttempted = true
+
+      if (this.selectedTemplate && this.name) {
         this.$store.commit('toggleEditMode')
-      })
+        setTimeout(() => {
+          const html = this.$refs.templateContainer.innerHTML.replace(
+            /data-v-[0-9a-z]*=""/g,
+            ''
+          )
+          console.log(html)
+          const emailName = this.name
+          const zip = new JSZip()
+          zip.file(
+            'index.html',
+            pretty(`${exportMarkup.preHTML}${html}${exportMarkup.postHTML}`)
+          )
+          zip.file(
+            `${emailName}.json`,
+            JSON.stringify(this.$store.state.currentEmail)
+          )
+          const assets = zip.folder('assets')
+          this.$store.state.currentEmail.assets.forEach(asset => {
+            const base64String = asset.src.split('base64,')[1]
+            assets.file(asset.name, base64String, { base64: true })
+          })
+          zip.generateAsync({ type: 'blob' }).then(function(content) {
+            saveAs(content, `${emailName}.zip`)
+          })
+          this.$store.commit('toggleEditMode')
+        }, 500);
+      }
     },
     handleSave: function() {
       this.saveAttempted = true

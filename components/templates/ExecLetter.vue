@@ -9,6 +9,16 @@
     style="width:100%;max-width:500px;"
     class="mw98"
   >
+    <ComponentSelector
+      v-for="(component, index) in $store.state.currentEmail.containers[0]
+        .components"
+      :key="component.id"
+      :component="component"
+      :count="$store.state.currentEmail.containers[0].components.length"
+      :index="index"
+      :container-name="$store.state.currentEmail.containers[0].name"
+      type="asa-footer"
+    />
     <tr>
       <td align="center">
         <table
@@ -49,13 +59,13 @@
           style="width:100%;max-width:500px;"
         >
           <ComponentSelector
-            v-for="(component, index) in $store.state.currentEmail.containers[0]
+            v-for="(component, index) in $store.state.currentEmail.containers[1]
               .components"
             :key="component.id"
             :component="component"
-            :count="$store.state.currentEmail.containers[0].components.length"
+            :count="$store.state.currentEmail.containers[1].components.length"
             :index="index"
-            :container-name="$store.state.currentEmail.containers[0].name"
+            :container-name="$store.state.currentEmail.containers[1].name"
             type="asa-hero"
           />
         </table>
@@ -71,28 +81,18 @@
           style="width:100%;max-width:500px;"
         >
           <ComponentSelector
-            v-for="(component, index) in $store.state.currentEmail.containers[1]
+            v-for="(component, index) in $store.state.currentEmail.containers[2]
               .components"
             :key="component.id"
             :component="component"
-            :count="$store.state.currentEmail.containers[1].components.length"
+            :count="$store.state.currentEmail.containers[2].components.length"
             :index="index"
-            :container-name="$store.state.currentEmail.containers[1].name"
+            :container-name="$store.state.currentEmail.containers[2].name"
             type="asa-main"
           />
         </table>
       </td>
     </tr>
-    <ComponentSelector
-      v-for="(component, index) in $store.state.currentEmail.containers[2]
-        .components"
-      :key="component.id"
-      :component="component"
-      :count="$store.state.currentEmail.containers[2].components.length"
-      :index="index"
-      :container-name="$store.state.currentEmail.containers[2].name"
-      type="asa-cta"
-    />
     <ComponentSelector
       v-for="(component, index) in $store.state.currentEmail.containers[3]
         .components"
@@ -101,6 +101,16 @@
       :count="$store.state.currentEmail.containers[3].components.length"
       :index="index"
       :container-name="$store.state.currentEmail.containers[3].name"
+      type="asa-cta"
+    />
+    <ComponentSelector
+      v-for="(component, index) in $store.state.currentEmail.containers[4]
+        .components"
+      :key="component.id"
+      :component="component"
+      :count="$store.state.currentEmail.containers[4].components.length"
+      :index="index"
+      :container-name="$store.state.currentEmail.containers[4].name"
       type="asa-footer"
     />
   </table>
@@ -118,6 +128,10 @@ export default {
   mounted: function() {
     if (!this.$store.state.currentEmail.containers.length) {
       this.$store.commit('setContainers', [
+        {
+          name: 'PreHeader',
+          components: [{ id: getUID(), name: 'ASAExecLetterPreHeader' }]
+        },
         {
           name: 'Hero',
           components: [{ id: getUID() }]

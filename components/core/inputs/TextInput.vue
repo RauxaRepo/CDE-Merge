@@ -4,7 +4,7 @@
     <div v-else @click="showModal = true" v-html="parsedValue"></div>
     <b-modal v-model="showModal">
       <div class="modal-container">
-        <VueEditor v-model="value" />
+        <VueEditor v-model="editorValue" />
       </div>
     </b-modal>
   </span>
@@ -12,6 +12,7 @@
 
 <script>
 import { VueEditor } from 'vue2-editor'
+import { debounce } from 'lodash'
 
 export default {
   name: 'TextInput',
@@ -25,6 +26,14 @@ export default {
     }
   },
   computed: {
+    editorValue: {
+      get() {
+        return this.value
+      },
+      set: debounce(function(value) {
+        this.$emit('input', value)
+      }, 400)
+    },
     parsedValue: function() {
       if (this.inline && this.value && this.value.includes('<p>')) {
         const newValue = this.value

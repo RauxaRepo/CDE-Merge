@@ -25,28 +25,41 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'ImageSelector',
   components: {},
-  props: ['value', 'width', 'border', 'alt', 'imgStyle'],
+  props: ['placeholder', 'value', 'width', 'border', 'alt', 'imgStyle'],
   computed: {
     src: function() {
       return this.value ? URL.createObjectURL(this.value) : ''
     }
   },
+  mounted() {
+    if (this.placeholder && !this.value) {
+      const placeholderSegments = this.placeholder.split('/')
+      return axios
+        .get(this.placeholder, {
+          responseType: 'blob'
+        })
+        .then(response => this.handleInput(response.data, placeholderSegments[placeholderSegments.length - 1]))
+        .catch(err => console.log(err))
+    }
+  },
   methods: {
-    handleInput(file) {
+    handleInput(file, name) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         const base64data = reader.result
         this.$emit('input', {
-          name: file.name,
+          name: name || file.name,
           src: base64data
         })
         this.$store.commit('addAsset', {
           type: 'image',
-          name: file.name,
+          name: name || file.name,
           src: base64data
         })
       }

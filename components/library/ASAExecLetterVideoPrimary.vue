@@ -53,6 +53,7 @@
           <ImageSelector
             v-else
             v-model="fields.file"
+            placeholder="/images/andrew_herovid_tmpl.jpg"
             width="460"
             border="0"
             img-style="
