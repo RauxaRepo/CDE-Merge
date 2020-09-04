@@ -6,7 +6,7 @@
     <h1>{{ title }}</h1>
     <div class="template-actions">
       <b-field
-        v-if="!emailId"
+        v-if="!emailId && !$store.state.presetTemplate"
         label-position="on-border"
         label="Template"
         class="action-element template-selector-container"
@@ -37,10 +37,19 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <b-button @click="handleSave" class="button action-element" icon-right="content-save">
+      <b-button
+        @click="handleSave"
+        class="button action-element"
+        icon-right="content-save"
+      >
         Save
       </b-button>
-      <b-button v-if="selectedTemplate" @click="handleExportHTML" class="button" icon-right="export">
+      <b-button
+        v-if="selectedTemplate"
+        @click="handleExportHTML"
+        class="button"
+        icon-right="export"
+      >
         Export
       </b-button>
     </div>
@@ -49,13 +58,15 @@
         <component :is="componentInstance" />
       </div>
     </div>
-    {{ currentEmail }}
+    <!-- {{ currentEmail }} -->
   </div>
 </template>
 
 <script>
 import JSZip from 'jszip'
+import pretty from 'pretty'
 import { saveAs } from 'file-saver'
+import exportMarkup from '@/shared/export-markup'
 
 export default {
   props: ['emailId', 'title', 'email'],
@@ -64,7 +75,7 @@ export default {
       name: '',
       saveAttempted: false,
       isImageModalActive: false,
-      selectedTemplate: null
+      selectedTemplate: this.$store.state.presetTemplate || null
     }
   },
   mounted: function() {
@@ -79,40 +90,37 @@ export default {
       this.selectedTemplate = value || ''
     },
     handleExportHTML: function() {
-      this.$store.commit('toggleEditMode')
-      this.$nextTick(function() {
-        const html = this.$refs.templateContainer.innerHTML.replace(
-          /data-v-[0-9a-z]*=""/g,
-          ''
-        )
-        console.log(html)
-        const zip = new JSZip()
-        zip.file(
-          'index.html',
-          `
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-          </head>
-          <body>
-            ${html}
-          </body>
-          </html>
-        `
-        )
-        const assets = zip.folder('assets')
-        this.$store.state.currentEmail.assets.forEach(asset => {
-          const base64String = asset.src.split('base64,')[1]
-          assets.file(asset.name, base64String, { base64: true })
-        })
-        zip.generateAsync({ type: 'blob' }).then(function(content) {
-          saveAs(content, 'example.zip')
-        })
+      this.saveAttempted = true
+
+      if (this.selectedTemplate && this.name) {
         this.$store.commit('toggleEditMode')
-      })
+        setTimeout(() => {
+          const html = this.$refs.templateContainer.innerHTML.replace(
+            /data-v-[0-9a-z]*=""/g,
+            ''
+          )
+          console.log(html)
+          const emailName = this.name
+          const zip = new JSZip()
+          zip.file(
+            'index.html',
+            pretty(`${exportMarkup.preHTML}${html}${exportMarkup.postHTML}`)
+          )
+          zip.file(
+            `${emailName}.json`,
+            JSON.stringify(this.$store.state.currentEmail)
+          )
+          const assets = zip.folder('assets')
+          this.$store.state.currentEmail.assets.forEach(asset => {
+            const base64String = asset.src.split('base64,')[1]
+            assets.file(asset.name, base64String, { base64: true })
+          })
+          zip.generateAsync({ type: 'blob' }).then(function(content) {
+            saveAs(content, `${emailName}.zip`)
+          })
+          this.$store.commit('toggleEditMode')
+        }, 500);
+      }
     },
     handleSave: function() {
       this.saveAttempted = true

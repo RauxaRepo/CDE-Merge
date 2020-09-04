@@ -30,8 +30,8 @@ export const libComponentMixin = {
       }
     }
   },
-  mounted: function() {
-    if (this.component && this.component.name) {
+  created: function() {
+    if (this.component && this.component.name && this.component.fields) {
       this.fields = this.component.fields
     } else {
       this.updateComponent(this.fields)
