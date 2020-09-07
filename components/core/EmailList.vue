@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.emails.list.length">
+  <div v-if="$store.state.emails.list && $store.state.emails.list.length">
     <h2>My Emails</h2>
     <ul>
       <li v-for="email in $store.state.emails.list" :key="email.id">

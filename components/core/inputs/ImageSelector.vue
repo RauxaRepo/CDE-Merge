@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="`text-align:${alignment || 'left'};`">
     <b-upload v-if="$store.state.editMode" expanded @input="handleInput">
       <img
         v-if="value && value.src"
@@ -30,7 +30,7 @@ import axios from 'axios'
 export default {
   name: 'ImageSelector',
   components: {},
-  props: ['placeholder', 'value', 'width', 'border', 'alt', 'imgStyle'],
+  props: ['placeholder', 'value', 'width', 'border', 'alt', 'imgStyle', 'alignment'],
   computed: {
     src: function() {
       return this.value ? URL.createObjectURL(this.value) : ''
@@ -69,6 +69,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.upload.is-expanded {
+  width: auto;
+}
 .add-message {
   text-align: center !important;
   background: $black !important;

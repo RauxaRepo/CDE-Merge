@@ -38,7 +38,9 @@ export default {
     this.$store.commit('clearCurrentEmail')
   },
   mounted() {
-    this.$store.dispatch('getEmails')
+    if (!this.$store.state.emails.list) {
+      this.$store.dispatch('getEmails')
+    }
   },
   methods: {
     handleInput(file) {
@@ -47,7 +49,7 @@ export default {
       reader.onloadend = () => {
         const json = JSON.parse(reader.result)
         delete json.id
-        this.$store.dispatch('saveEmail', json)
+        this.$store.dispatch('saveEmail', { newEmail: json, updateEmails: true })
       }
     }
   }

@@ -12,8 +12,9 @@
       <tr>
         <td
           class="relative"
-          style="padding-top:55px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:left;"
+          :style="`padding-top:55px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:left;text-align:${fields.alignment};`"
         >
+          <AlignmentSelector v-model="fields.alignment" component-style="right:100%; left: auto" />
           <LinkSelector v-model="fields.link" />
           <a
             v-if="!$store.state.editMode && fields.link"
@@ -53,6 +54,7 @@ export default {
     return {
       fields: {
         link: '',
+        alignment: 'left',
         text: 'Learn More'
       }
     }

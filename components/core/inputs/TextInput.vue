@@ -19,7 +19,7 @@ export default {
   components: {
     VueEditor
   },
-  props: ['value', 'inline'],
+  props: ['value', 'inline', 'linkStyle'],
   data() {
     return {
       showModal: false
@@ -40,6 +40,9 @@ export default {
           .replace(/<p>/g, '<span>')
           .replace(/<\/p>/g, '</span><br/>')
         return newValue.substring(0, newValue.length - 5)
+      }
+      if (this.linkStyle) {
+        return this.value.replace(/<a/g, `<a style="${this.linkStyle}"`)
       }
       return this.value
     }

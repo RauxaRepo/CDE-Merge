@@ -57,13 +57,15 @@ export default {
     display: flex;
   }
   button {
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
     border-radius: 0;
     border: none;
     background: $purple;
     color: $white;
     opacity: 0.7;
+    text-align: center;
+    padding: 0;
     &:hover,
     &:focus {
       opacity: 1;
@@ -75,6 +77,7 @@ export default {
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
       min-width: 240px;
+      height: 32px;
     }
   }
 }
