@@ -12,7 +12,7 @@ export default {
     list: ['HeroTwoCol', 'HeroOneCol', 'ExecLetter']
   },
   emails: {
-    list: []
+    list: null
   },
   components: {
     list: [

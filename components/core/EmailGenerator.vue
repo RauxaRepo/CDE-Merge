@@ -133,7 +133,7 @@ export default {
         if (this.emailId) {
           this.$store.dispatch('updateEmail', email)
         } else {
-          this.$store.dispatch('saveEmail', email)
+          this.$store.dispatch('saveEmail', { newEmail: email })
         }
         this.$router.push('/')
       }

@@ -32,30 +32,43 @@ export default {
       console.error(err)
     }
   },
-  async saveEmail({ state, commit }, newEmail) {
+  async saveEmail({ state, commit }, { newEmail, updateEmails }) {
     try {
-      const updatedEmails = await new Promise(resolve => {
-        const emails = [...state.emails.list, { id: getUID(), ...newEmail }]
+      const savedEmail = await new Promise(resolve => {
+        const existingEmails = window.localStorage.getItem(emailKey)
+        const emailToCreate = { id: getUID(), ...newEmail }
+        const emails = [
+          ...(existingEmails ? JSON.parse(existingEmails) : []),
+          emailToCreate
+        ]
         if (!emails.length) {
           debugger
         } else {
           if (typeof window !== 'undefined') {
             window.localStorage.setItem(emailKey, JSON.stringify(emails))
           }
-          resolve(emails)
+          resolve(emailToCreate)
         }
       })
-      commit('setEmails', updatedEmails)
+      if (updateEmails) {
+        commit('setEmails', [...state.emails.list, savedEmail])
+      } else {
+        // Clear state so it is retrieved by the list page
+        commit('setEmails', null)
+      }
     } catch (err) {
       console.error(err)
     }
   },
-  async updateEmail({ state, commit }, updatedEmail) {
+  async updateEmail({ commit }, updatedEmail) {
     try {
-      const updatedEmails = await new Promise(resolve => {
-        const emails = state.emails.list.map(email => {
-          return email.id === updatedEmail.id ? updatedEmail : email
-        })
+      await new Promise(resolve => {
+        const existingEmails = window.localStorage.getItem(emailKey)
+        const emails = (existingEmails ? JSON.parse(existingEmails) : []).map(
+          email => {
+            return email.id === updatedEmail.id ? updatedEmail : email
+          }
+        )
         if (!emails.length) {
           debugger
         } else {
@@ -65,7 +78,7 @@ export default {
           resolve(emails)
         }
       })
-      commit('setEmails', updatedEmails)
+      commit('setEmails', null)
     } catch (err) {
       console.error(err)
     }

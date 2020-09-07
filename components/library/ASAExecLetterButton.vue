@@ -31,10 +31,12 @@
             border="0"
             role="presentation"
             class="primary_cta"
+            style="width:100%"
           >
             <tr>
               <td>
-                <div>
+                <div :style="`text-align:${fields.alignment};`">
+                  <AlignmentSelector v-model="fields.alignment" component-style="right:100%; left: auto" />
                   <LinkSelector v-model="fields.link" />
                   <a
                     v-if="!$store.state.editMode && fields.link"
@@ -67,19 +69,22 @@
 <script>
 import TextInput from '@/components/core/inputs/TextInput'
 import LinkSelector from '@/components/core/inputs/LinkSelector'
+import AlignmentSelector from '@/components/core/inputs/AlignmentSelector'
 import { libComponentMixin } from '@/shared/mixins'
 
 export default {
   name: 'ASAExecLetterButton',
   components: {
     TextInput,
-    LinkSelector
+    LinkSelector,
+    AlignmentSelector
   },
   mixins: [libComponentMixin],
   data: function() {
     return {
       fields: {
         link: '',
+        alignment: 'left',
         text: 'Learn More'
       }
     }
