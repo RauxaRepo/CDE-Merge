@@ -9,7 +9,6 @@
       style="width:73%;max-width: 366px;"
       class="w92"
     >
-      <!-- headline -->
 
       <!-- body copy -->
       <tr>
@@ -18,7 +17,7 @@
           :style="
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
           "
-        >
+          >
           <AlignmentSelector
             v-model="fields.alignment"
             component-style="top: 0; left: 0"
@@ -101,7 +100,6 @@ export default {
         signatureName: 'Andrew Harrison',
         signaturePosition: 'Chief Commercial Officer',
         signatureCompany: 'Alaska Airlines',
-        title: 'Lorem ipsum dolor amet.',
         body:
           '<p>${FIRST_NAME?capitalize},</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. Voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non&nbsp;proident.</p><p>Sun in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi. Architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur&nbsp;magni. </p><p> Dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur. Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat&nbsp;volup.</p>'
       }
