@@ -82,4 +82,9 @@ export default {
 .list {
   text-align: left;
 }
+
+.file-label {
+  display: none;
+  visibility: hidden;
+}
 </style>
