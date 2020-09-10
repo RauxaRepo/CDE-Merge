@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1 class="title">
-        cde-merge
+        Alaska Exec Letter Template
       </h1>
       <div class="links">
         <b-button
@@ -71,7 +71,7 @@ export default {
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 60px;
   color: #35495e;
   letter-spacing: 1px;
 }
