@@ -10,23 +10,7 @@
       class="w92"
     >
       <!-- headline -->
-      <tr>
-        <td
-          class="title-container"
-          :class="{ edit: $store.state.editMode }"
-          :style="
-            `padding-bottom: 40px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:30px;color:#2774ae;text-align:${fields.alignment};`
-          "
-        >
-          <AlignmentSelector
-            v-model="fields.alignment"
-            component-style="right:100%; left: auto"
-          />
-          <strong>
-            <TextInput v-model.lazy="fields.title" inline="true" />
-          </strong>
-        </td>
-      </tr>
+
       <!-- body copy -->
       <tr>
         <td
@@ -35,6 +19,10 @@
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
           "
         >
+          <AlignmentSelector
+            v-model="fields.alignment"
+            component-style="top: 0; left: 0"
+          />
           <TextInput
             v-model.lazy="fields.body"
             link-style="color:#3c3d3f; text-decoration:underline;"
