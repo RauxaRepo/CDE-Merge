@@ -249,8 +249,7 @@ export default {
               template: this.selectedTemplate
             })
           )
-          debugger
-          const assets = zip.folder('assets')
+          const assets = zip.folder('images')
           this.$store.state.currentEmail.assets.forEach(asset => {
             const base64String = asset.src.split('base64,')[1]
             assets.file(asset.name, base64String, { base64: true })
