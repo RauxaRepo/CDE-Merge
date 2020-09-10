@@ -89,4 +89,9 @@ export default {
     }
   }
 }
+
+.file-label {
+  display: none;
+  visibility: hidden;
+}
 </style>
