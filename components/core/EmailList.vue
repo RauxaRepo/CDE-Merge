@@ -43,7 +43,9 @@ export default {
     },
     confirm: function(email) {
       this.$buefy.dialog.confirm({
-        message: `Are you sure to delete "${email.name}"?'`,
+        message: 'Are you sure you want to delete? (Progress will be lost)',
+        cancelText: 'No',
+        confirmText: 'Yes',
         onConfirm: () => this.deleteEmail(email)
       })
     }
