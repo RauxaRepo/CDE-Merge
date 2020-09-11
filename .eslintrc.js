@@ -23,6 +23,7 @@ module.exports = {
     'comma-dangle': 'off',
     'no-template-curly-in-string': 'off',
     'vue/html-closing-bracket-newline': 'off',
+    'template-curly-spacing': 'off',
     indent: 'off'
   }
 }

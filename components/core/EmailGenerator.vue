@@ -6,7 +6,7 @@
     <h1>{{ title }}</h1>
     <div class="template-actions">
       <b-field
-        v-if="!emailId && !$store.state.presetTemplate"
+        v-if="!emailId && filteredTemplates.length > 1"
         label-position="on-border"
         label="Template"
         class="action-element template-selector-container"
@@ -20,10 +20,7 @@
           @input="handleTemplateSelected"
         >
           <option value="" />
-          <option
-            v-for="template in $store.state.templates.list"
-            :key="template"
-          >
+          <option v-for="template in filteredTemplates" :key="template">
             {{ template }}
           </option>
         </b-select>
@@ -38,17 +35,17 @@
         <b-input v-model="name"></b-input>
       </b-field>
       <b-button
-        @click="handleSave"
         class="button action-element"
         icon-right="content-save"
+        @click="handleSave"
       >
         Save
       </b-button>
       <b-button
         v-if="selectedTemplate"
-        @click="handleExportHTML"
         class="button"
         icon-right="export"
+        @click="handleExportHTML"
       >
         Export
       </b-button>
@@ -75,13 +72,41 @@ export default {
       name: '',
       saveAttempted: false,
       isImageModalActive: false,
-      selectedTemplate: this.$store.state.presetTemplate || null
+      selectedTemplate: null
+    }
+  },
+  computed: {
+    filteredTemplates() {
+      if (this.$auth.user && this.$auth.user.admin) {
+        return this.$store.state.templates.list
+      }
+      return this.$auth.user && this.$auth.user.templates
+        ? this.$store.state.templates.list.filter(template =>
+            this.$auth.user.templates.includes(template)
+          )
+        : []
+    },
+    currentEmail() {
+      return JSON.stringify(this.$store.state.currentEmail)
+    },
+    componentInstance() {
+      const template = this.selectedTemplate
+      if (!template) {
+        return null
+      }
+      return () => import(`@/components/templates/${template}`)
     }
   },
   mounted: function() {
     if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
       this.selectedTemplate = this.$store.state.currentEmail.template
+    } else if (
+      this.$auth.user &&
+      this.$auth.user.templates &&
+      this.$auth.user.templates.length === 1
+    ) {
+      this.selectedTemplate = this.$auth.user.templates[0]
     }
   },
   methods: {
@@ -119,7 +144,7 @@ export default {
             saveAs(content, `${emailName}.zip`)
           })
           this.$store.commit('toggleEditMode')
-        }, 500);
+        }, 500)
       }
     },
     handleSave: function() {
@@ -137,18 +162,6 @@ export default {
         }
         this.$router.push('/')
       }
-    }
-  },
-  computed: {
-    currentEmail() {
-      return JSON.stringify(this.$store.state.currentEmail)
-    },
-    componentInstance() {
-      const template = this.selectedTemplate
-      if (!template) {
-        return null
-      }
-      return () => import(`@/components/templates/${template}`)
     }
   }
 }

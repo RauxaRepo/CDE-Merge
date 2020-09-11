@@ -37,9 +37,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    { src: '@/plugins/global.js'}
-  ],
+  plugins: [{ src: '@/plugins/global.js' }],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -59,6 +57,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     ['nuxt-buefy']
   ],
   /*
@@ -70,5 +69,25 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {}
+  build: {
+    transpile: ['@nuxtjs/auth'],
+    standalone: true,
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'https://run.mocky.io/v3/944a6773-989b-40e7-8fae-0206fe63b9b3',
+            method: 'get',
+            propertyName: 'token',
+          },
+          user: null
+        }
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
+  }
 }

@@ -10,21 +10,21 @@
           >
             <option value="" />
             <option
-              v-for="component in filteredComponentList"
-              :key="component.name"
-              :value="component.name"
+              v-for="option in filteredComponentList"
+              :key="option.name"
+              :value="option.name"
             >
-              {{ component.text || component.name }}
+              {{ option.text || option.name }}
             </option>
           </select>
           <div>
             <button @click="handleRemoveComponent">
-              <b-icon icon="delete"> </b-icon>
+              <b-icon icon="delete"></b-icon>
             </button>
           </div>
           <div>
             <button :disabled="index === 0" @click="handleMoveComponent(-1)">
-              <b-icon icon="chevron-up"> </b-icon>
+              <b-icon icon="chevron-up"></b-icon>
             </button>
           </div>
           <div>
@@ -32,15 +32,15 @@
               :disabled="index === count - 1"
               @click="handleMoveComponent(1)"
             >
-              <b-icon icon="chevron-down"> </b-icon>
+              <b-icon icon="chevron-down"></b-icon>
             </button>
           </div>
         </tr>
         <tr v-if="selectedComponent" ref="templateContainer">
           <component
+            :is="componentInstance"
             :component="component"
             :container-name="containerName"
-            :is="componentInstance"
           />
         </tr>
       </table>
@@ -50,12 +50,26 @@
 
 <script>
 export default {
+  props: ['component', 'type', 'containerName', 'count', 'index'],
   data: function() {
     return {
       selectedComponent: null
     }
   },
-  props: ['component', 'type', 'containerName', 'count', 'index', 'component'],
+  computed: {
+    componentInstance() {
+      const name = this.selectedComponent
+      if (!name) {
+        return null
+      }
+      return () => import(`@/components/library/${name}`)
+    },
+    filteredComponentList() {
+      return this.$store.state.components.list.filter(
+        component => component.type === this.type
+      )
+    }
+  },
   created: function() {
     if (this.component && this.component.name) {
       this.selectedComponent = this.component.name
@@ -78,20 +92,6 @@ export default {
         index: this.index,
         delta
       })
-    }
-  },
-  computed: {
-    componentInstance() {
-      const name = this.selectedComponent
-      if (!name) {
-        return null
-      }
-      return () => import(`@/components/library/${name}`)
-    },
-    filteredComponentList() {
-      return this.$store.state.components.list.filter(
-        component => component.type === this.type
-      )
     }
   }
 }

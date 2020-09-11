@@ -6,7 +6,7 @@ export default {
     name: '',
     template: null,
     containers: [],
-    assets: [],
+    assets: []
   },
   templates: {
     list: ['HeroTwoCol', 'HeroOneCol', 'ExecLetter']
