@@ -1,3 +1,6 @@
+import asaComponents from './asa-components'
+import alaska from './alaska'
+
 export default {
   presetTemplate: 'ExecLetter',
   multiComponents: false,
@@ -8,14 +11,22 @@ export default {
     containers: [],
     assets: []
   },
+  clients: {
+    list: [alaska]
+  },
   templates: {
-    list: ['HeroTwoCol', 'HeroOneCol', 'ExecLetter']
+    list: [
+      { name: 'HeroTwoCol' },
+      { name: 'HeroOneCol' },
+      { name: 'ExecLetter', clientId: 'alaska' }
+    ]
   },
   emails: {
     list: null
   },
   components: {
     list: [
+      ...asaComponents,
       {
         name: 'SingleImage',
         type: 'hero'
@@ -31,41 +42,6 @@ export default {
       {
         name: 'Card',
         type: 'main'
-      },
-      {
-        name: 'ASAExecLetterPreHeader',
-        type: 'asa-preheader',
-        text: 'Preheader'
-      },
-      {
-        name: 'ASAExecLetterTitleBasedPrimary',
-        type: 'asa-hero',
-        text: 'Title Based Primary'
-      },
-      {
-        name: 'ASAExecLetterImagePrimary',
-        type: 'asa-hero',
-        text: 'Image Primary'
-      },
-      {
-        name: 'ASAExecLetterVideoPrimary',
-        type: 'asa-hero',
-        text: 'Video Primary'
-      },
-      {
-        name: 'ASAExecLetterButton',
-        type: 'asa-cta',
-        text: 'Button'
-      },
-      {
-        name: 'ASAExecLetterLink',
-        type: 'asa-cta',
-        text: 'Link'
-      },
-      {
-        name: 'ASAExecLetterFooter',
-        type: 'asa-footer',
-        text: 'Footer'
       }
     ]
   }

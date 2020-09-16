@@ -20,8 +20,8 @@
           @input="handleTemplateSelected"
         >
           <option value="" />
-          <option v-for="template in filteredTemplates" :key="template">
-            {{ template }}
+          <option v-for="template in filteredTemplates" :key="template.name">
+            {{ template.name }}
           </option>
         </b-select>
       </b-field>
@@ -63,12 +63,12 @@
 import JSZip from 'jszip'
 import pretty from 'pretty'
 import { saveAs } from 'file-saver'
-import exportMarkup from '@/shared/export-markup'
 
 export default {
   props: ['emailId', 'title', 'email'],
   data: function() {
     return {
+      userData: null,
       name: '',
       saveAttempted: false,
       isImageModalActive: false,
@@ -77,12 +77,14 @@ export default {
   },
   computed: {
     filteredTemplates() {
-      if (this.$auth.user && this.$auth.user.admin) {
+      if (this.userData && this.userData.admin) {
         return this.$store.state.templates.list
       }
-      return this.$auth.user && this.$auth.user.templates
+      return this.userData && this.userData.templates
         ? this.$store.state.templates.list.filter(template =>
-            this.$auth.user.templates.includes(template)
+            this.userData.templates.some(
+              userTemplate => userTemplate === template.name
+            )
           )
         : []
     },
@@ -98,15 +100,24 @@ export default {
     }
   },
   mounted: function() {
+    // On refresh
+    if (this.$auth.loggedIn) {
+      if (this.$auth.user && !this.$auth.user.id) {
+        this.userData = this.$auth.$storage.getLocalStorage('user')
+      } else {
+        this.userData = this.$auth.user
+      }
+    }
+    // On existing email
     if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
       this.selectedTemplate = this.$store.state.currentEmail.template
     } else if (
-      this.$auth.user &&
-      this.$auth.user.templates &&
-      this.$auth.user.templates.length === 1
+      this.userData &&
+      this.userData.templates &&
+      this.userData.templates.length === 1
     ) {
-      this.selectedTemplate = this.$auth.user.templates[0]
+      this.selectedTemplate = this.userData.templates[0]
     }
   },
   methods: {
@@ -127,9 +138,22 @@ export default {
           console.log(html)
           const emailName = this.name
           const zip = new JSZip()
+          const emptyClient = {
+            postHTML: '',
+            preHTML: ''
+          }
+          const templateData = this.$store.state.templates.list.find(
+            template => template.name === this.selectedTemplate
+          )
+          const client =
+            templateData && templateData.clientId
+              ? this.$store.state.clients.list.find(
+                  client => client.id === templateData.clientId
+                ) || emptyClient
+              : emptyClient
           zip.file(
             'index.html',
-            pretty(`${exportMarkup.preHTML}${html}${exportMarkup.postHTML}`)
+            pretty(`${client.preHTML}${html}${client.postHTML}`)
           )
           zip.file(
             `${emailName}.json`,

@@ -30,11 +30,13 @@
 <script>
 const users = [
   {
+    id: '1',
     username: 'merge',
     password: 'merge123',
     admin: true
   },
   {
+    id: '2',
     username: 'alaska',
     password: 'alaska123',
     admin: false,
@@ -63,6 +65,11 @@ export default {
         )
         if (existingUser) {
           this.$auth.setUser(existingUser)
+          this.$auth.$storage.setLocalStorage('user', {
+            id: existingUser.id,
+            templates: existingUser.templates,
+            admin: existingUser.admin
+          })
           this.$router.push('/')
         } else {
           this.$auth.reset()
