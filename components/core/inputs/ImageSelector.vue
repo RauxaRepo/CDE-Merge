@@ -15,7 +15,7 @@
     </b-upload>
     <img
       v-else
-      :src="`./assets/${value ? value.name : ''}`"
+      :src="`./images/${value ? value.name : ''}`"
       :width="width || ''"
       :alt="alt || ''"
       :style="imgStyle || ''"
