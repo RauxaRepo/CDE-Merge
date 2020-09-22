@@ -1,6 +1,12 @@
 import { getUID } from '@/shared/utils'
 export const emailKey = 'CDE-EMAILS'
 export default {
+  getUser({ commit }, $auth) {
+    if ($auth) {
+      const user = $auth.$storage.getLocalStorage('user') || {}
+      commit('setUser', user)
+    }
+  },
   async getEmail({ commit }, id) {
     try {
       const email = await new Promise(resolve => {

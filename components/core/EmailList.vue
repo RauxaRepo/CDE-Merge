@@ -1,19 +1,24 @@
 <template>
-  <div v-if="$store.state.emails.list && $store.state.emails.list.length">
-    <h2>My Emails</h2>
-    <ul>
-      <li v-for="email in $store.state.emails.list" :key="email.id">
-        <nuxt-link :to="`/emails/${email.id}`">
-          {{ email.name }}
-        </nuxt-link>
-        <button @click="handleExportJSON(email)">
-          <b-icon icon="export"></b-icon>
-        </button>
-        <button @click="confirm(email)">
-          <b-icon icon="delete"></b-icon>
-        </button>
-      </li>
-    </ul>
+  <div>
+    <h2>Edit recently saved emails</h2>
+    <div v-if="emails.length > 0">
+      <ul>
+        <li v-for="email in emails" :key="email.id">
+          <nuxt-link :to="`/emails/${email.id}`">
+            {{ email.name }}
+          </nuxt-link>
+          <button @click="handleExportJSON(email)">
+            <b-icon icon="export"></b-icon>
+          </button>
+          <button @click="confirm(email)">
+            <b-icon icon="delete"></b-icon>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      No recent emails
+    </div>
   </div>
 </template>
 
@@ -21,6 +26,12 @@
 import { saveAs } from 'file-saver'
 
 export default {
+  props: ['emails'],
+  mounted() {
+    if (!this.$store.state.emails.list) {
+      this.$store.dispatch('getEmails')
+    }
+  },
   methods: {
     handleExportJSON: function(email) {
       const json = JSON.stringify(email)
@@ -41,8 +52,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 h2 {
-  text-transform: uppercase;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $black;
 }
 li {
   display: flex;

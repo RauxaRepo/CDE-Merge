@@ -40,7 +40,7 @@ const users = [
     username: 'alaska',
     password: 'alaska123',
     admin: false,
-    templates: ['ExecLetter']
+    clients: ['alaska']
   }
 ]
 
@@ -68,9 +68,14 @@ export default {
           this.$auth.$storage.setLocalStorage('user', {
             id: existingUser.id,
             templates: existingUser.templates,
-            admin: existingUser.admin
+            admin: existingUser.admin,
+            username: existingUser.username
           })
-          this.$router.push('/')
+          if (existingUser.clients && existingUser.clients.length === 1) {
+            this.$router.push(`/clients/${existingUser.clients[0]}`)
+          } else {
+            this.$router.push('/')
+          }
         } else {
           this.$auth.reset()
           this.isError = true

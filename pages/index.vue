@@ -1,85 +1,101 @@
 <template>
-  <div class="container">
-    <div>
+  <ContentPanel>
+    <div class="container">
       <h1 class="title">
-        cde-merge
+        merge
       </h1>
-      <div class="links">
-        <b-button
+      <div class="actions">
+        <!-- <b-button
           tag="router-link"
           to="/emails"
           type="is-link"
           icon-right="email"
         >
           Create Email
-        </b-button>
+        </b-button> -->
+        <b-dropdown
+          v-if="$store.state.clients.list.length > 0"
+          aria-role="list"
+        >
+          <button slot="trigger" class="button">
+            <span>Select Client</span>
+            <b-icon icon="menu-down"></b-icon>
+          </button>
+
+          <b-dropdown-item
+            v-for="client in $store.state.clients.list"
+            :key="client.id"
+            aria-role="listitem"
+            @click="goToClient(client)"
+          >
+            {{ client.name }}
+          </b-dropdown-item>
+        </b-dropdown>
+        <span class="separator">Or</span>
         <b-upload class="file-label" @input="handleInput">
           <span class="file-cta">
             <b-icon class="file-icon" icon="upload"></b-icon>
-            <span class="file-label">Import Email</span>
+            <span class="file-label">Import JSON</span>
           </span>
         </b-upload>
       </div>
-      <div class="list">
-        <EmailList />
-      </div>
     </div>
-  </div>
+  </ContentPanel>
 </template>
 
 <script>
-import EmailList from '@/components/core/EmailList.vue'
+import ContentPanel from '@/components/core/ContentPanel'
+import { importMixin } from '@/shared/mixins'
 
 export default {
   components: {
-    EmailList
+    ContentPanel
   },
+  mixins: [importMixin],
   beforeCreate: function() {
     this.$store.commit('clearCurrentEmail')
-  },
-  mounted() {
-    if (!this.$store.state.emails.list) {
-      this.$store.dispatch('getEmails')
-    }
+    this.$store.commit('clearCurrentClient')
   },
   methods: {
-    handleInput(file) {
-      const reader = new FileReader()
-      reader.readAsText(file)
-      reader.onloadend = () => {
-        const json = JSON.parse(reader.result)
-        delete json.id
-        this.$store.dispatch('saveEmail', { newEmail: json, updateEmails: true })
-      }
+    goToClient: function(client) {
+      this.$router.push(`/clients/${client.id}`)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 3rem 0;
 }
-
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
-  font-weight: 300;
+  font-weight: bold;
   font-size: 100px;
   color: #35495e;
   letter-spacing: 1px;
 }
-
-.links {
-  padding: 2rem 0;
-}
-.list {
-  text-align: left;
+.actions {
+  ::v-deep {
+    .upload,
+    .file-cta,
+    .dropdown,
+    .dropdown .dropdown-trigger,
+    .dropdown button,
+    .dropdown-menu,
+    .dropdown-item {
+      width: 100%;
+    }
+    .file-cta {
+      justify-content: center;
+    }
+    .separator {
+      display: block;
+      margin: 1rem 0;
+    }
+  }
 }
 </style>

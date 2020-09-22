@@ -5,6 +5,8 @@ export default {
   presetTemplate: 'ExecLetter',
   multiComponents: false,
   editMode: true,
+  previewMode: false,
+  currentClient: null,
   currentEmail: {
     name: '',
     template: null,
@@ -12,13 +14,13 @@ export default {
     assets: []
   },
   clients: {
-    list: [alaska]
+    list: [alaska, { id: 'test', name: 'Test Client' }]
   },
   templates: {
     list: [
-      { name: 'HeroTwoCol' },
-      { name: 'HeroOneCol' },
-      { name: 'ExecLetter', clientId: 'alaska' }
+      { id: 'HeroTwoCol', name: 'Hero Two Col', clientId: 'test', tag: 'Two Col' },
+      { id: 'HeroOneCol', name: 'Hero One Col', clientId: 'test', tag: 'Single Col' },
+      { id: 'ExecLetter', name: 'Exec Letter', clientId: 'alaska', tag: 'Letters', img: '/images/exec-letter.png' }
     ]
   },
   emails: {

@@ -1,33 +1,28 @@
 <template>
-  <div class="wrapper">
-    <header>
-      <button @click="logout">
-        Logout
-      </button>
-    </header>
-    <Nuxt />
+  <div class="layout">
+    <Header />
+    <section class="wrapper">
+      <Nuxt />
+    </section>
   </div>
 </template>
 <script>
+import Header from '@/components/core/Header'
+
 export default {
-  methods: {
-    logout() {
-      this.$auth.reset()
-      this.$router.push('/login')
+  components: {
+    Header
+  },
+  mounted() {
+    if (this.$auth.loggedIn && !this.$store.state.auth.user.id) {
+      this.$store.dispatch('getUser', this.$auth)
+    }
+    if (!this.$store.state.currentClient) {
+      const currentClient = this.$auth.$storage.getLocalStorage('currentClient')
+      if (currentClient) {
+        this.$store.commit('setCurrentClient', currentClient)
+      }
     }
   }
 }
 </script>
-<style lang="scss" scoped>
-header {
-  display: flex;
-}
-button {
-  margin-left: auto;
-  padding: 0;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  background: none;
-}
-</style>

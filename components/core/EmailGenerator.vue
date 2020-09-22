@@ -1,30 +1,16 @@
 <template>
   <div>
-    <b-button tag="router-link" class="button" to="/" type="is-link">
-      Go Back
+    <b-button
+      tag="router-link"
+      class="button link-button"
+      :to="backLink"
+      type="is-link"
+      icon-left="chevron-left"
+    >
+      Back
     </b-button>
-    <h1>{{ title }}</h1>
+    <h1 v-if="selectedTemplateName">{{ selectedTemplateName }}</h1>
     <div class="template-actions">
-      <b-field
-        v-if="!emailId && filteredTemplates.length > 1"
-        label-position="on-border"
-        label="Template"
-        class="action-element template-selector-container"
-        :type="saveAttempted && !selectedTemplate ? 'is-danger' : ''"
-        :message="
-          saveAttempted && !selectedTemplate ? 'Template is required' : ''
-        "
-      >
-        <b-select
-          placeholder="Select a template"
-          @input="handleTemplateSelected"
-        >
-          <option value="" />
-          <option v-for="template in filteredTemplates" :key="template.name">
-            {{ template.name }}
-          </option>
-        </b-select>
-      </b-field>
       <b-field
         class="action-element"
         label-position="on-border"
@@ -50,11 +36,39 @@
         Export
       </b-button>
     </div>
-    <div v-if="selectedTemplate">
-      <div ref="templateContainer">
-        <component :is="componentInstance" />
+    <main v-if="selectedTemplate">
+      <div class="template-wrapper">
+        <nav class="tabs">
+          <ul>
+            <li :class="{ ['is-active']: mode === 'edit' }">
+              <a @click="toggleMode('edit')"><span>Edit</span></a>
+            </li>
+            <li :class="{ ['is-active']: mode === 'preview' }">
+              <a @click="toggleMode('preview')"><span>Preview</span></a>
+            </li>
+            <li :class="{ ['is-active']: mode === 'code' }">
+              <a @click="toggleMode('code')"><span>Code</span></a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          v-show="mode === 'edit' || mode === 'preview'"
+          ref="templateContainer"
+          class="template-container"
+          :style="templateStyle"
+        >
+          <component :is="componentInstance" />
+        </div>
+        <div v-if="mode === 'code' && code" class="code-container">
+          <vue-code-highlight language="html">
+            <pre>
+            {{ code }}
+          </pre
+            >
+          </vue-code-highlight>
+        </div>
       </div>
-    </div>
+    </main>
     <!-- {{ currentEmail }} -->
   </div>
 </template>
@@ -63,31 +77,26 @@
 import JSZip from 'jszip'
 import pretty from 'pretty'
 import { saveAs } from 'file-saver'
+import { component as VueCodeHighlight } from 'vue-code-highlight'
+import 'vue-code-highlight/themes/prism-tomorrow.css'
 
 export default {
-  props: ['emailId', 'title', 'email'],
+  components: {
+    VueCodeHighlight
+  },
+  props: ['emailId', 'email'],
   data: function() {
     return {
-      userData: null,
+      mode: 'edit',
+      code: '',
       name: '',
       saveAttempted: false,
       isImageModalActive: false,
-      selectedTemplate: null
+      selectedTemplate: null,
+      selectedTemplateName: null
     }
   },
   computed: {
-    filteredTemplates() {
-      if (this.userData && this.userData.admin) {
-        return this.$store.state.templates.list
-      }
-      return this.userData && this.userData.templates
-        ? this.$store.state.templates.list.filter(template =>
-            this.userData.templates.some(
-              userTemplate => userTemplate === template.name
-            )
-          )
-        : []
-    },
     currentEmail() {
       return JSON.stringify(this.$store.state.currentEmail)
     },
@@ -97,30 +106,72 @@ export default {
         return null
       }
       return () => import(`@/components/templates/${template}`)
+    },
+    templateStyle() {
+      if (!this.selectedTemplate) {
+        return ''
+      }
+      const client = this.getClient()
+      return client ? client.templateStyle : ''
+    },
+    backLink() {
+      return this.$store.state.currentClient
+        ? `/clients/${this.$store.state.currentClient.id}`
+        : '/'
     }
   },
   mounted: function() {
-    // On refresh
-    if (this.$auth.loggedIn) {
-      if (this.$auth.user && !this.$auth.user.id) {
-        this.userData = this.$auth.$storage.getLocalStorage('user')
-      } else {
-        this.userData = this.$auth.user
-      }
-    }
     // On existing email
     if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
       this.selectedTemplate = this.$store.state.currentEmail.template
-    } else if (
-      this.userData &&
-      this.userData.templates &&
-      this.userData.templates.length === 1
-    ) {
-      this.selectedTemplate = this.userData.templates[0]
+    } else if (this.$route.query.template) {
+      this.selectedTemplate = this.$route.query.template
+    } else if (this.$store.state.currentClient) {
+      this.$router.push(`/clients/${this.$store.state.currentClient.id}`)
+    } else {
+      this.$router.push('/')
     }
+    // Set title
+    const templateData = this.$store.state.templates.list.find(
+      template => template.id === this.selectedTemplate
+    )
+    this.selectedTemplateName = templateData.name
   },
   methods: {
+    getClient: function() {
+      const emptyClient = {
+        postHTML: '',
+        preHTML: ''
+      }
+      const templateData = this.$store.state.templates.list.find(
+        template => template.id === this.selectedTemplate
+      )
+      return templateData && templateData.clientId
+        ? this.$store.state.clients.list.find(
+            client => client.id === templateData.clientId
+          ) || emptyClient
+        : emptyClient
+    },
+    getHtml: function() {
+      const client = this.getClient()
+      const rawHtml = this.$refs.templateContainer.innerHTML.replace(
+        /data-v-[0-9a-z]*=""/g,
+        ''
+      )
+      return pretty(`${client.preHTML}${rawHtml}${client.postHTML}`)
+    },
+    toggleMode: function(mode) {
+      this.mode = mode
+      this.$store.commit('setPreviewMode', mode === 'preview')
+      if (mode === 'code') {
+        this.$store.commit('toggleEditMode')
+        setTimeout(() => {
+          this.code = this.getHtml()
+          this.$store.commit('toggleEditMode')
+        }, 500)
+      }
+    },
     handleTemplateSelected: function(value) {
       this.$store.commit('clearCurrentEmail')
       this.selectedTemplate = value || ''
@@ -131,30 +182,11 @@ export default {
       if (this.selectedTemplate && this.name) {
         this.$store.commit('toggleEditMode')
         setTimeout(() => {
-          const html = this.$refs.templateContainer.innerHTML.replace(
-            /data-v-[0-9a-z]*=""/g,
-            ''
-          )
+          const html = this.getHtml()
           console.log(html)
           const emailName = this.name
           const zip = new JSZip()
-          const emptyClient = {
-            postHTML: '',
-            preHTML: ''
-          }
-          const templateData = this.$store.state.templates.list.find(
-            template => template.name === this.selectedTemplate
-          )
-          const client =
-            templateData && templateData.clientId
-              ? this.$store.state.clients.list.find(
-                  client => client.id === templateData.clientId
-                ) || emptyClient
-              : emptyClient
-          zip.file(
-            'index.html',
-            pretty(`${client.preHTML}${html}${client.postHTML}`)
-          )
+          zip.file('index.html', html)
           zip.file(
             `${emailName}.json`,
             JSON.stringify(this.$store.state.currentEmail)
@@ -184,7 +216,7 @@ export default {
         } else {
           this.$store.dispatch('saveEmail', { newEmail: email })
         }
-        this.$router.push('/')
+        this.$router.push(this.backLink)
       }
     }
   }
@@ -192,9 +224,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.link-button {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  ::v-deep {
+    .icon:first-child:not(:last-child) {
+      margin-top: -2px;
+      margin-right: 0;
+    }
+  }
+}
 h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+main {
+  display: flex;
+}
+.template-wrapper {
+  width: 100%;
+}
+.template-container {
+  padding: 0 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 .template-actions {
   .select {
@@ -207,10 +261,16 @@ h1 {
     margin-bottom: 2rem;
     @media screen and (min-width: $small) {
       margin-right: 1rem;
+      margin-bottom: 0;
     }
   }
 }
 .button {
   margin-bottom: 1.5rem;
+}
+::v-deep {
+  .token.tag {
+    background: rgba(51, 170, 51, 0.1) !important;
+  }
 }
 </style>

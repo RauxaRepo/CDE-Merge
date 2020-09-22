@@ -22,6 +22,7 @@
     "nuxt-buefy": "^0.4.2",
     "pretty": "^2.0.0",
     "sass-loader": "^10.0.0",
+    "vue-code-highlight": "^0.7.6",
     "vue-fragment": "^1.5.1",
     "vue2-editor": "^2.10.2"
   },

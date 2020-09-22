@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.editMode" class="link-selector" :class="{ active: isActive }">
+  <div v-if="$store.state.editMode && !$store.state.previewMode" class="link-selector" :class="{ active: isActive }">
     <div v-if="isActive" class="active-section">
       <button @click="close">
         <b-icon icon="close"></b-icon>

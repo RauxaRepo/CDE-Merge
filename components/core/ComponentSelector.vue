@@ -1,8 +1,8 @@
 <template>
-  <tr class="component-container" :class="{ edit: $store.state.editMode }">
+  <tr class="component-container" :class="{ edit: $store.state.editMode && !$store.state.previewMode }">
     <td style="width:100%;display:table;">
       <table style="width:100%;">
-        <tr v-if="$store.state.editMode" class="selector">
+        <tr v-if="$store.state.editMode && !$store.state.previewMode" class="selector">
           <select
             v-if="!selectedComponent"
             name="componentSelector"
