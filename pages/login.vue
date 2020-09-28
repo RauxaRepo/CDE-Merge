@@ -1,10 +1,10 @@
 <template>
   <section>
-    <div class="panel">
-      <p class="panel-heading">
-        Login
-      </p>
-      <div class="panel-block">
+    <ContentPanel>
+      <div class="container">
+        <h1 class="title">
+          merge
+        </h1>
         <form @submit.prevent="userLogin">
           <b-field :type="isError ? 'is-danger' : ''" label="Username">
             <b-input v-model="login.username" maxlength="30"></b-input>
@@ -23,11 +23,13 @@
           />
         </form>
       </div>
-    </div>
+    </ContentPanel>
   </section>
 </template>
 
 <script>
+import ContentPanel from '@/components/core/ContentPanel'
+
 const users = [
   {
     id: '1',
@@ -45,6 +47,9 @@ const users = [
 ]
 
 export default {
+  components: {
+    ContentPanel
+  },
   data: function() {
     return {
       isError: false,
@@ -71,8 +76,9 @@ export default {
             admin: existingUser.admin,
             username: existingUser.username
           })
-          if (existingUser.clients && existingUser.clients.length === 1) {
-            this.$router.push(`/clients/${existingUser.clients[0]}`)
+          const client = this.$store.state.currentClient || (existingUser.clients ? existingUser.clients[0] : null)
+          if (client) {
+            this.$router.push(`/clients/${client.id}`)
           } else {
             this.$router.push('/')
           }
@@ -99,16 +105,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section {
-  position: relative;
-  min-height: 300px;
-  .panel {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    .panel-block {
-      padding-bottom: 1.5rem;
+.container {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+.title {
+  display: block;
+  font-weight: bold;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
+form {
+  text-align: left;
+  .button {
+    margin-top: 0.5rem;
+    width: 100%;
+    color: $button-secondary;
+    background: $button-primary;
+    border-radius: 0;
+    border: none;
+    &[disabled] {
+      background: $button-disabled;
+    }
+    &:hover {
+      background: $button-secondary;
+      color: $button-primary;
+      border: 1px solid $button-primary;
     }
   }
 }

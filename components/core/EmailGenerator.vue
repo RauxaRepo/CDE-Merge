@@ -9,7 +9,9 @@
     >
       Back
     </b-button>
-    <h1 v-if="selectedTemplateName">{{ selectedTemplateName }}</h1>
+    <h1 v-if="selectedTemplateName">
+      {{ selectedTemplateName }}
+    </h1>
     <div class="template-actions">
       <b-field
         class="action-element"

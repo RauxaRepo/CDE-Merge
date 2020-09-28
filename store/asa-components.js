@@ -7,17 +7,25 @@ export default [
   {
     name: 'ASAExecLetterTitleBasedPrimary',
     type: 'asa-hero',
-    text: 'Title Based Primary'
+    text: 'Title Based Primary',
+    img: '/images/title-based-primary.png'
   },
   {
     name: 'ASAExecLetterImagePrimary',
     type: 'asa-hero',
-    text: 'Image Primary'
+    text: 'Image Primary',
+    img: '/images/image-primary.png'
   },
   {
     name: 'ASAExecLetterVideoPrimary',
     type: 'asa-hero',
-    text: 'Video Primary'
+    text: 'Video Primary',
+    img: '/images/video-primary.png'
+  },
+  {
+    name: 'ASAExecLetterBody',
+    type: 'asa-body',
+    text: 'Body',
   },
   {
     name: 'ASAExecLetterButton',

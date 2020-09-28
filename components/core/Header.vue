@@ -2,7 +2,7 @@
   <header>
     <div class="wrapper">
       <span class="logo"><nuxt-link to="/">merge</nuxt-link></span>
-      <div class="actions">
+      <div v-if="$store.state.auth.user" class="actions">
         <b-dropdown v-if="this.$store.state.currentClient" aria-role="list">
           <button slot="trigger" class="button">
             <span>{{ this.$store.state.currentClient.name }}</span>
@@ -17,7 +17,7 @@
             {{ client.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown v-if="$store.state.auth.user" aria-role="list">
+        <b-dropdown aria-role="list">
           <button slot="trigger" class="button profile-button">
             <span>Hi {{ $store.state.auth.user.username }}</span>
             <b-icon icon="menu-down"></b-icon>
