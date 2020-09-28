@@ -2,7 +2,6 @@
   <EmailGenerator
     v-if="$store.state.currentEmail && $store.state.currentEmail.id"
     :email-id="$store.state.currentEmail.id"
-    title="Update Email"
   />
   <div v-else class="not-found">
     Not found

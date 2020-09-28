@@ -1,5 +1,5 @@
 <template>
-  <EmailGenerator title="Create Email" />
+  <EmailGenerator />
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <td align="center" style="background-color: #ffffff">
+  <td align="center" style="background-color: #ffffff; position:relative">
     <table
       role="presentation"
       cellpadding="0"

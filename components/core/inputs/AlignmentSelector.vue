@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="$store.state.editMode"
+    v-if="$store.state.editMode && !$store.state.previewMode"
     class="alignment-selector"
     :class="{ active: isActive }"
     :style="componentStyle"

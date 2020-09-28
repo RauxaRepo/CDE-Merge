@@ -68,7 +68,21 @@ export default {
       assets: []
     }
   },
+  setCurrentClient(state, client) {
+    state.currentClient = client
+  },
+  clearCurrentClient(state, client) {
+    state.currentClient = null
+  },
   toggleEditMode(state) {
     state.editMode = !state.editMode
+  },
+  setPreviewMode(state, value) {
+    state.previewMode = value
+  },
+  setUser(state, user) {
+    if (state.auth) {
+      state.auth.user = user
+    }
   }
 }

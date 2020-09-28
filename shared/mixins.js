@@ -50,3 +50,19 @@ export const libComponentMixin = {
     }
   }
 }
+export const importMixin = {
+  methods: {
+    handleInput(file) {
+      const reader = new FileReader()
+      reader.readAsText(file)
+      reader.onloadend = () => {
+        const json = JSON.parse(reader.result)
+        delete json.id
+        this.$store.dispatch('saveEmail', {
+          newEmail: json,
+          updateEmails: true
+        })
+      }
+    }
+  }
+}
