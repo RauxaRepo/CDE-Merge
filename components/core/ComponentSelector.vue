@@ -38,7 +38,13 @@
             :container-name="containerName"
           />
         </tr>
-        <tr v-else>
+        <tr
+          v-if="
+            !selectedComponent &&
+              $store.state.editMode &&
+              !$store.state.previewMode
+          "
+        >
           <td class="columns component-options">
             <div
               v-for="option in filteredComponentList"
@@ -116,8 +122,8 @@ export default {
 .component-container {
   display: block;
   position: relative;
-  min-height: 5rem;
   &.edit {
+    min-height: 5rem;
     border: 1px dashed $black;
   }
 }
