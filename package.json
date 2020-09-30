@@ -20,6 +20,7 @@
     "lodash": "^4.17.20",
     "nuxt": "^2.14.0",
     "nuxt-buefy": "^0.4.2",
+    "nuxt-clipboard2": "^0.2.1",
     "pretty": "^2.0.0",
     "sass-loader": "^10.0.0",
     "vue-code-highlight": "^0.7.6",

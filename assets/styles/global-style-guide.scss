@@ -179,3 +179,41 @@ strong {
     color: $black;
   }
 }
+.merge-button {
+  border-radius: 0;
+  border: none;
+  &:hover, &:focus { 
+    outline: 0;
+  }
+  &[disabled] {
+    background: $button-disabled;
+  }
+  &.primary {
+    color: $button-secondary;
+    background: $button-primary;
+    &:hover {
+      background: $button-secondary;
+      color: $button-primary;
+      border: 1px solid $button-primary;
+    }
+  }
+  &.primary {
+    color: $white;
+    background: $button-primary;
+    border: 1px solid transparent;
+    &:hover, &:focus {
+      background: $white;
+      color: $button-primary;
+      border: 1px solid $button-primary;
+    }
+  }
+  &.secondary {
+    color: $white;
+    background: $button-secondary;
+    &:hover, &:focus {
+      background: $white;
+      color: $button-secondary;
+      border: 1px solid $button-secondary;
+    }
+  }
+}
