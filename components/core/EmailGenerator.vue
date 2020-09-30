@@ -52,6 +52,27 @@
               <a @click="toggleMode('code')"><span>Code</span></a>
             </li>
           </ul>
+          <div class="tab-actions">
+            <b-button
+              v-if="mode === 'code' && code"
+              class="button merge-button secondary"
+              @click="copyHtml"
+            >
+              Copy HTML
+            </b-button>
+            <b-button
+              v-if="mode === 'preview'"
+              class="button merge-button primary"
+              icon-right="laptop"
+              @click="mobilePreview = false"
+            />
+            <b-button
+              v-if="mode === 'preview'"
+              class="button merge-button primary"
+              icon-right="cellphone"
+              @click="mobilePreview = true"
+            />
+          </div>
         </nav>
         <div
           v-show="mode === 'edit' || mode === 'preview'"
@@ -59,7 +80,11 @@
           class="template-container"
           :style="templateStyle"
         >
-          <component :is="componentInstance" />
+          <div :class="{ ['mask']: mode === 'preview' && mobilePreview }">
+            <div class="email">
+              <component :is="componentInstance" />
+            </div>
+          </div>
         </div>
         <div v-if="mode === 'code' && code" class="code-container">
           <vue-code-highlight language="html">
@@ -90,6 +115,7 @@ export default {
   data: function() {
     return {
       mode: 'edit',
+      mobilePreview: false,
       code: '',
       name: '',
       saveAttempted: false,
@@ -220,6 +246,25 @@ export default {
         }
         this.$router.push(this.backLink)
       }
+    },
+    copyHtml: async function() {
+      try {
+        await this.$copyText(this.code)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: 'HTML copied',
+          position: 'is-bottom',
+          type: 'is-success'
+        })
+      } catch (e) {
+        console.error(e)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: 'Error copying the HTML',
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      }
     }
   }
 }
@@ -240,6 +285,21 @@ h1 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+.tabs {
+  position: relative;
+  .tab-actions {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+  }
+  a {
+    line-height: 40px;
+  }
+  .button {
+    margin: 0;
+  }
+}
 main {
   display: flex;
 }
@@ -251,6 +311,16 @@ main {
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  .mask {
+    background: url('/images/iphone.png');
+    padding: 63px 91px;
+    margin: 2rem 0;
+    .email {
+      width: 375px;
+      height: 754px;
+      overflow: auto;
+    }
+  }
 }
 .template-actions {
   .select {

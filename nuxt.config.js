@@ -58,7 +58,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    ['nuxt-buefy']
+    ['nuxt-buefy'],
+    'nuxt-clipboard2'
   ],
   /*
    ** Axios module configuration
@@ -71,7 +72,7 @@ export default {
    */
   build: {
     transpile: ['@nuxtjs/auth'],
-    standalone: true,
+    standalone: true
   },
   auth: {
     strategies: {
@@ -80,7 +81,7 @@ export default {
           login: {
             url: 'https://run.mocky.io/v3/944a6773-989b-40e7-8fae-0206fe63b9b3',
             method: 'get',
-            propertyName: 'token',
+            propertyName: 'token'
           },
           user: null
         }

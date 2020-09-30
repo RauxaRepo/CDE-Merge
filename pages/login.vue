@@ -20,6 +20,7 @@
             label="Login"
             value="Login"
             :disabled="!login.username || !login.password"
+            class="merge-button primary"
           />
         </form>
       </div>
@@ -62,13 +63,21 @@ export default {
   methods: {
     async userLogin() {
       try {
-        await this.$auth.loginWith('local', { data: this.login })
         const existingUser = users.find(
           user =>
             user.username === this.login.username &&
             user.password === this.login.password
         )
         if (existingUser) {
+          const client = this.$store.state.currentClient
+            ? this.$store.state.currentClient.id
+            : existingUser.clients && existingUser.clients[0]
+            ? existingUser.clients[0]
+            : null
+          if (client) {
+            this.$auth.$storage.setUniversal('redirect', `/clients/${client}`)
+          }
+          await this.$auth.loginWith('local', { data: this.login })
           this.$auth.setUser(existingUser)
           this.$auth.$storage.setLocalStorage('user', {
             id: existingUser.id,
@@ -76,12 +85,6 @@ export default {
             admin: existingUser.admin,
             username: existingUser.username
           })
-          const client = this.$store.state.currentClient || (existingUser.clients ? existingUser.clients[0] : null)
-          if (client) {
-            this.$router.push(`/clients/${client.id}`)
-          } else {
-            this.$router.push('/')
-          }
         } else {
           this.$auth.reset()
           this.isError = true
@@ -123,18 +126,6 @@ form {
   .button {
     margin-top: 0.5rem;
     width: 100%;
-    color: $button-secondary;
-    background: $button-primary;
-    border-radius: 0;
-    border: none;
-    &[disabled] {
-      background: $button-disabled;
-    }
-    &:hover {
-      background: $button-secondary;
-      color: $button-primary;
-      border: 1px solid $button-primary;
-    }
   }
 }
 </style>
