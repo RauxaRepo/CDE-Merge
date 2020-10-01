@@ -56,12 +56,9 @@ export default {
 
 <style lang="scss" scoped>
 .alignment-selector {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  border-radius: 8px;
   overflow: hidden;
   display: flex;
+  margin-bottom: 1rem;
   button {
     height: 32px;
     width: 32px;

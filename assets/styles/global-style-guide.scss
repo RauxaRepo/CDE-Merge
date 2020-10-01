@@ -144,8 +144,14 @@ body {
 }
 .wrapper {
   padding: 0 1rem;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 .modal-container {
   background: $white;
@@ -182,8 +188,9 @@ strong {
 .merge-button {
   border-radius: 0;
   border: none;
-  &:hover, &:focus { 
-    outline: 0;
+  outline: none;
+  &:focus:not(:active) {
+    box-shadow: none;
   }
   &[disabled] {
     background: $button-disabled;
@@ -201,7 +208,8 @@ strong {
     color: $white;
     background: $button-primary;
     border: 1px solid transparent;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background: $white;
       color: $button-primary;
       border: 1px solid $button-primary;
@@ -210,7 +218,8 @@ strong {
   &.secondary {
     color: $white;
     background: $button-secondary;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background: $white;
       color: $button-secondary;
       border: 1px solid $button-secondary;

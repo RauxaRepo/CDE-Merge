@@ -11,7 +11,10 @@
         <td align="center" class="relative">
           <!-- section image -->
           <a
-            v-if="!$store.state.editMode && fields.link"
+            v-if="
+              !($store.state.editMode && !$store.state.previewMode) &&
+                fields.link
+            "
             :href="fields.link"
             style="text-decoration: none"
             target="_blank"
@@ -33,7 +36,10 @@
                 color: #3c3b3f;
               "
               alt=""
-            />
+              :container-text="containerText"
+            >
+              <LinkField v-model="fields.link" />
+            </ImageSelector>
           </a>
           <ImageSelector
             v-else
@@ -53,8 +59,10 @@
                 font-size: 14px;
               "
             alt=""
-          />
-          <LinkSelector v-model="fields.link" />
+            :container-text="containerText"
+          >
+            <LinkField v-model="fields.link" />
+          </ImageSelector>
         </td>
       </tr>
     </table>
@@ -88,7 +96,9 @@
                 text-align: left;
               "
               >
-                <strong><TextInput v-model.lazy="fields.title" inline="true" /></strong>
+                <strong>
+                  <TextInput v-model.lazy="fields.title" inline="true" />
+                </strong>
               </td>
             </tr>
           </table>
@@ -102,12 +112,14 @@
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
+import LinkField from '@/components/core/inputs/LinkField'
 
 export default {
   name: 'ASAExecLetterImagePrimary',
   components: {
     ImageSelector,
-    TextInput
+    TextInput,
+    LinkField
   },
   mixins: [libComponentMixin],
   data: function() {

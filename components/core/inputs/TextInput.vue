@@ -1,18 +1,18 @@
 <template>
   <span>
-    <span v-if="inline" @click="showModal = true" v-html="parsedValue"></span>
-    <div v-else @click="showModal = true" v-html="parsedValue"></div>
-    <b-modal v-model="showModal">
-      <div class="modal-container">
-        <VueEditor v-model="editorValue" />
-      </div>
-    </b-modal>
+    <span v-if="inline" @click="onShowControls" v-html="parsedValue"></span>
+    <div v-else @click="onShowControls" v-html="parsedValue"></div>
+    <portal v-if="$store.state.editingId === id" to="controls">
+      <h2>{{ containerText }} / Textarea</h2>
+      <VueEditor v-model="editorValue" />
+    </portal>
   </span>
 </template>
 
 <script>
 import { VueEditor } from 'vue2-editor'
 import { debounce } from 'lodash'
+import { getUID } from '@/shared/utils'
 
 export default {
   name: 'TextInput',
@@ -22,7 +22,7 @@ export default {
   props: ['value', 'inline', 'linkStyle'],
   data() {
     return {
-      showModal: false
+      id: getUID()
     }
   },
   computed: {
@@ -45,6 +45,11 @@ export default {
         return this.value.replace(/<a/g, `<a style="${this.linkStyle}"`)
       }
       return this.value
+    }
+  },
+  methods: {
+    onShowControls() {
+      this.$store.commit('setEditingId', this.id)
     }
   }
 }

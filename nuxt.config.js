@@ -59,7 +59,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     ['nuxt-buefy'],
-    'nuxt-clipboard2'
+    'nuxt-clipboard2',
+    'portal-vue/nuxt'
   ],
   /*
    ** Axios module configuration

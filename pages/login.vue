@@ -15,13 +15,19 @@
             </b-input>
           </b-field>
           <b-button
+            v-if="!loading"
             tag="input"
             native-type="submit"
             label="Login"
             value="Login"
             :disabled="!login.username || !login.password"
             class="merge-button primary"
-          />
+          >
+            Login
+          </b-button>
+          <b-button v-else loading class="merge-button primary">
+            Loading
+          </b-button>
         </form>
       </div>
     </ContentPanel>
@@ -53,6 +59,7 @@ export default {
   },
   data: function() {
     return {
+      loading: false,
       isError: false,
       login: {
         username: '',
@@ -62,6 +69,7 @@ export default {
   },
   methods: {
     async userLogin() {
+      this.loading = true
       try {
         const existingUser = users.find(
           user =>
@@ -91,6 +99,7 @@ export default {
           throw new Error('Invalid user/password')
         }
       } catch (err) {
+        this.loading = false
         this.loginError()
         console.log(err)
       }

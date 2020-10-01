@@ -5,6 +5,7 @@ export default {
   presetTemplate: 'ExecLetter',
   multiComponents: false,
   editMode: true,
+  editingId: null,
   previewMode: false,
   currentClient: null,
   currentEmail: {
