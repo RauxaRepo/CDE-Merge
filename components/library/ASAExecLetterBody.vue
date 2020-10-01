@@ -24,10 +24,6 @@
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
           "
         >
-          <AlignmentSelector
-            v-model="fields.alignment"
-            component-style="top: 0; left: 0"
-          />
           <TextInput
             v-model.lazy="fields.body"
             link-style="color:#3c3d3f; text-decoration:underline;"
