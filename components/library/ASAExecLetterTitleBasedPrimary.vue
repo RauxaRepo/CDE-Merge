@@ -21,6 +21,7 @@
             border="0"
             alt=""
             img-style="display: block;border: 0;outline: 0;padding: 0;width: 82px;height: auto;"
+            :container-text="containerText"
           />
         </td>
       </tr>

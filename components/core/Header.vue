@@ -17,7 +17,10 @@
             {{ client.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <b-dropdown aria-role="list">
+        <button class="button merge-button profile-button" @click="logout">
+          Logout
+        </button>
+        <!-- <b-dropdown aria-role="list">
           <button slot="trigger" class="button profile-button">
             <span>Hi {{ $store.state.auth.user.username }}</span>
             <b-icon icon="menu-down"></b-icon>
@@ -26,7 +29,7 @@
           <b-dropdown-item aria-role="listitem" @click="logout">
             Logout
           </b-dropdown-item>
-        </b-dropdown>
+        </b-dropdown> -->
       </div>
     </div>
   </header>

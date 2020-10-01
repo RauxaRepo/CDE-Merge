@@ -1,6 +1,6 @@
 <template>
   <div :style="`text-align:${alignment || 'left'};`">
-    <b-upload v-if="$store.state.editMode" expanded @input="handleInput">
+    <div v-if="$store.state.editMode">
       <img
         v-if="value && value.src"
         :src="value.src"
@@ -8,11 +8,33 @@
         :alt="alt || ''"
         :style="imgStyle || ''"
         :border="border || ''"
+        @click="onShowControls"
       />
-      <div v-else class="add-message" :style="imgStyle || ''">
+      <div
+        v-else
+        class="add-message"
+        :style="imgStyle || ''"
+        @click="onShowControls"
+      >
         Image
       </div>
-    </b-upload>
+      <portal v-if="$store.state.editingId === id" to="controls">
+        <h2>{{ containerText }} / Image</h2>
+        <slot></slot>
+        <b-field>
+          <b-upload drag-drop @input="handleInput">
+            <section class="section">
+              <div class="content has-text-centered">
+                <p>
+                  <b-icon icon="upload" size="is-large"></b-icon>
+                </p>
+                <p>Drop your files here or click to upload</p>
+              </div>
+            </section>
+          </b-upload>
+        </b-field>
+      </portal>
+    </div>
     <img
       v-else
       :src="`./assets/${value ? value.name : ''}`"
@@ -26,11 +48,26 @@
 
 <script>
 import axios from 'axios'
+import { getUID } from '@/shared/utils'
 
 export default {
   name: 'ImageSelector',
   components: {},
-  props: ['placeholder', 'value', 'width', 'border', 'alt', 'imgStyle', 'alignment'],
+  props: [
+    'placeholder',
+    'value',
+    'width',
+    'border',
+    'alt',
+    'imgStyle',
+    'alignment',
+    'containerText'
+  ],
+  data() {
+    return {
+      id: getUID()
+    }
+  },
   computed: {
     src: function() {
       return this.value ? URL.createObjectURL(this.value) : ''
@@ -43,7 +80,12 @@ export default {
         .get(this.placeholder, {
           responseType: 'blob'
         })
-        .then(response => this.handleInput(response.data, placeholderSegments[placeholderSegments.length - 1]))
+        .then(response =>
+          this.handleInput(
+            response.data,
+            placeholderSegments[placeholderSegments.length - 1]
+          )
+        )
         .catch(err => console.log(err))
     }
   },
@@ -63,6 +105,9 @@ export default {
           src: base64data
         })
       }
+    },
+    onShowControls() {
+      this.$store.commit('setEditingId', this.id)
     }
   }
 }

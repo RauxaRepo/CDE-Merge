@@ -1,5 +1,12 @@
 <template>
   <td align="center" style="background-color:#ffffff;">
+    <portal v-if="$store.state.editingId === component.id" to="controls">
+      <h2>{{ containerText }}</h2>
+      <AlignmentSelector
+        v-model="fields.alignment"
+        component-style="right:100%; left: auto"
+      />
+    </portal>
     <table
       role="presentation"
       cellpadding="0"
@@ -18,10 +25,6 @@
             `padding-bottom: 40px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:30px;color:#2774ae;text-align:${fields.alignment};`
           "
         >
-          <AlignmentSelector
-            v-model="fields.alignment"
-            component-style="right:100%; left: auto"
-          />
           <strong>
             <TextInput v-model.lazy="fields.title" inline="true" />
           </strong>
@@ -68,6 +71,7 @@
             alt=""
             img-style="display:inline-block;border:0;outline:0;width:100%;max-width:124px;height:auto;"
             :alignment="fields.alignment"
+            :container-text="containerText"
           />
         </td>
       </tr>
@@ -118,7 +122,10 @@ export default {
           '<p>${FIRST_NAME?capitalize},</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. Voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non&nbsp;proident.</p><p>Sun in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi. Architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur&nbsp;magni. </p><p> Dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur. Adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat&nbsp;volup.</p>'
       }
     }
-  }
+  },
+  mounted: function() {
+    this.$emit('has-controls')
+  },
 }
 </script>
 
