@@ -11,24 +11,24 @@
         >
           <span>{{ selectedDisplayName }}</span>
           <div class="actions">
-            <div>
-              <button @click="handleRemoveComponent">
-                <b-icon icon="delete"></b-icon>
-              </button>
-            </div>
-            <div>
-              <button :disabled="index === 0" @click="handleMoveComponent(-1)">
-                <b-icon icon="chevron-up"></b-icon>
-              </button>
-            </div>
-            <div>
-              <button
-                :disabled="index === count - 1"
-                @click="handleMoveComponent(1)"
-              >
-                <b-icon icon="chevron-down"></b-icon>
-              </button>
-            </div>
+            <button @click="handleRemoveComponent">
+              <b-icon icon="delete"></b-icon>
+            </button>
+            <button
+              v-if="selectedComponent && hasControls"
+              @click="onShowControls"
+            >
+              <b-icon icon="cog"></b-icon>
+            </button>
+            <button :disabled="index === 0" @click="handleMoveComponent(-1)">
+              <b-icon icon="chevron-up"></b-icon>
+            </button>
+            <button
+              :disabled="index === count - 1"
+              @click="handleMoveComponent(1)"
+            >
+              <b-icon icon="chevron-down"></b-icon>
+            </button>
           </div>
         </tr>
         <tr v-if="selectedComponent" ref="templateContainer">
@@ -36,6 +36,8 @@
             :is="componentInstance"
             :component="component"
             :container-name="containerName"
+            :container-text="selectedDisplayName"
+            v-on:has-controls="onHasControls"
           />
         </tr>
         <tr
@@ -68,7 +70,8 @@ export default {
   props: ['component', 'type', 'containerName', 'count', 'index'],
   data: function() {
     return {
-      selectedComponent: null
+      selectedComponent: null,
+      hasControls: false
     }
   },
   computed: {
@@ -113,6 +116,12 @@ export default {
         index: this.index,
         delta
       })
+    },
+    onShowControls() {
+      this.$store.commit('setEditingId', this.component.id)
+    },
+    onHasControls() {
+      this.hasControls = true
     }
   }
 }

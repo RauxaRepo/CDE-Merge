@@ -19,14 +19,19 @@
           text-align: center;
         "
         >
-          <strong><TextInput v-model.lazy="fields.title" inline="true" /></strong>
+          <strong>
+            <TextInput v-model.lazy="fields.title" inline="true" />
+          </strong>
         </td>
       </tr>
       <tr>
         <td align="center" style="padding-bottom: 50px">
           <!-- section image -->
           <a
-            v-if="!$store.state.editMode && fields.link"
+            v-if="
+              !($store.state.editMode && !$store.state.previewMode) &&
+                fields.link
+            "
             :href="fields.link"
             style="text-decoration: none"
             target="_blank"
@@ -48,7 +53,10 @@
                 color: #3c3b3f;
               "
               alt=""
-            />
+              :container-text="containerText"
+            >
+              <LinkField v-model="fields.link" />
+            </ImageSelector>
           </a>
           <ImageSelector
             v-else
@@ -69,8 +77,10 @@
                 color: #3c3b3f;
               "
             alt=""
-          />
-          <LinkSelector v-model="fields.link" />
+            :container-text="containerText"
+          >
+            <LinkField v-model="fields.link" />
+          </ImageSelector>
         </td>
       </tr>
     </table>
@@ -79,6 +89,7 @@
 
 <script>
 import ImageSelector from '@/components/core/inputs/ImageSelector'
+import LinkField from '@/components/core/inputs/LinkField'
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
@@ -86,7 +97,8 @@ export default {
   name: 'ASAExecLetterVideoPrimary',
   components: {
     ImageSelector,
-    TextInput
+    TextInput,
+    LinkField
   },
   mixins: [libComponentMixin],
   data: function() {

@@ -21,7 +21,7 @@ export const templateMixin = {
   }
 }
 export const libComponentMixin = {
-  props: ['containerName', 'existingComponent', 'component'],
+  props: ['containerName', 'containerText', 'existingComponent', 'component'],
   watch: {
     fields: {
       deep: true,

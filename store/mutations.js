@@ -77,6 +77,9 @@ export default {
   toggleEditMode(state) {
     state.editMode = !state.editMode
   },
+  setEditingId(state, id) {
+    state.editingId = id
+  },
   setPreviewMode(state, value) {
     state.previewMode = value
   },
