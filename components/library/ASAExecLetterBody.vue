@@ -89,7 +89,7 @@
 <script>
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import AlignmentSelector from '@/components/core/inputs/AlignmentSelector'
-//import VisibleSelector from '@/components/core/inputs/VisibleSelector'
+//  import VisibleSelector from '@/components/core/inputs/VisibleSelector'
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
@@ -98,7 +98,7 @@ export default {
   components: {
     ImageSelector,
     AlignmentSelector,
-    //VisibleSelector,
+    //  VisibleSelector,
     TextInput
   },
   mixins: [libComponentMixin],
