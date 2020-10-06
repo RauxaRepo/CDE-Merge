@@ -22,6 +22,7 @@
             v-model="fields.alignment"
             component-style="top: 0; left: 0"
           />
+
           <TextInput
             v-model.lazy="fields.body"
             link-style="color:#3c3d3f; text-decoration:underline;"
@@ -38,13 +39,21 @@
           <TextInput
             v-model.lazy="fields.signatureStart"
             inline="true"
-          /><br /><br />
+          />
+          <!--
+          <VisibleSelector
+            v-model="fields.visible"
+            component-style="position:relative;bottom: 100px; left: -66px; margin-bottom: -32px;"
+          />
+          -->
         </td>
       </tr>
-      <tr>
+      <tr
+        :style="`${fields.visible}`"
+      >
         <td
           :style="
-            `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#3c3b3f;text-align:${fields.alignment};`
+            `${fields.visible}font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#3c3b3f;text-align:${fields.alignment};`
           "
         >
           <ImageSelector
@@ -55,6 +64,7 @@
             alt=""
             img-style="display:inline-block;border:0;outline:0;width:100%;max-width:124px;height:auto;"
             :alignment="fields.alignment"
+            :visible="fields.visible"
           />
         </td>
       </tr>
@@ -79,6 +89,7 @@
 <script>
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import AlignmentSelector from '@/components/core/inputs/AlignmentSelector'
+//import VisibleSelector from '@/components/core/inputs/VisibleSelector'
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
@@ -87,6 +98,7 @@ export default {
   components: {
     ImageSelector,
     AlignmentSelector,
+    //VisibleSelector,
     TextInput
   },
   mixins: [libComponentMixin],
