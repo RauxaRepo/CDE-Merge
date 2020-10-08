@@ -1,5 +1,10 @@
 <template>
-  <span>
+  <span
+    :class="{
+      edit: $store.state.editMode && !$store.state.previewMode,
+      selected: $store.state.editingId === id
+    }"
+  >
     <span v-if="inline" @click="onShowControls" v-html="parsedValue"></span>
     <div v-else @click="onShowControls" v-html="parsedValue"></div>
     <portal v-if="$store.state.editingId === id" to="controls">
@@ -56,6 +61,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.edit.selected {
+  display: block;
+  border: 3px dashed $red;
+  padding: 0.5rem;
+}
 .modal-container * {
   color: $black;
   margin: 0;

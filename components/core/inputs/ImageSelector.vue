@@ -1,5 +1,11 @@
 <template>
-  <div :style="`text-align:${alignment || 'left'};`">
+  <div
+    :style="`text-align:${alignment || 'left'};`"
+    :class="{
+      edit: $store.state.editMode && !$store.state.previewMode,
+      selected: $store.state.editingId === id
+    }"
+  >
     <div v-if="$store.state.editMode">
       <img
         v-if="value && value.src"
@@ -114,6 +120,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.edit.selected {
+  display: block;
+  border: 3px dashed $red;
+  padding: 0.5rem;
+}
 .upload.is-expanded {
   width: auto;
 }
