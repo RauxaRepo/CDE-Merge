@@ -56,6 +56,8 @@ export default {
           resolve(emailToCreate)
         }
       })
+      /* eslint-disable */
+      $nuxt.$router.replace({ path: `/emails/${savedEmail.id}` })
       if (updateEmails) {
         commit('setEmails', [...state.emails.list, savedEmail])
       } else {

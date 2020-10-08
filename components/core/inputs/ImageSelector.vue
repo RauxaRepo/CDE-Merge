@@ -19,7 +19,7 @@
         Image
       </div>
       <portal v-if="$store.state.editingId === id" to="controls">
-        <h2>{{ containerText }} / Image</h2>
+        <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
         <slot></slot>
         <b-field>
           <b-upload drag-drop @input="handleInput">

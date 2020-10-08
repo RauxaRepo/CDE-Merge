@@ -31,13 +31,6 @@
             {{ client.name }}
           </b-dropdown-item>
         </b-dropdown>
-        <span class="separator">Or</span>
-        <b-upload class="file-label" @input="handleInput">
-          <span class="file-cta">
-            <b-icon class="file-icon" icon="upload"></b-icon>
-            <span class="file-label">Import JSON</span>
-          </span>
-        </b-upload>
       </div>
     </div>
   </ContentPanel>
@@ -45,13 +38,11 @@
 
 <script>
 import ContentPanel from '@/components/core/ContentPanel'
-import { importMixin } from '@/shared/mixins'
 
 export default {
   components: {
     ContentPanel
   },
-  mixins: [importMixin],
   beforeCreate: function() {
     this.$store.commit('clearCurrentEmail')
     this.$store.commit('clearCurrentClient')

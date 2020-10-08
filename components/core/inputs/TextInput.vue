@@ -3,7 +3,7 @@
     <span v-if="inline" @click="onShowControls" v-html="parsedValue"></span>
     <div v-else @click="onShowControls" v-html="parsedValue"></div>
     <portal v-if="$store.state.editingId === id" to="controls">
-      <h2>{{ containerText }} / Textarea</h2>
+      <h2>{{ containerText ? `${containerText} /` : '' }} Textarea</h2>
       <VueEditor v-model="editorValue" />
     </portal>
   </span>
