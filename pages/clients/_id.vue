@@ -1,13 +1,17 @@
 <template>
   <section class="columns">
     <aside class="column is-one-quarter-tablet">
-      <EmailList :emails="clientEmails" />
-      <b-upload class="file-label" @input="handleInput">
+      <!-- <EmailList :emails="clientEmails" /> -->
+      <b-upload accept=".json" class="file-label" @input="handleInput">
         <span class="file-cta">
           <b-icon class="file-icon" icon="upload"></b-icon>
           <span class="file-label">Import JSON</span>
         </span>
       </b-upload>
+      <div v-if="errorFileName" class="error">
+        The file {{ errorFileName }} could not be uploaded. Please verify that the
+        file is the correct format.
+      </div>
     </aside>
     <main class="column">
       <div
@@ -34,17 +38,16 @@
 </template>
 
 <script>
-import EmailList from '@/components/core/EmailList.vue'
-import { importMixin } from '@/shared/mixins'
+// import EmailList from '@/components/core/EmailList.vue'
 import { groupBy } from 'lodash'
 
 export default {
   components: {
-    EmailList
+    // EmailList
   },
-  mixins: [importMixin],
   data: function() {
     return {
+      errorFileName: '',
       emails: [],
       templateGroups: [],
       clientTemplates: []
@@ -56,7 +59,9 @@ export default {
         ? this.clientTemplates.reduce((allEmails, template) => {
             return [
               ...allEmails,
-              ...this.$store.state.emails.list.filter(email => email.template === template.id)
+              ...this.$store.state.emails.list.filter(
+                email => email.template === template.id
+              )
             ]
           }, [])
         : []
@@ -78,6 +83,28 @@ export default {
       }
     }
   },
+  methods: {
+    handleInput(file) {
+      const reader = new FileReader()
+      reader.readAsText(file)
+      reader.onloadend = () => {
+        try {
+          const json = JSON.parse(reader.result)
+          if (json.name && json.template && json.containers) {
+            delete json.id
+            this.$store.dispatch('saveEmail', {
+              newEmail: json,
+              updateEmails: true
+            })
+          } else {
+            throw new Error('Invalid file')
+          }
+        } catch (error) {
+          this.errorFileName = file.name
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -123,5 +150,11 @@ aside {
       color: $black;
     }
   }
+}
+.error {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: red;
+  line-height: 1.4;
 }
 </style>

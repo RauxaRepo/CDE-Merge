@@ -22,13 +22,13 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <b-button
+      <!-- <b-button
         class="button action-element"
         icon-right="content-save"
         @click="handleSave"
       >
         Save
-      </b-button>
+      </b-button> -->
       <b-button
         v-if="selectedTemplate"
         class="button"
@@ -82,14 +82,26 @@
         >
           <div class="viewport">
             <div :class="{ ['mask']: mode === 'preview' && mobilePreview }">
-              <div class="email">
+              <div
+                class="email custom-scroll"
+                :class="{ edit: mode === 'edit' }"
+              >
                 <component :is="componentInstance" />
               </div>
             </div>
           </div>
           <div v-show="mode === 'edit'" class="controls">
             <div class="sticky">
-              <portal-target name="controls"></portal-target>
+              <div class="controls-target">
+                <portal-target name="controls"></portal-target>
+              </div>
+              <b-button
+                v-if="$store.state.editingId"
+                class="merge-button secondary"
+                @click="$store.commit('setEditingId', null)"
+              >
+                OK
+              </b-button>
             </div>
           </div>
         </div>
@@ -156,6 +168,8 @@ export default {
     }
   },
   mounted: function() {
+    // clear portal
+    this.$store.commit('setEditingId', null)
     // On existing email
     if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
@@ -226,8 +240,13 @@ export default {
           zip.file('index.html', html)
           zip.file(
             `${emailName}.json`,
-            JSON.stringify(this.$store.state.currentEmail)
+            JSON.stringify({
+              ...this.$store.state.currentEmail,
+              name: this.name,
+              template: this.selectedTemplate
+            })
           )
+          debugger
           const assets = zip.folder('assets')
           this.$store.state.currentEmail.assets.forEach(asset => {
             const base64String = asset.src.split('base64,')[1]
@@ -364,6 +383,14 @@ main {
       overflow: auto;
     }
   }
+  .email.edit {
+    ::v-deep {
+      a {
+        pointer-events: none;
+        display: inline-block;
+      }
+    }
+  }
 }
 .viewport {
   width: 100%;
@@ -380,7 +407,10 @@ main {
   .sticky {
     padding: 3.5rem 1rem 1rem;
   }
-
+  .button {
+    min-width: 100px;
+    margin-top: 1rem;
+  }
   ::v-deep {
     h2 {
       font-size: 1.5rem;

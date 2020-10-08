@@ -6,6 +6,9 @@
         v-model="fields.alignment"
         component-style="right:100%; left: auto"
       />
+      <b-switch v-model="fields.showSignatureImage">
+        Signature Image
+      </b-switch>
     </portal>
     <table
       role="presentation"
@@ -43,7 +46,7 @@
           /><br /><br />
         </td>
       </tr>
-      <tr>
+      <tr v-if="fields.showSignatureImage !== false">
         <td
           :style="
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#3c3b3f;text-align:${fields.alignment};`
@@ -99,6 +102,7 @@ export default {
         file: null,
         link: '',
         alignment: 'left',
+        showSignatureImage: true,
         signatureStart: 'Sincerely,',
         signatureName: 'Andrew Harrison',
         signaturePosition: 'Chief Commercial Officer',
