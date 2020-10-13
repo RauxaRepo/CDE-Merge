@@ -91,7 +91,10 @@
             </div>
           </div>
           <div v-show="mode === 'edit'" class="controls">
-            <div class="sticky">
+            <div
+              class="sticky"
+              :class="{ ['has-content']: $store.state.editingId }"
+            >
               <div class="controls-target">
                 <portal-target name="controls"></portal-target>
               </div>
@@ -403,13 +406,28 @@ main {
   width: 100%;
   max-width: 450px;
   position: relative;
-
+  padding-left: 1rem;
   .sticky {
-    padding: 3.5rem 1rem 1rem;
+    transform: translateY(1rem);
+    top: 2.5rem;
+    padding: 1rem;
+    &.has-content {
+      background: $bars-bg;
+      border: 1px solid $bars-over;
+    }
+    ::v-deep {
+      .white-area {
+        margin: -1rem -1rem 1rem;
+        padding: 1rem;
+        background: $white;
+        border-bottom: 1px solid $bars-over;
+      }
+    }
   }
   .button {
     min-width: 100px;
     margin-top: 1rem;
+    margin-bottom: 0;
   }
   ::v-deep {
     h2 {

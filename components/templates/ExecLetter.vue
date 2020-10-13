@@ -17,7 +17,7 @@
       :count="$store.state.currentEmail.containers[0].components.length"
       :index="index"
       :container-name="$store.state.currentEmail.containers[0].name"
-      type="asa-footer"
+      type="asa-preheader"
     />
     <tr>
       <td align="center">
@@ -88,7 +88,7 @@
             :count="$store.state.currentEmail.containers[2].components.length"
             :index="index"
             :container-name="$store.state.currentEmail.containers[2].name"
-            type="asa-main"
+            type="asa-body"
           />
         </table>
       </td>

@@ -159,12 +159,23 @@ body {
 }
 
 p {
-  font-size: 1rem;
-  line-height: 1.4;
-  margin-bottom: 1rem;
+  font-size: inherit;
+  line-height: inherit;
+  margin-bottom: 1em;
+}
+.flex {
+  display: flex;
 }
 .relative {
   position: relative;
+}
+.field-row {
+  .field {
+    margin-right: 0.5rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 strong {
   color: inherit;
@@ -191,6 +202,9 @@ strong {
   outline: none;
   &:focus:not(:active) {
     box-shadow: none;
+  }
+  &:last-child {
+    margin-bottom: 0;
   }
   &[disabled] {
     background: $button-disabled;

@@ -1,5 +1,11 @@
 <template>
-  <div :style="`text-align:${alignment || 'left'};`">
+  <div
+    :style="`text-align:${alignment || 'left'};`"
+    :class="{
+      edit: $store.state.editMode && !$store.state.previewMode,
+      selected: $store.state.editingId === id
+    }"
+  >
     <div v-if="$store.state.editMode">
       <img
         v-if="value && value.src"
@@ -19,20 +25,22 @@
         Image
       </div>
       <portal v-if="$store.state.editingId === id" to="controls">
-        <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
-        <slot></slot>
-        <b-field>
-          <b-upload drag-drop @input="handleInput">
-            <section class="section">
-              <div class="content has-text-centered">
-                <p>
-                  <b-icon icon="upload" size="is-large"></b-icon>
-                </p>
-                <p>Drop your files here or click to upload</p>
-              </div>
-            </section>
-          </b-upload>
-        </b-field>
+        <div class="white-area">
+          <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
+          <slot></slot>
+          <b-field>
+            <b-upload drag-drop @input="handleInput">
+              <section class="section">
+                <div class="content has-text-centered">
+                  <p>
+                    <b-icon icon="upload" size="is-large"></b-icon>
+                  </p>
+                  <p>Drop your files here or click to upload</p>
+                </div>
+              </section>
+            </b-upload>
+          </b-field>
+        </div>
       </portal>
     </div>
     <img
@@ -114,6 +122,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.edit.selected {
+  display: block;
+  border: 3px dashed $red;
+  padding: 0.5rem;
+}
 .upload.is-expanded {
   width: auto;
 }

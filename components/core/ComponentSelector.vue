@@ -1,7 +1,10 @@
 <template>
   <tr
     class="component-container"
-    :class="{ edit: $store.state.editMode && !$store.state.previewMode }"
+    :class="{
+      edit: $store.state.editMode && !$store.state.previewMode,
+      selected: $store.state.editingId === component.id
+    }"
   >
     <td style="width:100%;display:table;">
       <table style="width:100%;">
@@ -20,7 +23,7 @@
             >
               <b-icon icon="cog"></b-icon>
             </button>
-            <button :disabled="index === 0" @click="handleMoveComponent(-1)">
+            <!-- <button :disabled="index === 0" @click="handleMoveComponent(-1)">
               <b-icon icon="chevron-up"></b-icon>
             </button>
             <button
@@ -28,7 +31,7 @@
               @click="handleMoveComponent(1)"
             >
               <b-icon icon="chevron-down"></b-icon>
-            </button>
+            </button> -->
           </div>
         </tr>
         <tr v-if="selectedComponent" ref="templateContainer">
@@ -134,6 +137,10 @@ export default {
   &.edit {
     min-height: 5rem;
     border: 1px dashed $black;
+    margin-bottom: 0.5rem;
+    &.selected {
+      border: 3px dashed $red;
+    }
   }
 }
 .selector {
