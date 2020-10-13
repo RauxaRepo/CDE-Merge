@@ -59,6 +59,9 @@ export default {
   overflow: hidden;
   display: flex;
   margin-bottom: 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
   button {
     height: 32px;
     width: 32px;

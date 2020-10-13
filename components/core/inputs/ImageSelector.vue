@@ -25,20 +25,22 @@
         Image
       </div>
       <portal v-if="$store.state.editingId === id" to="controls">
-        <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
-        <slot></slot>
-        <b-field>
-          <b-upload drag-drop @input="handleInput">
-            <section class="section">
-              <div class="content has-text-centered">
-                <p>
-                  <b-icon icon="upload" size="is-large"></b-icon>
-                </p>
-                <p>Drop your files here or click to upload</p>
-              </div>
-            </section>
-          </b-upload>
-        </b-field>
+        <div class="white-area">
+          <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
+          <slot></slot>
+          <b-field>
+            <b-upload drag-drop @input="handleInput">
+              <section class="section">
+                <div class="content has-text-centered">
+                  <p>
+                    <b-icon icon="upload" size="is-large"></b-icon>
+                  </p>
+                  <p>Drop your files here or click to upload</p>
+                </div>
+              </section>
+            </b-upload>
+          </b-field>
+        </div>
       </portal>
     </div>
     <img
