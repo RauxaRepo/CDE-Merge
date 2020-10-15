@@ -89,7 +89,7 @@ export default {
           this.$auth.setUser(existingUser)
           this.$auth.$storage.setLocalStorage('user', {
             id: existingUser.id,
-            templates: existingUser.templates,
+            clients: existingUser.clients,
             admin: existingUser.admin,
             username: existingUser.username
           })

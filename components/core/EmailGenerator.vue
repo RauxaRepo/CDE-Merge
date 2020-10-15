@@ -76,13 +76,13 @@
         </nav>
         <div
           v-show="mode === 'edit' || mode === 'preview'"
-          ref="templateContainer"
           class="template-container"
           :style="templateStyle"
         >
           <div class="viewport">
             <div :class="{ ['mask']: mode === 'preview' && mobilePreview }">
               <div
+                ref="emailContainer"
                 class="email custom-scroll"
                 :class="{ edit: mode === 'edit' }"
               >
@@ -206,11 +206,45 @@ export default {
         : emptyClient
     },
     getHtml: function() {
+      function componentToHex(c) {
+        const hex = parseInt(c).toString(16)
+        return hex.length === 1 ? '0' + hex : hex
+      }
+
+      function rgbToHex(r, g, b) {
+        return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
+      }
       const client = this.getClient()
-      const rawHtml = this.$refs.templateContainer.innerHTML.replace(
-        /data-v-[0-9a-z]*=""/g,
-        ''
-      )
+      let rawHtml = this.$refs.emailContainer.innerHTML
+        .replace(/data-v-[0-9a-z]*=""/g, '')
+        .replace(/fragment="[0-9a-z]*"/g, '')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, "'")
+        .replace(/<!---->/g, '')
+        .replace(/ class=""/g, '')
+      const colors = [...new Set(rawHtml.match(/rgba?\([^)]*\)/g))]
+      colors.forEach(element => {
+        try {
+          /* eslint-disable */
+          const re = new RegExp(
+            element.replace('(', '\\(').replace(')', '\\)'),
+            'g'
+          )
+          const values = element
+            .split('(')[1]
+            .split(')')[0]
+            .split(',')
+          const hex = rgbToHex(values[0], values[1], values[2]).replace(
+            / /g,
+            ''
+          )
+          rawHtml = rawHtml.replace(re, hex)
+        } catch (error) {
+          console.log(error)
+        }
+      })
       return pretty(`${client.preHTML}${rawHtml}${client.postHTML}`)
     },
     toggleMode: function(mode) {
@@ -240,7 +274,7 @@ export default {
           console.log(html)
           const emailName = this.name
           const zip = new JSZip()
-          zip.file('index.html', html)
+          zip.file(`${emailName}.html`, html)
           zip.file(
             `${emailName}.json`,
             JSON.stringify({

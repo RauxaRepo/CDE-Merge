@@ -44,6 +44,12 @@ export default {
     ContentPanel
   },
   beforeCreate: function() {
+    if (!this.$store.state.auth.user.admin) {
+      const user = this.$auth.$storage.getLocalStorage('user')
+      if (user && user.clients) {
+        this.$router.push(`/clients/${user.clients[0] }`)
+      }
+    }
     this.$store.commit('clearCurrentEmail')
     this.$store.commit('clearCurrentClient')
   },

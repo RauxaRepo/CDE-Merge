@@ -1,5 +1,8 @@
 <template>
-  <td align="center" style="background-color:#ffffff;">
+  <td
+    align="center"
+    style="background-color:#ffffff;padding-top:50px; padding-bottom: 40px;"
+  >
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <div class="white-area">
         <h2>{{ containerText }}</h2>

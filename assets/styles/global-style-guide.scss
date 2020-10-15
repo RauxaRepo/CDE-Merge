@@ -163,6 +163,9 @@ p {
   line-height: inherit;
   margin-bottom: 1em;
 }
+#quill-container p {
+  margin-bottom: 1em !important;
+}
 .flex {
   display: flex;
 }

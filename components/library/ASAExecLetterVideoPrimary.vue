@@ -11,7 +11,7 @@
       <tr>
         <td
           style="
-          padding: 40px 0px;
+          padding-top: 40px;
           font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
           font-size: 24px;
           line-height: 30px;
@@ -25,7 +25,7 @@
         </td>
       </tr>
       <tr>
-        <td align="center" style="padding-bottom: 50px">
+        <td align="center" style="padding-top: 40px">
           <!-- section image -->
           <a
             v-if="

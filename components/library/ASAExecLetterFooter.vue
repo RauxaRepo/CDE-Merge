@@ -26,8 +26,8 @@
               />
             </div>
             <div class="field">
-              <b-checkbox v-model="fields.showSocial">
-                Display Social Channels
+              <b-checkbox v-model="fields.showDisclaimer">
+                Display Disclaimer
               </b-checkbox>
             </div>
             <div class="field">
@@ -85,7 +85,7 @@
           </table>
         </td>
       </tr>
-      <tr v-if="fields.showSocial">
+      <tr>
         <td align="center" valign="top" style="padding-top: 20px;">
           <!-- SOCIAL ICONS -->
           <table
@@ -154,6 +154,7 @@
         <td align="center" valign="top">
           <!-- DYNAMIC FOOTER COPY -->
           <table
+            v-if="fields.showDisclaimer"
             cellpadding="0"
             cellspacing="0"
             border="0"
@@ -236,8 +237,8 @@
                   View in web
                 </a>
                 <br />
-                <span :style="`color: ${fields.textColor};`"
-                  >${campaign.name}</span
+                <span :style="`color: ${fields.textColor};`">
+                  ${campaign.name}</span
                 >
               </td>
             </tr>
@@ -288,8 +289,8 @@ export default {
         bgColor: '#E9E9E9',
         textColor: '#656565',
         disclaimer: 'TBD Disclaimer',
-        showSocial: true,
-        showUnsubscribe: true
+        showUnsubscribe: true,
+        showDisclaimer: true
       }
     }
   },

@@ -21,8 +21,7 @@ export default {
     return {
       fields: {
         title: '<p>Body Title</p>',
-        content:
-          '<p>Lorem Ipsum is simply dummy text</p>'
+        content: '<p>Lorem Ipsum is simply dummy text</p>'
       }
     }
   }
@@ -33,12 +32,12 @@ export default {
 .card {
   background: $blue;
   border-radius: 8px;
-  padding: .5rem;
+  padding: 0.5rem;
   margin-bottom: 1rem;
 }
 h2 {
   font-size: 1.5rem;
   line-height: 1.4;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 </style>

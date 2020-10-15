@@ -1,45 +1,43 @@
 <template>
-  <tr>
-    <td align="center" style="padding:15px 0;">
-      <table
-        cellpadding="0"
-        cellspacing="0"
-        border="0"
-        role="presentation"
-        style="width:92%;max-width:460px;"
-      >
-        <tr>
-          <td
-            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3c3d3f;text-align:left;"
+  <td align="center" style="padding:15px 0;">
+    <table
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      role="presentation"
+      style="width:92%;max-width:460px;"
+    >
+      <tr>
+        <td
+          style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3c3d3f;text-align:left;"
+        >
+          <TextInput
+            v-if="$store.state.editMode"
+            v-model.lazy="fields.preheader"
+            inline="true"
+          />
+          <a
+            v-else
+            href="${clickthrough('preheader_all_text','linkname=preheader_all_text')}"
+            style="color:#3c3d3f; text-decoration:underline;"
+            target="_blank"
           >
-            <TextInput
-              v-if="$store.state.editMode"
-              v-model.lazy="fields.preheader"
-              inline="true"
-            />
-            <a
-              v-else
-              href="${clickthrough('preheader_all_text','linkname=preheader_all_text')}"
-              style="color:#3c3d3f; text-decoration:underline;"
-              target="_blank"
-            >
-              <TextInput v-model.lazy="fields.preheader" inline="true" />
-            </a>
-            <!-- preheader hack include statement  -->
-            {{ include }}
-            &nbsp;|&nbsp;
-            <a
-              href="${clickthrough('webview','linkname=webview')}"
-              style="color:#3c3d3f;text-decoration:underline;"
-              target="_blank"
-            >
-              Web&nbsp;view
-            </a>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+            <TextInput v-model.lazy="fields.preheader" inline="true" />
+          </a>
+          <!-- preheader hack include statement  -->
+          {{ include }}
+          &nbsp;|&nbsp;
+          <a
+            href="${clickthrough('webview','linkname=webview')}"
+            style="color:#3c3d3f;text-decoration:underline;"
+            target="_blank"
+          >
+            Web&nbsp;view
+          </a>
+        </td>
+      </tr>
+    </table>
+  </td>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
   <span
+    v-if="$store.state.editMode && !$store.state.previewMode"
+    class="edit"
     :class="{
-      edit: $store.state.editMode && !$store.state.previewMode,
       selected: $store.state.editingId === id
     }"
   >
-    <span v-if="inline" @click="onShowControls" v-html="parsedValue"></span>
-    <div v-else @click="onShowControls" v-html="parsedValue"></div>
+    <span @click="onShowControls" v-html="parsedValue"></span>
     <portal v-if="$store.state.editingId === id" to="controls">
       <div class="white-area">
         <h2>{{ containerText ? `${containerText} /` : '' }} Textarea</h2>
@@ -15,6 +15,7 @@
       </div>
     </portal>
   </span>
+  <span v-else v-html="parsedValue"></span>
 </template>
 
 <script>
@@ -27,7 +28,7 @@ export default {
   components: {
     VueEditor
   },
-  props: ['value', 'inline', 'linkStyle'],
+  props: ['value', 'inline', 'linkStyle', 'containerText'],
   data() {
     return {
       id: getUID()
@@ -43,10 +44,10 @@ export default {
       }, 400)
     },
     parsedValue: function() {
-      if (this.inline && this.value && this.value.includes('<p>')) {
+      if (this.value && this.value.includes('<p>')) {
         const newValue = this.value
           .replace(/<p>/g, '<span>')
-          .replace(/<\/p>/g, '</span><br/>')
+          .replace(/<\/p>/g, this.inline ? '</span><br/>' : '</span><br/><br/>')
         return newValue.substring(0, newValue.length - 5)
       }
       if (this.linkStyle) {
@@ -68,15 +69,5 @@ export default {
   display: block;
   border: 3px dashed $red;
   padding: 0.5rem;
-}
-.modal-container * {
-  color: $black;
-  margin: 0;
-  font-size: 1rem;
-  ::v-deep {
-    p {
-      margin-bottom: 1rem !important;
-    }
-  }
 }
 </style>

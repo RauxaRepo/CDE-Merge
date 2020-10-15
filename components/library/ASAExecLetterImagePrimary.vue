@@ -1,5 +1,5 @@
 <template>
-  <td style="background-color: #ffffff">
+  <td style="background-color: #ffffff; padding:0;">
     <table
       cellpadding="0"
       cellspacing="0"
@@ -75,7 +75,7 @@
       style="width: 100%"
     >
       <tr>
-        <td align="center" style="padding-top: 50px; padding-bottom: 50px">
+        <td align="center" style="padding-top: 50px;">
           <!-- headline - 2 lines of text approximated with lorem ipsum -->
           <table
             role="presentation"

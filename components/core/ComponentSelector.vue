@@ -1,5 +1,6 @@
 <template>
   <tr
+    v-if="$store.state.editMode || selectedComponent"
     class="component-container"
     :class="{
       edit: $store.state.editMode && !$store.state.previewMode,
@@ -10,20 +11,20 @@
       <table style="width:100%;">
         <tr
           v-if="$store.state.editMode && !$store.state.previewMode"
-          class="selector"
         >
-          <span>{{ selectedDisplayName }}</span>
-          <div class="actions">
-            <button @click="handleRemoveComponent">
-              <b-icon icon="delete"></b-icon>
-            </button>
-            <button
-              v-if="selectedComponent && hasControls"
-              @click="onShowControls"
-            >
-              <b-icon icon="cog"></b-icon>
-            </button>
-            <!-- <button :disabled="index === 0" @click="handleMoveComponent(-1)">
+          <td class="selector">
+            <span>{{ selectedDisplayName }}</span>
+            <div class="actions">
+              <button @click="handleRemoveComponent">
+                <b-icon icon="delete"></b-icon>
+              </button>
+              <button
+                v-if="selectedComponent && hasControls"
+                @click="onShowControls"
+              >
+                <b-icon icon="cog"></b-icon>
+              </button>
+              <!-- <button :disabled="index === 0" @click="handleMoveComponent(-1)">
               <b-icon icon="chevron-up"></b-icon>
             </button>
             <button
@@ -32,7 +33,8 @@
             >
               <b-icon icon="chevron-down"></b-icon>
             </button> -->
-          </div>
+            </div>
+          </td>
         </tr>
         <tr v-if="selectedComponent" ref="templateContainer">
           <component
