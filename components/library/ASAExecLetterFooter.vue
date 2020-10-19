@@ -14,7 +14,7 @@
           <portal v-if="$store.state.editingId === component.id" to="controls">
             <div class="white-area">
               <h2>{{ containerText }}</h2>
-              <ColorSelector
+              <!-- <ColorSelector
                 v-model="fields.bgColor"
                 :colors="bgColors"
                 title="BG Color"
@@ -23,7 +23,7 @@
                 v-model="fields.textColor"
                 :colors="textColors"
                 title="Text Color"
-              />
+              /> -->
             </div>
             <div class="field">
               <b-checkbox v-model="fields.showDisclaimer">
