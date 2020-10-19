@@ -8,6 +8,11 @@
         <h2>{{ containerText }}</h2>
         <AlignmentSelector v-model="fields.alignment" />
       </div>
+      <div class="field">
+        <b-checkbox v-model="fields.showHeading">
+          Heading
+        </b-checkbox>
+      </div>
       <b-checkbox v-model="fields.showSignatureImage">
         Signature Image
       </b-checkbox>
@@ -21,6 +26,18 @@
       style="width:73%;max-width: 366px;"
       class="w92"
     >
+      <tr v-if="fields.showHeading">
+        <td
+          :class="{ edit: $store.state.editMode }"
+          :style="
+            `padding-bottom: 40px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:30px;color:#2774ae;text-align:${fields.alignment};`
+          "
+        >
+          <strong>
+            <TextInput v-model.lazy="fields.title" inline="true" />
+          </strong>
+        </td>
+      </tr>
       <!-- body copy -->
       <tr>
         <td
@@ -158,7 +175,9 @@ export default {
         signatureCompany: 'Alaska Airlines',
         fontSize: '16',
         fontLineHeight: '24',
-        body: defaultBody
+        body: defaultBody,
+        title: 'Lorem ipsum dolor amet.',
+        showHeading: false
       }
     }
   },
@@ -174,11 +193,5 @@ export default {
 }
 img {
   width: 100%;
-}
-.title-container {
-  position: relative;
-  &.edit {
-    padding-top: 4rem;
-  }
 }
 </style>

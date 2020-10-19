@@ -27,12 +27,12 @@
             </div>
             <div class="field">
               <b-checkbox v-model="fields.showDisclaimer">
-                Display Disclaimer
+                Disclaimer
               </b-checkbox>
             </div>
             <div class="field">
               <b-checkbox v-model="fields.showUnsubscribe">
-                Display Unsubscribe
+                Unsubscribe
               </b-checkbox>
             </div>
           </portal>
@@ -190,19 +190,22 @@
                   `padding-top: 18px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 18px; color: ${fields.textColor};`
                 "
               >
-                <fragment v-if="fields.showUnsubscribe">
-                  If you wish to unsubscribe from promotional communications,
-                  update your preferences
-                  <a
-                    href="${clickthrough('footer_unsubscribe_text','linkname=footer_unsubscribe_text','CUSTOMER_ID_='+CUSTOMER_ID_,'date_var='+deploy_date)}"
-                    :style="
-                      `color: ${fields.textColor}; text-decoration: underline;`
-                    "
-                  >
-                    here</a
-                  >. You may still receive transactional and trip-related emails
-                  from Alaska Airlines. This email was sent to
-                  ${EMAIL_ADDRESS_}. <br /><br />
+                <fragment>
+                  <span v-if="fields.showUnsubscribe" class="unsub_language">
+                    If you wish to unsubscribe from promotional communications,
+                    update your preferences
+                    <a
+                      href="${clickthrough('footer_unsubscribe_text','linkname=footer_unsubscribe_text','CUSTOMER_ID_='+CUSTOMER_ID_,'date_var='+deploy_date)}"
+                      :style="
+                        `color: ${fields.textColor}; text-decoration: underline;`
+                      "
+                    >
+                      here</a
+                    >. You may still receive transactional and trip-related
+                    emails from Alaska Airlines.
+                  </span>
+                  <span>This email was sent to ${EMAIL_ADDRESS_}.</span>
+                  <br /><br />
                 </fragment>
                 Alaska Airlines, PO Box 68900,
                 Seattle,&nbsp;WA&nbsp;98168&#8209;0900.

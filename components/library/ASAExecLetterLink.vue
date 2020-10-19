@@ -26,7 +26,6 @@
           </a>
           <span
             v-else
-            :href="fields.link"
             style="color:#2774ae;text-decoration:underline;"
             target="_blank"
           >

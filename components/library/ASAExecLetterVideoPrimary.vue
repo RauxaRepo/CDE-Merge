@@ -1,5 +1,15 @@
 <template>
   <td align="center" style="background-color: #ffffff; position:relative">
+    <portal v-if="$store.state.editingId === component.id" to="controls">
+      <div class="white-area">
+        <h2>{{ containerText }}</h2>
+      </div>
+      <div class="field">
+        <b-checkbox v-model="fields.showHeading">
+          Heading
+        </b-checkbox>
+      </div>
+    </portal>
     <table
       role="presentation"
       cellpadding="0"
@@ -8,7 +18,7 @@
       align="center"
       style="width: 92%; max-width: 460px"
     >
-      <tr>
+      <tr v-if="fields.showHeading">
         <td
           style="
           padding-top: 40px;
@@ -106,9 +116,13 @@ export default {
       fields: {
         file: null,
         link: '',
-        title: 'Lorem ipsum dolor amet.'
+        title: 'Lorem ipsum dolor amet.',
+        showHeading: true
       }
     }
+  },
+  mounted: function() {
+    this.$emit('has-controls')
   }
 }
 </script>

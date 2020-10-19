@@ -1,11 +1,11 @@
 <template>
-  <td align="center" style="padding:15px 0;">
+  <td align="center" style="padding:15px 20px;">
     <table
       cellpadding="0"
       cellspacing="0"
       border="0"
       role="presentation"
-      style="width:92%;max-width:460px;"
+      style="max-width:460px;"
     >
       <tr>
         <td

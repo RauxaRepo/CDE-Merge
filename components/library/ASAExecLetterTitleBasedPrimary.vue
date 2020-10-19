@@ -1,12 +1,22 @@
 <template>
-  <td align="center" style="background-color: #ffffff">
+  <td align="center" style="background-color: #ffffff; padding: 0 65px">
+    <portal v-if="$store.state.editingId === component.id" to="controls">
+      <div class="white-area">
+        <h2>{{ containerText }}</h2>
+      </div>
+      <div class="field">
+        <b-checkbox v-model="fields.showHeading">
+          Heading
+        </b-checkbox>
+      </div>
+    </portal>
     <table
       role="presentation"
       cellpadding="0"
       cellspacing="0"
       border="0"
       align="center"
-      style="width: 73%; max-width: 366px"
+      style="max-width: 366px"
       class="w92"
     >
       <tr>
@@ -40,7 +50,7 @@
           <TextInput v-model.lazy="fields.name" inline="true" />
         </td>
       </tr>
-      <tr>
+      <tr v-if="fields.showHeading">
         <td
           style="
           padding-top: 0px;
@@ -106,9 +116,13 @@ export default {
         file: null,
         link: '',
         name: 'Andrew Harrison, CCO',
-        title: 'Lorem ipsum dolor amet.'
+        title: 'Lorem ipsum dolor amet.',
+        showHeading: true
       }
     }
+  },
+  mounted: function() {
+    this.$emit('has-controls')
   }
 }
 </script>

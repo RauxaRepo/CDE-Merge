@@ -47,7 +47,6 @@
                   </a>
                   <span
                     v-else
-                    :href="fields.link"
                     style="background-color:#2774ae; border: 2px solid #2774ae; padding: 10px 24px; border-radius: 0px; color: #ffffff; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 24px; text-align: center; text-decoration: none; border-collapse: collapse;"
                     class="resetBorder buttonHover"
                     target="_blank"
