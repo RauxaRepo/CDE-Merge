@@ -5,7 +5,7 @@
         <h2>{{ containerText }}</h2>
       </div>
       <div class="field">
-        <b-checkbox v-model="fields.showHeading">
+        <b-checkbox v-model="fields.showHeadline">
           Heading
         </b-checkbox>
       </div>
@@ -18,7 +18,7 @@
       align="center"
       style="width: 92%; max-width: 460px"
     >
-      <tr v-if="fields.showHeading">
+      <tr v-if="fields.showHeadline">
         <td
           style="
           padding-top: 40px;
@@ -117,7 +117,7 @@ export default {
         file: null,
         link: '',
         title: 'Lorem ipsum dolor amet.',
-        showHeading: true
+        showHeadline: true
       }
     }
   },

@@ -85,7 +85,7 @@ export default {
       if (!name) {
         return null
       }
-      return () => import(`@/components/library/${name}`)
+      return () => import(`@/components/library/${this.$store.state.currentClient.id}/${name}`)
     },
     filteredComponentList() {
       return this.$store.state.components.list.filter(

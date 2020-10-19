@@ -272,7 +272,7 @@
 </template>
 
 <script>
-import ColorSelector from '@/components/core/inputs/ColorSelector'
+// import ColorSelector from '@/components/core/inputs/ColorSelector'
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
@@ -280,7 +280,7 @@ export default {
   name: 'ASAExecLetterFooter',
   components: {
     TextInput,
-    ColorSelector
+    // ColorSelector
   },
   mixins: [libComponentMixin],
   data: function() {

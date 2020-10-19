@@ -155,7 +155,7 @@ export default {
       if (!template) {
         return null
       }
-      return () => import(`@/components/templates/${template}`)
+      return () => import(`@/components/templates/${this.$store.state.currentClient.id}/${template}`)
     },
     templateStyle() {
       if (!this.selectedTemplate) {
