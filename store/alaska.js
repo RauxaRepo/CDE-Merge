@@ -299,12 +299,21 @@ a[x-apple-data-detectors] {
  ${mobileStyle}
 }
 </style>
-    <!--[if gte mso 9]><xml>
-    <o:OfficeDocumentSettings>
-    <o:AllowPNG/>
-    <o:PixelsPerInch>96</o:PixelsPerInch>
-    </o:OfficeDocumentSettings>
-    </xml><![endif]-->
+
+<!--[if gte mso 9]>
+<style type="text/css">
+   .primary_cta {
+      background-color: #2774ae !important;
+      border: 2px solid #2774ae !important;
+      padding: 10px 24px !important;
+      border-collapse: collapse !important;
+   }
+
+   .resetBorder {
+      border: none !important;
+   }
+</style>
+<![endif]-->
 `
 export default {
   id: 'alaska',
@@ -323,7 +332,13 @@ export default {
       <!--<![endif]-->
       <title>Alaska Airlines&reg;</title>
       <!-- CIRCULAR -->
-      ${ globalStyle }
+      ${globalStyle}
+      <!--[if gte mso 9]><xml>
+      <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+      </xml><![endif]-->
   </head>
   <body style="Margin:0;padding:0;background-color:#e9e9e9;">
       <table cellpadding="0" cellspacing="0" border="0" role="presentation" style="width:100%;background-color:#e9e9e9;">

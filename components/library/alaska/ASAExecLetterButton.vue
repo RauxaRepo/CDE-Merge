@@ -11,20 +11,6 @@
     >
       <tr>
         <td align="left" style="padding-top:55px;" class="relative">
-          <!--[if gte mso 9]>
-            <style type="text/css">
-              .primary_cta {
-                background-color: #2774ae !important;
-                border: 2px solid #2774ae !important;
-                padding: 10px 24px !important;
-                border-collapse: collapse !important;
-              }
-
-              .resetBorder {
-                border: none !important;
-              }
-            </style>
-          <![endif]-->
           <table
             cellpadding="0"
             cellspacing="0"
