@@ -5,8 +5,8 @@
         <h2>{{ containerText }}</h2>
       </div>
       <div class="field">
-        <b-checkbox v-model="fields.showHeading">
-          Heading
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
         </b-checkbox>
       </div>
     </portal>
@@ -78,7 +78,7 @@
     </table>
 
     <table
-      v-if="fields.showHeading"
+      v-if="fields.showHeadline"
       cellpadding="0"
       cellspacing="0"
       border="0"
@@ -139,7 +139,7 @@ export default {
         file: null,
         link: '',
         title: 'Lorem ipsum dolor amet.',
-        showHeading: true
+        showHeadline: true
       }
     }
   },

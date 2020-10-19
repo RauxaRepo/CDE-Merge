@@ -17,7 +17,7 @@
           "
         >
           <a
-            v-if="!($store.state.editMode && !$store.state.previewMode) && fields.link"
+            v-if="(!$store.state.editMode || $store.state.previewMode) && fields.link"
             :href="fields.link"
             style="color:#2774ae;text-decoration:underline;"
             target="_blank"

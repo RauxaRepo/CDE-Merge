@@ -6,7 +6,7 @@
       </div>
       <div class="field">
         <b-checkbox v-model="fields.showHeadline">
-          Heading
+          Headline
         </b-checkbox>
       </div>
     </portal>

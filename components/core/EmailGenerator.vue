@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-html="globalStyle"></div>
     <b-button
       tag="router-link"
       class="button link-button"
@@ -81,6 +82,7 @@
         >
           <div class="viewport">
             <div :class="{ ['mask']: mode === 'preview' && mobilePreview }">
+              <style v-if="mode === 'preview' && mobilePreview" v-html="mobileStyle"></style>
               <div
                 ref="emailContainer"
                 class="email custom-scroll"
@@ -136,6 +138,7 @@ export default {
   props: ['emailId', 'email'],
   data: function() {
     return {
+      client: null,
       mode: 'edit',
       mobilePreview: false,
       code: '',
@@ -163,6 +166,20 @@ export default {
       }
       const client = this.getClient()
       return client ? client.templateStyle : ''
+    },
+    globalStyle() {
+      if (!this.selectedTemplate) {
+        return ''
+      }
+      const client = this.getClient()
+      return client ? client.globalStyle : ''
+    },
+    mobileStyle() {
+      if (!this.selectedTemplate) {
+        return ''
+      }
+      const client = this.getClient()
+      return client ? client.mobileStyle : ''
     },
     backLink() {
       return this.$store.state.currentClient
@@ -192,6 +209,9 @@ export default {
   },
   methods: {
     getClient: function() {
+      if (this.client) {
+        return this.client
+      }
       const emptyClient = {
         postHTML: '',
         preHTML: ''

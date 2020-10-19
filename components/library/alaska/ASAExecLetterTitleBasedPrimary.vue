@@ -1,12 +1,12 @@
 <template>
-  <td align="center" style="background-color: #ffffff; padding: 0 65px">
+  <td align="center" style="background-color: #ffffff;">
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <div class="white-area">
         <h2>{{ containerText }}</h2>
       </div>
       <div class="field">
-        <b-checkbox v-model="fields.showHeading">
-          Heading
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
         </b-checkbox>
       </div>
     </portal>
@@ -50,7 +50,7 @@
           <TextInput v-model.lazy="fields.name" inline="true" />
         </td>
       </tr>
-      <tr v-if="fields.showHeading">
+      <tr v-if="fields.showHeadline">
         <td
           style="
           padding-top: 0px;
@@ -67,7 +67,7 @@
       </tr>
       <!-- divider line -->
       <tr>
-        <td align="left" style="padding-top: 30px; padding-bottom: 45px">
+        <td align="left" style="padding-top: 30px;">
           <table
             role="presentation"
             cellpadding="0"
@@ -117,7 +117,7 @@ export default {
         link: '',
         name: 'Andrew Harrison, CCO',
         title: 'Lorem ipsum dolor amet.',
-        showHeading: true
+        showHeadline: true
       }
     }
   },
