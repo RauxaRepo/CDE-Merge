@@ -158,6 +158,9 @@ export default {
   button {
     background: none;
     border: none;
+    &:hover {
+      color: $button-secondary
+    }
   }
 }
 .component-options {

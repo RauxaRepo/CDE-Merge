@@ -166,8 +166,12 @@ p {
 strong {
   font-weight: 700;
 }
-#quill-container p {
-  margin-bottom: 1em !important;
+#quill-container {
+  max-height: 300px;
+  overflow: auto;
+  p {
+    margin-bottom: 1em !important;
+  }
 }
 .flex {
   display: flex;
@@ -212,24 +216,14 @@ strong {
   &:last-child {
     margin-bottom: 0;
   }
-  &[disabled] {
-    background: $button-disabled;
-  }
-  &.primary {
-    color: $button-secondary;
-    background: $button-primary;
-    &:hover {
-      background: $button-secondary;
-      color: $button-primary;
-      border: 1px solid $button-primary;
-    }
-  }
+
   &.primary {
     color: $white;
     background: $button-primary;
     border: 1px solid transparent;
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
       background: $white;
       color: $button-primary;
       border: 1px solid $button-primary;
@@ -238,12 +232,17 @@ strong {
   &.secondary {
     color: $white;
     background: $button-secondary;
+    border: 1px solid transparent;
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
       background: $white;
       color: $button-secondary;
       border: 1px solid $button-secondary;
     }
+  }
+  &[disabled] {
+    background: $button-disabled;
   }
 }
 // Scroll

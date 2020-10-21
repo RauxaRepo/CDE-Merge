@@ -65,9 +65,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.edit.selected {
-  display: block;
-  border: 3px dashed $red;
-  padding: 0.5rem;
+.edit {
+  display: inline-block;
+  border: 3px dashed transparent;
+  &:hover {
+    border: 3px dashed $button-secondary;
+  }
+  &.selected {
+    border: 3px dashed $red;
+  }
 }
 </style>

@@ -64,12 +64,14 @@
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
+              :class="{ active: mobilePreview === false}"
               icon-right="laptop"
               @click="mobilePreview = false"
             />
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
+              :class="{ active: mobilePreview === true}"
               icon-right="cellphone"
               @click="mobilePreview = true"
             />
@@ -81,12 +83,39 @@
           :style="templateStyle"
         >
           <div class="viewport">
-            <div :class="{ ['mask']: mode === 'preview' && mobilePreview }">
-              <style v-if="mode === 'preview' && mobilePreview" v-html="mobileStyle"></style>
+            <div
+              v-if="mode === 'preview' && mobilePreview"
+              class="phone-options"
+            >
+              <b-button
+                v-for="(phone, index) in phones"
+                :key="phone.name"
+                class="button merge-button secondary"
+                :class="{ ['active']: index === selectedPhoneIndex }"
+                @click="selectedPhoneIndex = index"
+              >
+                {{ phone.name }}
+              </b-button>
+            </div>
+            <div :class="{ ['phone']: mode === 'preview' && mobilePreview }">
+              <style
+                v-if="mode === 'preview' && mobilePreview"
+                v-html="mobileStyle"
+              ></style>
               <div
                 ref="emailContainer"
                 class="email custom-scroll"
                 :class="{ edit: mode === 'edit' }"
+                :style="{
+                  width:
+                    mode === 'preview' && mobilePreview
+                      ? phones[selectedPhoneIndex].width
+                      : 'auto',
+                  height:
+                    mode === 'preview' && mobilePreview
+                      ? phones[selectedPhoneIndex].height
+                      : 'auto'
+                }"
               >
                 <component :is="componentInstance" />
               </div>
@@ -146,7 +175,35 @@ export default {
       saveAttempted: false,
       isImageModalActive: false,
       selectedTemplate: null,
-      selectedTemplateName: null
+      selectedTemplateName: null,
+      phones: [
+        {
+          name: 'iPhone 8',
+          width: '375px',
+          height: '667px'
+        },
+        {
+          name: 'iPhone 11',
+          width: '414px',
+          height: '896px'
+        },
+        {
+          name: 'Nexus 6P',
+          width: '411px',
+          height: '731px'
+        },
+        {
+          name: 'Google Pixel 4',
+          width: '411px',
+          height: '869px'
+        },
+        {
+          name: 'Galaxy S10',
+          width: '360px',
+          height: '760px'
+        }
+      ],
+      selectedPhoneIndex: 0
     }
   },
   computed: {
@@ -158,7 +215,10 @@ export default {
       if (!template) {
         return null
       }
-      return () => import(`@/components/templates/${this.$store.state.currentClient.id}/${template}`)
+      return () =>
+        import(
+          `@/components/templates/${this.$store.state.currentClient.id}/${template}`
+        )
     },
     templateStyle() {
       if (!this.selectedTemplate) {
@@ -429,13 +489,17 @@ main {
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  .mask {
-    background: url('/images/iphone.png');
-    padding: 63px 91px;
+  .phone {
+    border: 40px solid #121212;
+    box-shadow: 0px 3px 0 #000, 0px 4px 0 #000, 0px 5px 0 #000, 0px 7px 0 #000,
+      0px 10px 20px #000;
+    border-width: 55px 7px;
+    border-radius: 40px;
+    overflow: hidden;
+    transition: all 0.5s ease;
     margin: 2rem 0;
     .email {
-      width: 375px;
-      height: 754px;
+      -webkit-transition: all 0.5s ease;
       overflow: auto;
     }
   }
@@ -449,9 +513,21 @@ main {
   }
 }
 .viewport {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
+  .phone-options {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    .button {
+      justify-content: flex-start;
+      margin: 0 0 1px;
+    }
+  }
 }
 
 .controls {
