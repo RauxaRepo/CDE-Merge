@@ -46,7 +46,6 @@
                 color: #3c3b3f;
               "
               alt=""
-              :container-text="containerText"
             >
               <LinkField v-model="fields.link" />
             </ImageSelector>

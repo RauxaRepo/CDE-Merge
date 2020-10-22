@@ -21,7 +21,8 @@ export default {
     list: [
       { id: 'HeroTwoCol', name: 'Hero Two Col', clientId: 'test', tag: 'Two Col' },
       { id: 'HeroOneCol', name: 'Hero One Col', clientId: 'test', tag: 'Single Col' },
-      { id: 'ExecLetter', name: 'Exec Letter', clientId: 'alaska', tag: 'Letters', img: '/images/exec-letter.png' }
+      { id: 'ExecLetter', name: 'Exec Letter', clientId: 'alaska', tag: 'Letters', img: '/images/exec-letter.png' },
+      { id: 'MCKOffer', name: 'McKinsey Offer', clientId: 'alaska', tag: 'Offers', img: '/images/mck-offer.png' }
     ]
   },
   emails: {

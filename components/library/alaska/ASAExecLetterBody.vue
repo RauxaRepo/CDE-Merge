@@ -107,8 +107,6 @@
             border="0"
             alt=""
             img-style="display:inline-block;border:0;outline:0;width:100%;max-width:124px;height:auto;"
-            :alignment="fields.alignment"
-            :container-text="containerText"
           />
         </td>
       </tr>

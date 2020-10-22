@@ -1,10 +1,14 @@
 <template>
-  <button
-    v-if="$store.state.editMode && $store.state.multiComponents"
-    @click="$store.commit('newComponent', containerName )"
-  >
-    Add Container
-  </button>
+  <tr v-if="$store.state.editMode && !$store.state.previewMode">
+    <td align="right">
+      <b-button
+        class="button merge-button primary"
+        @click="$store.commit('newComponent', containerName)"
+      >
+        Add {{ containerName }}
+      </b-button>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -14,15 +18,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-button {
-  background: none;
-  padding: 0 1rem;
-  line-height: 2rem;
-  font-size: 1rem;
-  border: 1px dashed $black;
-  &:hover, &:focus {
-    background: $black;
-    color: $white;
-  }
+button:last-child {
+  margin: -0.4rem 0 0.5rem;
 }
 </style>

@@ -1,57 +1,59 @@
 <template>
-  <div
-    :style="`text-align:${alignment || 'left'};`"
-    :class="{
-      edit: $store.state.editMode && !$store.state.previewMode,
-      selected: $store.state.editingId === id
-    }"
-  >
-    <div v-if="$store.state.editMode">
+  <fragment>
+    <fragment v-if="!controlsId">
+      <div
+        v-if="$store.state.editMode && !$store.state.previewMode"
+        class="edit"
+        :class="{
+          selected: $store.state.editingId === id
+        }"
+      >
+        <img
+          v-if="value && value.src"
+          :src="value.src"
+          :width="width || ''"
+          :alt="alt || ''"
+          :style="imgStyle || ''"
+          :border="border || ''"
+          @click="onShowControls"
+        />
+        <div
+          v-else
+          class="add-message"
+          :style="imgStyle || ''"
+          @click="onShowControls"
+        >
+          Image
+        </div>
+      </div>
       <img
-        v-if="value && value.src"
-        :src="value.src"
+        v-else
+        :src="`./images/${value ? value.name : ''}`"
         :width="width || ''"
         :alt="alt || ''"
         :style="imgStyle || ''"
         :border="border || ''"
-        @click="onShowControls"
       />
-      <div
-        v-else
-        class="add-message"
-        :style="imgStyle || ''"
-        @click="onShowControls"
-      >
-        Image
+    </fragment>
+    <portal v-if="$store.state.editingId === id" to="controls">
+      <div class="white-area">
+        <h2>{{ containerText ? `${containerText}` : 'Image' }}</h2>
+        <slot></slot>
+        <b-field>
+          <b-upload drag-drop @input="handleInput">
+            <section class="section">
+              <div class="content has-text-centered">
+                <p>
+                  <b-icon icon="upload" size="is-large"></b-icon>
+                </p>
+                <p>Drop your files here or click to upload</p>
+              </div>
+            </section>
+          </b-upload>
+        </b-field>
       </div>
-      <portal v-if="$store.state.editingId === id" to="controls">
-        <div class="white-area">
-          <h2>{{ containerText ? `${containerText} /` : '' }} Image</h2>
-          <slot></slot>
-          <b-field>
-            <b-upload drag-drop @input="handleInput">
-              <section class="section">
-                <div class="content has-text-centered">
-                  <p>
-                    <b-icon icon="upload" size="is-large"></b-icon>
-                  </p>
-                  <p>Drop your files here or click to upload</p>
-                </div>
-              </section>
-            </b-upload>
-          </b-field>
-        </div>
-      </portal>
-    </div>
-    <img
-      v-else
-      :src="`./images/${value ? value.name : ''}`"
-      :width="width || ''"
-      :alt="alt || ''"
-      :style="imgStyle || ''"
-      :border="border || ''"
-    />
-  </div>
+    </portal>
+  </fragment>
 </template>
 
 <script>
@@ -69,7 +71,8 @@ export default {
     'alt',
     'imgStyle',
     'alignment',
-    'containerText'
+    'containerText',
+    'controlsId'
   ],
   data() {
     return {
@@ -82,6 +85,9 @@ export default {
     }
   },
   mounted() {
+    if (this.controlsId) {
+      this.id = this.controlsId
+    }
     if (this.placeholder && !this.value) {
       const placeholderSegments = this.placeholder.split('/')
       return axios

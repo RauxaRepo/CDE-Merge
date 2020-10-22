@@ -20,10 +20,12 @@ module.exports = {
     'no-debugger': 'off',
     'vue/v-on-style': 'off',
     'vue/no-v-html': 'off',
+    'vue/html-indent': 'off',
     'comma-dangle': 'off',
     'no-template-curly-in-string': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'template-curly-spacing': 'off',
-    indent: 'off'
+    indent: 'off',
+    quotes: 'off'
   }
 }

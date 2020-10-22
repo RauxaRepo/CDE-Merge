@@ -15,8 +15,8 @@
           <td class="selector">
             <span>{{ selectedDisplayName }}</span>
             <div class="actions">
-              <button @click="handleRemoveComponent">
-                <b-icon icon="delete"></b-icon>
+              <button v-if="count > 1 || selectedComponent" @click="handleRemoveComponent">
+                <b-icon :icon="count > 1 ? 'delete' : 'window-minimize'"></b-icon>
               </button>
               <button
                 v-if="selectedComponent && hasControls"
@@ -52,7 +52,7 @@
               !$store.state.previewMode
           "
         >
-          <td class="columns component-options">
+          <td class="columns is-multiline component-options">
             <div
               v-for="option in filteredComponentList"
               :key="option.name"

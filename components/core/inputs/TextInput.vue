@@ -9,7 +9,7 @@
     <span @click="onShowControls" v-html="parsedValue"></span>
     <portal v-if="$store.state.editingId === id" to="controls">
       <div class="white-area">
-        <h2>{{ containerText ? `${containerText} /` : '' }} Textarea</h2>
+        <h2>{{ containerText ? `${containerText}` : 'Textarea' }}</h2>
         <slot></slot>
         <VueEditor v-model="editorValue" />
       </div>
@@ -44,16 +44,17 @@ export default {
       }, 400)
     },
     parsedValue: function() {
+      let newValue = this.value
       if (this.value && this.value.includes('<p>')) {
-        const newValue = this.value
+        newValue = this.value
           .replace(/<p>/g, '<span>')
           .replace(/<\/p>/g, this.inline ? '</span><br/>' : '</span><br/><br/>')
-        return newValue.substring(0, newValue.length - 5)
+        newValue = newValue.substring(0, newValue.length - 5)
       }
       if (this.linkStyle) {
-        return this.value.replace(/<a/g, `<a style="${this.linkStyle}"`)
+        return newValue.replace(/<a/g, `<a style="${this.linkStyle}"`)
       }
-      return this.value
+      return newValue
     }
   },
   methods: {

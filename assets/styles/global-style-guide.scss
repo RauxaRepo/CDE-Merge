@@ -166,13 +166,14 @@ p {
 strong {
   font-weight: 700;
 }
-#quill-container {
-  max-height: 300px;
+.quillWrapper {
+  max-height: 400px;
   overflow: auto;
   p {
     margin-bottom: 1em !important;
   }
 }
+
 .flex {
   display: flex;
 }
@@ -265,79 +266,13 @@ strong {
   background: rgba(0, 0, 0, 0.55);
 }
 
-@media screen and (max-width: 499px) {
-  u ~ div {
-    width: 100vw !important;
-  }
-  div > u ~ div {
-    width: 100% !important;
-  }
-  .mw100 {
-    max-width: 100% !important;
-  }
-  .mw98 {
-    max-width: 98% !important;
-  }
-  .w100 {
-    width: 100% !important;
-  }
-  .w92 {
-    width: 92% !important;
-  }
-  .w60 {
-    width: 60% !important;
-  }
-  .w40 {
-    width: 40% !important;
-  }
-  .w200p {
-    width: 200px !important;
-  }
-  .mbl-hide-span {
-    display: none !important;
-  }
-  .mbl-hide {
-    display: none !important;
-  }
-  .footer-nav-odd {
-    max-width: 100% !important;
-    background-color: #f5f5f5 !important;
-  }
-  .user-info {
-    padding: 0 5px !important;
-    padding-bottom: 10px !important;
-    text-align: center !important;
-  }
-  .mbl-txt-cntr {
-    text-align: center !important;
-  }
-  .mbl-padding-top {
-    padding-top: 20px !important;
-  }
-  .center {
-    margin: 0 auto !important;
-  }
-  .mbl-blk {
-    display: block;
-  }
-  .mrad {
-    border-radius: 4px 4px 0 0 !important;
-  }
-  .hide {
-    display: none !important;
-  }
-  .show {
-    display: block !important;
-    width: auto !important;
-    overflow: visible !important;
-    float: none !important;
-    max-height: inherit !important;
-    line-height: inherit !important;
-  }
-  .block {
-    display: block !important;
-  }
-  .hauto {
-    height: auto !important;
-  }
+.visually-hidden {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	padding:0 !important;
+	border:0 !important;
+	height: 1px !important; 
+	width: 1px !important; 
+	overflow: hidden;
 }
