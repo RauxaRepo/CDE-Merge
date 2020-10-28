@@ -35,7 +35,7 @@
       cellspacing="0"
       border="0"
       role="presentation"
-      style="width:100%; max-width: 500px; background-color: #53B390;"
+      :style="`width:100%; max-width: 500px; background-color: ${fields.bgColor};`"
     >
       <tr>
         <td
@@ -50,7 +50,7 @@
             role="presentation"
             style="width: 65%; max-width:325px;"
           >
-            <tr>
+            <tr v-if="fields.showIcon">
               <td align="center">
                 <ImageSelector
                   v-model="fields.file"
@@ -62,7 +62,7 @@
                 />
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadline">
               <td
                 style="padding-top: 30px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:24px;line-height:30px;color:#ffffff;text-align:center;"
               >
@@ -71,14 +71,14 @@
                 </strong>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showBody">
               <td
                 style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px;line-height:24px;color:#ffffff;text-align:center;"
               >
                 <TextInput v-model.lazy="fields.body" />
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showCTA">
               <td align="center" style="padding-top: 20px;">
                 <fragment v-if="!$store.state.editMode">
                   {{ ctaSnippet }}
