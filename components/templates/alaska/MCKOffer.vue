@@ -99,7 +99,7 @@ export default {
         },
         {
           name: 'Header',
-          components: [{ id: getUID(), name: 'ASAHeader' }]
+          components: [{ id: getUID(), name: 'ASAHeaderOneThirdAlt' }]
         },
         {
           name: 'Primary',

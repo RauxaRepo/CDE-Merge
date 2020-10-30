@@ -1,15 +1,6 @@
 <template>
   <td :key="$store.state.editMode ? `${component.id}_Edit` : component.id " align="center">
-    <portal v-if="$store.state.editingId === component.id" to="controls">
-      <div class="white-area">
-        <h2>{{ containerText }}</h2>
-      </div>
-      <b-checkbox v-model="fields.personalized">
-        Personalized
-      </b-checkbox>
-    </portal>
     <table
-      v-if="fields.personalized"
       align="center"
       cellpadding="0"
       cellspacing="0"
@@ -71,46 +62,14 @@
         </td>
       </tr>
     </table>
-
-    <table
-      v-else
-      cellpadding="0"
-      cellspacing="0"
-      border="0"
-      role="presentation"
-      style="width:100%;max-width:500px;background-color:#01426a;border-radius:6px 4px 0 0;"
-    >
-      <tr>
-        <td align="left" valign="top" style="width:40%;">
-          <!-- logo -->
-          <a
-            href="${clickthrough('Logo_Home','linkname=Logo_Home')}"
-            style="text-decoration:none;"
-            target="_blank"
-          >
-            <img
-              src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/ALA_BI_Header1_Logox2_01_370x220.jpg"
-              width="185"
-              border="0"
-              alt="Alaska&reg;"
-              style="display:block;border:0;outline:0;padding:0;width:100%;max-width:185px;height:auto;border-radius:4px 0 0 0;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:14px;color:#ffffff;"
-            />
-          </a>
-        </td>
-      </tr>
-    </table>
   </td>
 </template>
 
 <script>
-// import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
 export default {
-  name: 'ASAHeader',
-  components: {
-    // TextInput
-  },
+  name: 'ASAHeaderOneThirdAlt',
   mixins: [libComponentMixin],
   data: function() {
     return {
@@ -162,12 +121,8 @@ export default {
           </#if>
         `,
       fields: {
-        personalized: true
       }
     }
-  },
-  mounted: function() {
-    this.$emit('has-controls')
   }
 }
 </script>
