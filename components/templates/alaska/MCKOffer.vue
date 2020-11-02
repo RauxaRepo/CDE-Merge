@@ -6,7 +6,7 @@
     cellspacing="0"
     border="0"
     role="presentation"
-    style="width:100%;max-width:500px;"
+    style="width:100%;max-width:500px;margin: 0 auto;"
     class="mw98"
   >
     <ComponentSelector
@@ -111,7 +111,7 @@ export default {
         },
         {
           name: 'Footer',
-          components: [{ id: getUID(), name: 'ASAExecLetterFooter' }]
+          components: [{ id: getUID(), name: 'ASAFooter' }]
         }
       ])
     }

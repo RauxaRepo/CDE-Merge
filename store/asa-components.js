@@ -36,12 +36,6 @@ export default [
     client: 'alaska'
   },
   {
-    name: 'ASAHeaderStatement',
-    type: 'asa-header',
-    text: 'Header Statement',
-    client: 'alaska'
-  },
-  {
     name: 'ASAHeaderLounge',
     type: 'asa-header',
     text: 'Header Lounge',
@@ -129,9 +123,21 @@ export default [
     client: 'alaska'
   },
   {
-    name: 'ASAExecLetterFooter',
+    name: 'ASAFooter',
     type: 'asa-footer',
-    text: 'Footer Promotional',
+    text: 'Footer (Promotional / Transactional)',
     client: 'alaska'
-  }
+  },
+  {
+    name: 'ASAFooterEZ',
+    type: 'asa-footer',
+    text: 'Footer EasyBiz',
+    client: 'alaska'
+  },
+  {
+    name: 'ASAFooterTANewsletter',
+    type: 'asa-footer',
+    text: 'Footer TA Newsletter',
+    client: 'alaska'
+  },
 ]

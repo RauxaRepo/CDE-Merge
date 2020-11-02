@@ -10,18 +10,17 @@
       class="w92"
     >
       <tr>
-        <td align="left" style="padding-top:55px;" class="relative">
+        <td :align="fields.alignment" style="padding-top:55px;" class="relative">
           <table
             cellpadding="0"
             cellspacing="0"
             border="0"
             role="presentation"
             class="primary_cta"
-            style="width:100%"
           >
             <tr>
               <td>
-                <div :style="`text-align:${fields.alignment};`">
+                <div>
                   <a
                     v-if="(!$store.state.editMode || $store.state.previewMode) && fields.link"
                     :href="fields.link"

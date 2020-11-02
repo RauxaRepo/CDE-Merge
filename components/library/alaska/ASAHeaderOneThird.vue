@@ -10,6 +10,9 @@
       <b-checkbox v-model="fields.mp">
         Mileage Plan logo
       </b-checkbox>
+      <b-checkbox v-model="fields.statement">
+        Statement
+      </b-checkbox>
     </portal>
     <fragment v-if="!$store.state.editMode">
       {{ assigns }}
@@ -90,22 +93,163 @@
       </tr>
     </table>
 
+    <table
+      v-if="fields.statement"
+      :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      style="width:100%;max-width:500px;background-color:#01426a;"
+    >
+      <tr>
+        <td align="center">
+          <fragment v-if="!$store.state.editMode">
+            {{ tableOneOpeningSnippet }}
+          </fragment>
+          <table
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="width:100%; max-width: 500px; background-color: #2774ae"
+          >
+            <tr>
+              <td align="center" valign="top" style="width: 100%;">
+                <table
+                  align="center"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="width:92%; margin: 0 auto;"
+                  class="w100"
+                >
+                  <tr>
+                    <td
+                      align="center"
+                      style="font-size:0;vertical-align:top; padding-top: 15px;"
+                    >
+                      <fragment v-if="!$store.state.editMode">
+                        {{ tableTwoOpeningSnippet }}
+                      </fragment>
+                      <div
+                        style="display:inline-block;width:100%;max-width:230px;vertical-align:top;"
+                      >
+                        <table
+                          cellpadding="0"
+                          cellspacing="0"
+                          border="0"
+                          style="width:100%;"
+                        >
+                          <tr>
+                            <td style="padding-bottom:15px;">
+                              <table
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                style="width:100%;"
+                              >
+                                <tr>
+                                  <td
+                                    style="width:120px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:20px;color:#ffffff;text-align:center;"
+                                  >
+                                    <a
+                                      href="${clickthrough('header_account','linkname=header_account')}"
+                                      style="color:#ffffff;text-decoration:none;"
+                                      >Your account &rsaquo;</a
+                                    >
+                                  </td>
+                                  <td
+                                    style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:20px;color:#ffffff;text-align:center;"
+                                  >
+                                    <a
+                                      href="${clickthrough('header_book','linkname=header_book')}"
+                                      style="color:#ffffff;text-decoration:none;"
+                                      >Book a flight &rsaquo;</a
+                                    >
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <fragment v-if="!$store.state.editMode">
+                        {{ tableTwoMiddleSnippet }}
+                      </fragment>
+                      <div
+                        style="display:inline-block;width: 100%;max-width:230px;vertical-align:top;"
+                      >
+                        <table
+                          cellpadding="0"
+                          cellspacing="0"
+                          border="0"
+                          style="width:100%;"
+                        >
+                          <tr>
+                            <td style="padding-bottom:15px;">
+                              <table
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="0"
+                                style="width:100%;"
+                              >
+                                <tr>
+                                  <td
+                                    style="width:120px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:20px;color:#ffffff;text-align:center;"
+                                  >
+                                    <a
+                                      href="${clickthrough('header_redeem','linkname=header_redeem')}"
+                                      style="color:#ffffff;text-decoration:none;"
+                                      >Redeem miles &rsaquo;</a
+                                    >
+                                  </td>
+                                  <td
+                                    style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:20px;color:#ffffff;text-align:center;"
+                                  >
+                                    <a
+                                      href="${clickthrough('header_earn','linkname=header_earn')}"
+                                      style="color:#ffffff;text-decoration:none;"
+                                      >Earn miles &rsaquo;</a
+                                    >
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <fragment v-if="!$store.state.editMode">
+                        {{ closingSnippet }}
+                      </fragment>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <fragment v-if="!$store.state.editMode">
+            {{ closingSnippet }}
+          </fragment>
+        </td>
+      </tr>
+    </table>
+
     <!--/mp/tier info-->
   </td>
 </template>
 
 <script>
-// import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
 export default {
   name: 'ASAHeaderOneThird',
-  components: {
-    // TextInput
-  },
   mixins: [libComponentMixin],
   data: function() {
     return {
+      tableOneOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr><td align="center" valign="top"><![endif]-->`,
+      tableTwoOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" style="width:460px;"><tr><td align="center" style="width:50%;"><![endif]-->`,
+      tableTwoMiddleSnippet: `<!--[if (gte mso 9)|(IE)]></td><td align="center" style="width:50%;"><![endif]-->`,
+      closingSnippet: `<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->`,
       assigns: `
         <#assign dateCheck=.now?date>
         <!-- for header 04a v1 mp -->
@@ -149,7 +293,8 @@ export default {
           </#if>
         `,
       fields: {
-        mp: false
+        mp: false,
+        statement: false
       }
     }
   },

@@ -109,6 +109,8 @@ export default {
       this.selectedComponent = option.name
     },
     handleRemoveComponent: function() {
+      this.hasControls = false
+      this.$store.commit('setEditingId', null)
       this.selectedComponent = null
       this.$store.commit('removeComponent', {
         containerName: this.containerName,

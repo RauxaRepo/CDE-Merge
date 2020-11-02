@@ -1,5 +1,41 @@
 <template>
   <td align="center">
+    <portal v-if="$store.state.editingId === component.id" to="controls">
+      <div class="white-area">
+        <h2>{{ containerText }}</h2>
+        <!-- <ColorSelector
+                v-model="fields.bgColor"
+                :colors="bgColors"
+                title="BG Color"
+              />
+              <ColorSelector
+                v-model="fields.textColor"
+                :colors="textColors"
+                title="Text Color"
+              /> -->
+      </div>
+      <div class="field">
+        <b-checkbox v-model="fields.showDisclaimer">
+          Disclaimer
+        </b-checkbox>
+      </div>
+      <div class="field">
+        <b-radio
+          v-model="fields.showUnsubscribe"
+          name="footerType"
+          :native-value="true"
+        >
+          Promotional
+        </b-radio>
+        <b-radio
+          v-model="fields.showUnsubscribe"
+          name="footerType"
+          :native-value="false"
+        >
+          Transactional
+        </b-radio>
+      </div>
+    </portal>
     <table
       cellpadding="0"
       cellspacing="0"
@@ -11,31 +47,6 @@
     >
       <tr>
         <td align="center" valign="top" style="padding-top: 35px;">
-          <portal v-if="$store.state.editingId === component.id" to="controls">
-            <div class="white-area">
-              <h2>{{ containerText }}</h2>
-              <!-- <ColorSelector
-                v-model="fields.bgColor"
-                :colors="bgColors"
-                title="BG Color"
-              />
-              <ColorSelector
-                v-model="fields.textColor"
-                :colors="textColors"
-                title="Text Color"
-              /> -->
-            </div>
-            <div class="field">
-              <b-checkbox v-model="fields.showDisclaimer">
-                Disclaimer
-              </b-checkbox>
-            </div>
-            <div class="field">
-              <b-checkbox v-model="fields.showUnsubscribe">
-                Unsubscribe
-              </b-checkbox>
-            </div>
-          </portal>
           <!-- FOOTER NAV -->
           <table
             cellpadding="0"
@@ -277,9 +288,9 @@ import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
 
 export default {
-  name: 'ASAExecLetterFooter',
+  name: 'ASAFooter',
   components: {
-    TextInput,
+    TextInput
     // ColorSelector
   },
   mixins: [libComponentMixin],

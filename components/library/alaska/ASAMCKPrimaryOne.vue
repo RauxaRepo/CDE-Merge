@@ -1,5 +1,8 @@
 <template>
-  <td style="background-color:#ffffff;">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    style="background-color:#ffffff;"
+  >
     <table
       cellpadding="0"
       cellspacing="0"
@@ -58,9 +61,7 @@
           >
             <LinkField v-model="fields.link" />
             <b-field label="Alt">
-              <b-input
-                v-model.lazy="fields.alt"
-              ></b-input>
+              <b-input v-model.lazy="fields.alt"></b-input>
             </b-field>
           </ImageSelector>
         </td>
@@ -86,7 +87,7 @@ export default {
       fields: {
         file: null,
         link: '',
-        alt: '',
+        alt: ''
       }
     }
   }

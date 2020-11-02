@@ -146,7 +146,7 @@ export default {
         },
         {
           name: 'Footer',
-          components: [{ id: getUID(), name: 'ASAExecLetterFooter' }]
+          components: [{ id: getUID(), name: 'ASAFooter' }]
         }
       ])
     }

@@ -27,6 +27,14 @@
         </div>
       </div>
       <img
+        v-if="$store.state.editMode && $store.state.previewMode"
+        :src="value.src"
+        :width="width || ''"
+        :alt="alt || ''"
+        :style="imgStyle || ''"
+        :border="border || ''"
+      />
+      <img
         v-else
         :src="`./images/${value ? value.name : ''}`"
         :width="width || ''"
