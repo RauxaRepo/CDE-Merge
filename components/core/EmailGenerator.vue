@@ -64,14 +64,14 @@
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
-              :class="{ active: mobilePreview === false}"
+              :class="{ active: mobilePreview === false }"
               icon-right="laptop"
               @click="mobilePreview = false"
             />
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
-              :class="{ active: mobilePreview === true}"
+              :class="{ active: mobilePreview === true }"
               icon-right="cellphone"
               @click="mobilePreview = true"
             />
@@ -248,6 +248,8 @@ export default {
     }
   },
   mounted: function() {
+    // Set preview mode as false if it was true in previous interaction
+    this.$store.commit('setPreviewMode', false)
     // clear portal
     this.$store.commit('setEditingId', null)
     // On existing email
@@ -551,6 +553,13 @@ main {
         background: $white;
         border-bottom: 1px solid $bars-over;
       }
+      .section-separator {
+        margin: 1rem 0;
+        border-bottom: 1px solid $bars-over;
+      }
+      h4 {
+        margin-bottom: 0.75rem;
+      }
     }
   }
   .button {
@@ -564,7 +573,7 @@ main {
       margin-bottom: 1.5rem;
     }
     .field {
-      max-width: 308px;
+      // max-width: 308px;
     }
   }
 }

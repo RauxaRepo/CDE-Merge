@@ -2,19 +2,20 @@
   <fragment>
     <fragment v-if="!controlsId">
       <div
-        v-if="$store.state.editMode && !$store.state.previewMode"
-        class="edit"
+        v-if="$store.state.editMode"
         :class="{
+          edit: !$store.state.previewMode,
           selected: $store.state.editingId === id
         }"
       >
         <img
-          v-if="value && value.src"
-          :src="value.src"
+          v-if="value"
+          :src="typeof value === 'string' ? value : value.src"
           :width="width || ''"
           :alt="alt || ''"
           :style="imgStyle || ''"
           :border="border || ''"
+          :align="align || ''"
           @click="onShowControls"
         />
         <div
@@ -27,20 +28,17 @@
         </div>
       </div>
       <img
-        v-if="$store.state.editMode && $store.state.previewMode"
-        :src="value.src"
-        :width="width || ''"
-        :alt="alt || ''"
-        :style="imgStyle || ''"
-        :border="border || ''"
-      />
-      <img
         v-else
-        :src="`./images/${value ? value.name : ''}`"
+        :src="
+          typeof value === 'string'
+            ? value
+            : `./images/${value ? value.name : ''}`
+        "
         :width="width || ''"
         :alt="alt || ''"
         :style="imgStyle || ''"
         :border="border || ''"
+        :align="align || ''"
       />
     </fragment>
     <portal v-if="$store.state.editingId === id" to="controls">
@@ -59,6 +57,12 @@
             </section>
           </b-upload>
         </b-field>
+        <b-field :type="isError ? 'is-danger' : ''" label="Image URL">
+          <b-input
+            v-model.lazy="url"
+            placeholder="https://rauxa.com/my-img.jpg"
+          ></b-input>
+        </b-field>
       </div>
     </portal>
   </fragment>
@@ -66,7 +70,7 @@
 
 <script>
 import axios from 'axios'
-import { getUID } from '@/shared/utils'
+import { getUID, isUrl } from '@/shared/utils'
 
 export default {
   name: 'ImageSelector',
@@ -77,6 +81,7 @@ export default {
     'width',
     'border',
     'alt',
+    'align',
     'imgStyle',
     'alignment',
     'containerText',
@@ -84,7 +89,9 @@ export default {
   ],
   data() {
     return {
-      id: getUID()
+      id: getUID(),
+      url: '',
+      isError: false
     }
   },
   computed: {
@@ -92,10 +99,26 @@ export default {
       return this.value ? URL.createObjectURL(this.value) : ''
     }
   },
+  watch: {
+    url: function() {
+      if (isUrl(this.url)) {
+        this.$emit('input', this.url)
+        this.isError = false
+      } else {
+        this.isError = true
+      }
+    }
+  },
   mounted() {
+    // parent controls logic
     if (this.controlsId) {
       this.id = this.controlsId
     }
+    // Placeholder string url
+    if (typeof this.value === 'string') {
+      this.url = this.value
+    }
+    // Placeholder file
     if (this.placeholder && !this.value) {
       const placeholderSegments = this.placeholder.split('/')
       return axios

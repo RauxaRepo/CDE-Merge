@@ -9,7 +9,7 @@
           Body Copy
         </b-checkbox>
       </div>
-      <b-checkbox v-model="fields.showCTA">
+      <b-checkbox v-model="fields.showCta">
         CTA
       </b-checkbox>
     </portal>
@@ -35,7 +35,7 @@
           <TextInput v-model.lazy="fields.body" />
         </td>
       </tr>
-      <tr v-if="fields.showCTA">
+      <tr v-if="fields.showCta">
         <td align="center" style="padding-top:20px; padding-bottom:40px;">
           <fragment v-if="!$store.state.editMode">
             {{ ctaSnippet }}
@@ -122,7 +122,7 @@ export default {
         showBody: true,
         body:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo&nbsp;eiusmod.',
-        showCTA: true,
+        showCta: true,
         ctaText: 'CTA 20 CHAR MAX',
         link: ''
       }

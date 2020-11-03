@@ -84,6 +84,36 @@ export default [
     client: 'alaska'
   },
   {
+    name: 'ASASecondaryBankCACC',
+    type: 'asa-secondary',
+    text: 'Secondary Bank CA CC',
+    client: 'alaska'
+  },
+  {
+    name: 'ASASecondaryBankCCSeven',
+    type: 'asa-secondary',
+    text: 'Secondary Bank CC 7',
+    client: 'alaska'
+  },
+  {
+    name: 'ASASecondaryBankCCSix',
+    type: 'asa-secondary',
+    text: 'Secondary Bank CC 6',
+    client: 'alaska'
+  },
+  {
+    name: 'ASASecondaryBank40k',
+    type: 'asa-secondary',
+    text: 'Secondary Bank 40k',
+    client: 'alaska'
+  },
+  {
+    name: 'ASASecondaryBankCCThree',
+    type: 'asa-secondary',
+    text: 'Secondary Bank CC 3',
+    client: 'alaska'
+  },
+  {
     name: 'ASAExecLetterTitleBasedPrimary',
     type: 'asa-hero',
     text: 'Title Based Primary',

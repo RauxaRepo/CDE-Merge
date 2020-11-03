@@ -38,7 +38,9 @@
           align="center"
           valign="top"
           :background="
-            $store.state.editMode
+            typeof fields.file === 'string'
+              ? fields.file
+              : $store.state.editMode
               ? fields.file
                 ? fields.file.src
                 : ''
@@ -48,8 +50,10 @@
             `max-width:500px; height: 460px;padding-top: 60px; padding-bottom: 60px;${
               $store.state.editMode
                 ? ''
-                : `background-image: url(./images/${
-                    fields.file ? fields.file.name : ''
+                : `background-image: url(${
+                    typeof fields.file === 'string'
+                      ? fields.file
+                      : `./images/${fields.file ? fields.file.name : ''}`
                   });`
             }background-size: cover; background-position: center; background-repeat: no-repeat;`
           "

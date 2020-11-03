@@ -25,7 +25,7 @@
         </b-checkbox>
       </div>
       <div class="field">
-        <b-checkbox v-model="fields.showCTA">
+        <b-checkbox v-model="fields.showCta">
           CTA
         </b-checkbox>
       </div>
@@ -78,7 +78,7 @@
                 <TextInput v-model.lazy="fields.body" />
               </td>
             </tr>
-            <tr v-if="fields.showCTA">
+            <tr v-if="fields.showCta">
               <td align="center" style="padding-top: 20px;">
                 <fragment v-if="!$store.state.editMode">
                   {{ ctaSnippet }}
@@ -175,7 +175,7 @@ export default {
         showBody: true,
         body:
           'Body Paragraph: 249 character max, no line limit. Lorem ipsum   dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.',
-        showCTA: true,
+        showCta: true,
         ctaText: 'CTA 20 CHAR MAX',
         link: ''
       }

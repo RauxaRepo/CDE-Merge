@@ -11,7 +11,7 @@
       <div class="white-area">
         <h2>{{ containerText ? `${containerText}` : 'Textarea' }}</h2>
         <slot></slot>
-        <VueEditor v-model="editorValue" />
+        <VueEditor v-model="editorValue" :editor-toolbar="customToolbar" />
       </div>
     </portal>
   </span>
@@ -28,10 +28,34 @@ export default {
   components: {
     VueEditor
   },
-  props: ['value', 'inline', 'linkStyle', 'containerText'],
+  props: ['value', 'inline', 'linkStyle', 'supStyle', 'containerText'],
   data() {
     return {
-      id: getUID()
+      id: getUID(),
+      customToolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        [
+          { align: '' },
+          { align: 'center' },
+          { align: 'right' },
+          { align: 'justify' }
+        ],
+
+        ['blockquote', 'code-block'],
+
+        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+
+        [{ script: 'sub' }, { script: 'super' }],
+
+        [{ indent: '-1' }, { indent: '+1' }],
+
+        [{ color: [] }, { background: [] }],
+
+        ['link'],
+
+        [{ direction: 'rtl' }],
+        ['clean']
+      ]
     }
   },
   computed: {
@@ -52,7 +76,10 @@ export default {
         newValue = newValue.substring(0, newValue.length - 5)
       }
       if (this.linkStyle) {
-        return newValue.replace(/<a/g, `<a style="${this.linkStyle}"`)
+        newValue = newValue.replace(/<a/g, `<a style="${this.linkStyle}"`)
+      }
+      if (this.supStyle) {
+        newValue = newValue.replace(/<sup/g, `<sup style="${this.supStyle}"`)
       }
       return newValue
     }
