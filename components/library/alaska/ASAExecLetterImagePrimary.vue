@@ -1,5 +1,8 @@
 <template>
-  <td style="background-color: #ffffff; padding:0;">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    style="background-color: #ffffff; padding:0;"
+  >
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <div class="white-area">
         <h2>{{ containerText }}</h2>

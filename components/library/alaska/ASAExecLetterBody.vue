@@ -1,5 +1,6 @@
 <template>
   <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
     align="center"
     style="background-color:#ffffff;padding-top:50px; padding-bottom: 40px;"
   >

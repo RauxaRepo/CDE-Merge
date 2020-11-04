@@ -1,5 +1,8 @@
 <template>
-  <td align="center">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+  >
     <table
       role="presentation"
       cellpadding="0"

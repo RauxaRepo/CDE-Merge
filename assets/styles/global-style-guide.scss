@@ -261,14 +261,14 @@ strong {
   height: 10px;
 }
 .custom-scroll::-webkit-scrollbar-track {
-  margin: 54px 0 53px;
+  margin: 24px 0 23px;
 }
 .custom-scroll::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0);
   border-radius: 10px;
   box-shadow: rgba(255, 255, 255, 0.3) 0 0 0 1px;
 }
-.custom-scroll:hover::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.45);
 }
 .custom-scroll::-webkit-scrollbar-thumb:hover {

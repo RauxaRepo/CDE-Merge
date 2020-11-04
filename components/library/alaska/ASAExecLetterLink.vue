@@ -1,5 +1,9 @@
 <template>
-  <td align="center" style="background-color:#ffffff; padding-bottom: 40px;">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+    style="background-color:#ffffff; padding-bottom: 40px;"
+  >
     <table
       role="presentation"
       cellpadding="0"
@@ -17,7 +21,10 @@
           "
         >
           <a
-            v-if="(!$store.state.editMode || $store.state.previewMode) && fields.link"
+            v-if="
+              (!$store.state.editMode || $store.state.previewMode) &&
+                fields.link
+            "
             :href="fields.link"
             style="color:#2774ae;text-decoration:underline;"
             target="_blank"
@@ -70,7 +77,7 @@ export default {
   },
   mounted: function() {
     this.$emit('has-controls')
-  },
+  }
 }
 </script>
 

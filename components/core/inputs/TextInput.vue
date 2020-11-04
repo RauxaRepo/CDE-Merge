@@ -31,7 +31,14 @@ export default {
   components: {
     VueEditor
   },
-  props: ['value', 'inline', 'linkStyle', 'supStyle', 'containerText'],
+  props: [
+    'value',
+    'itemIndex',
+    'inline',
+    'linkStyle',
+    'supStyle',
+    'containerText'
+  ],
   data() {
     return {
       id: getUID(),
@@ -64,14 +71,26 @@ export default {
   computed: {
     editorValue: {
       get() {
-        return this.value
+        return this.itemIndex !== undefined
+          ? this.value[this.itemIndex]
+          : this.value
       },
-      set: debounce(function(value) {
-        this.$emit('input', value)
+      set: debounce(function(newValue) {
+        if (this.itemIndex !== undefined) {
+          this.$emit(
+            'input',
+            this.value.map((item, i) =>
+              this.itemIndex === i ? newValue : item
+            )
+          )
+        } else {
+          this.$emit('input', newValue)
+        }
       }, 400)
     },
     parsedValue: function() {
-      let newValue = this.value
+      let newValue =
+        this.itemIndex !== undefined ? this.value[this.itemIndex] : this.value
       if (this.value && this.value.includes('<p>')) {
         newValue = this.value
           .replace(/<p>/g, '<span>')

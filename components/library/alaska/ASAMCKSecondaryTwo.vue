@@ -1,5 +1,8 @@
 <template>
-  <td  :key="$store.state.editMode ? `${component.id}_Edit` : component.id " align="center">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+  >
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <div class="white-area">
         <h2>{{ containerText }}</h2>
@@ -9,33 +12,44 @@
           title="BG Color"
         />
       </div>
-      <div class="field">
+      <b-field>
         <b-checkbox v-model="fields.showIcon">
           Icon
         </b-checkbox>
-      </div>
-      <div class="field">
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showHeadline">
           Headline
         </b-checkbox>
-      </div>
-      <div class="field">
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showBody">
           Body Copy
         </b-checkbox>
-      </div>
-      <div class="field">
+      </b-field>
+      <ListingControl
+        v-model="fields.listing"
+        :listing-defaults="listingDefaults"
+      />
+      <b-field>
+        <b-checkbox v-model="fields.showSecondaryBody">
+          Secondary Body Copy
+        </b-checkbox>
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showCta">
           CTA
         </b-checkbox>
-      </div>
+      </b-field>
     </portal>
     <table
       cellpadding="0"
       cellspacing="0"
       border="0"
       role="presentation"
-      :style="`width:100%; max-width: 500px; background-color: ${fields.bgColor};`"
+      :style="
+        `width:100%; max-width: 500px; background-color: ${fields.bgColor};`
+      "
     >
       <tr>
         <td
@@ -76,6 +90,43 @@
                 style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px;line-height:24px;color:#ffffff;text-align:center;"
               >
                 <TextInput v-model.lazy="fields.body" />
+              </td>
+            </tr>
+            <tr v-if="fields.listing.length > 0">
+              <td
+                style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#ffffff;text-align:left;"
+              >
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#ffffff;"
+                >
+                  <tr v-for="(item, i) in fields.listing" :key="`listing_${i}`">
+                    <td
+                      style="vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#ffffff;"
+                    >
+                      &#8226;
+                    </td>
+                    <td
+                      style="padding-left: 10px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#ffffff;"
+                    >
+                      <TextInput
+                        v-model.lazy="fields.listing"
+                        :item-index="i"
+                        inline="true"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr v-if="fields.showSecondaryBody">
+              <td
+                style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px;line-height:24px;color:#ffffff;text-align:center;"
+              >
+                <TextInput v-model.lazy="fields.secondaryBody" />
               </td>
             </tr>
             <tr v-if="fields.showCta">
@@ -166,6 +217,11 @@ export default {
           </style>
         <![endif]-->
         `,
+      listingDefaults: [
+        '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p><p>Repellat, aliquam! Velit veniam.</p>',
+        '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>',
+        '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>'
+      ],
       fields: {
         showIcon: true,
         file: null,
@@ -175,9 +231,13 @@ export default {
         showBody: true,
         body:
           'Body Paragraph: 249 character max, no line limit. Lorem ipsum   dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.',
+        showSecondaryBody: false,
+        secondaryBody:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo&nbsp;eiusmod.',
+        listing: [],
         showCta: true,
         ctaText: 'CTA 20 CHAR MAX',
-        link: ''
+        link: `\${clickthrough('secondary2_cta','linkname=secondary2_cta')}`
       }
     }
   },

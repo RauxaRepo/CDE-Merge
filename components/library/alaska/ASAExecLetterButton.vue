@@ -1,5 +1,9 @@
 <template>
-  <td align="center" style="background-color:#ffffff; padding-bottom: 40px;">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+    style="background-color:#ffffff; padding-bottom: 40px;"
+  >
     <table
       role="presentation"
       cellpadding="0"
@@ -10,7 +14,11 @@
       class="w92"
     >
       <tr>
-        <td :align="fields.alignment" style="padding-top:55px;" class="relative">
+        <td
+          :align="fields.alignment"
+          style="padding-top:55px;"
+          class="relative"
+        >
           <table
             cellpadding="0"
             cellspacing="0"
@@ -22,7 +30,10 @@
               <td>
                 <div>
                   <a
-                    v-if="(!$store.state.editMode || $store.state.previewMode) && fields.link"
+                    v-if="
+                      (!$store.state.editMode || $store.state.previewMode) &&
+                        fields.link
+                    "
                     :href="fields.link"
                     style="background-color:#2774ae; border: 2px solid #2774ae; padding: 10px 24px; border-radius: 0px; color: #ffffff; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 24px; text-align: center; text-decoration: none; border-collapse: collapse;"
                     class="resetBorder buttonHover"
@@ -39,9 +50,15 @@
                     <TextInput v-model.lazy="fields.text" inline="true" />
                   </span>
                 </div>
-                <portal v-if="$store.state.editingId === component.id" to="controls">
+                <portal
+                  v-if="$store.state.editingId === component.id"
+                  to="controls"
+                >
                   <h2>{{ containerText }}</h2>
-                  <AlignmentSelector v-model="fields.alignment" component-style="right:100%; left: auto" />
+                  <AlignmentSelector
+                    v-model="fields.alignment"
+                    component-style="right:100%; left: auto"
+                  />
                   <LinkField v-model="fields.link" />
                 </portal>
               </td>
@@ -78,7 +95,7 @@ export default {
   },
   mounted: function() {
     this.$emit('has-controls')
-  },
+  }
 }
 </script>
 
