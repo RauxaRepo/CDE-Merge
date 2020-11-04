@@ -101,11 +101,16 @@ export default {
   },
   watch: {
     url: function() {
-      if (isUrl(this.url)) {
-        this.$emit('input', this.url)
-        this.isError = false
+      if (this.url) {
+        if (isUrl(this.url)) {
+          this.$emit('input', this.url)
+          this.$store.commit('removeAsset', this.id)
+          this.isError = false
+        } else {
+          this.isError = true
+        }
       } else {
-        this.isError = true
+        this.isError = false
       }
     }
   },
@@ -140,11 +145,14 @@ export default {
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         const base64data = reader.result
+        this.isError = false
+        this.url = ''
         this.$emit('input', {
           name: name || file.name,
           src: base64data
         })
         this.$store.commit('addAsset', {
+          id: this.id,
           type: 'image',
           name: name || file.name,
           src: base64data

@@ -185,7 +185,16 @@ a {
    -ms-text-size-adjust:100%;
    -webkit-text-size-adjust:100%;
 }
-
+sup {
+   font-size: 55%;
+   vertical-align: top;
+   line-height: 1;
+}
+sub {
+   font-size: 55%;
+   vertical-align: bottom;
+   line-height: 1;
+}
 td {
    -ms-text-size-adjust:100%;
    -webkit-text-size-adjust:100%;

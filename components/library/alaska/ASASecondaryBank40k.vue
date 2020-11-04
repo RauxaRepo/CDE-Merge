@@ -30,17 +30,31 @@
               <td align="center">
                 <!-- section image -->
                 <a
-                  href="${clickthrough('secondary_a_40k_img','linkname=secondary_a_40k_img')}"
+                  v-if="!$store.state.editMode && fields.imageLink"
+                  :href="fields.imageLink"
                   style="text-decoration:none;"
                 >
-                  <img
-                    src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20200211_fa_secondary_a.jpg"
+                  <ImageSelector
+                    v-model="fields.image"
                     width="500"
                     border="0"
-                    alt="two people on mountain watching the sunset"
-                    style="display: block;border:0;outline:0;padding:0;width:100%;max-width:500px;height:auto;font-family:Arial,'Helvetica Neue', Helvetica,sans-serif;font-size:14px;color:#3c3b3f;"
+                    :alt="fields.imageAlt"
+                    img-style="display: block;border:0;outline:0;padding:0;width:100%;max-width:500px;height:auto;font-family:Arial,'Helvetica Neue', Helvetica,sans-serif;font-size:14px;color:#3c3b3f;"
                   />
                 </a>
+                <ImageSelector
+                  v-else
+                  v-model="fields.image"
+                  width="500"
+                  border="0"
+                  :alt="fields.imageAlt"
+                  img-style="display: block;border:0;outline:0;padding:0;width:100%;max-width:500px;height:auto;font-family:Arial,'Helvetica Neue', Helvetica,sans-serif;font-size:14px;color:#3c3b3f;"
+                >
+                  <LinkField v-model="fields.imageLink" />
+                  <b-field label="Alt">
+                    <b-input v-model.lazy="fields.imageAlt"></b-input>
+                  </b-field>
+                </ImageSelector>
                 <!-- / section image -->
               </td>
             </tr>
@@ -58,7 +72,7 @@
                     <td
                       style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-weight:bold;font-size:30px;line-height:40px;color:#2774ae;text-align:center;"
                     >
-                      More flying with&nbsp;friends
+                      <TextInput v-model.lazy="fields.headline" inline="true" />
                     </td>
                   </tr>
                 </table>
@@ -74,14 +88,11 @@
                     <td
                       style="padding-top:20px;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:26px;color:#3c3b3f;text-align:center;"
                     >
-                      Alaska Airlines Visa<span
-                        style="font-size:55%; line-height:7px; vertical-align:7px;"
-                        >&reg;</span
-                      >
-                      cardholders get more than just&nbsp;miles.<span
-                        style="font-size:55%; line-height:7px; vertical-align:7px;"
-                        >&dagger;</span
-                      >
+                      <TextInput
+                        v-model.lazy="fields.body"
+                        inline="true"
+                        sup-style="font-size:55%; line-height:7px; vertical-align:7px;"
+                      />
                       <br />
                       <img
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
@@ -91,7 +102,10 @@
                         style="width:15px; height:12px; display:inline-block; font-family:Arial, sans-serif; font-size:16px; color:#2774ae;"
                         alt="&#x2713;"
                       />
-                      Alaskaʼs Famous Companion Fare&trade;&nbsp;offer
+                      <TextInput
+                        v-model.lazy="fields.bulletOne"
+                        inline="true"
+                      />
                       <br />
                       <img
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
@@ -101,7 +115,10 @@
                         style="width:15px; height:12px; display:inline-block; font-family:Arial, sans-serif; font-size:16px; color:#2774ae;"
                         alt="&#x2713;"
                       />
-                      40,000 bonus mile&nbsp;offer
+                      <TextInput
+                        v-model.lazy="fields.bulletTwo"
+                        inline="true"
+                      />
                       <br />
                       <img
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
@@ -111,7 +128,10 @@
                         style="width:15px; height:12px; display:inline-block; font-family:Arial, sans-serif; font-size:16px; color:#2774ae;"
                         alt="&#x2713;"
                       />
-                      Free checked bag
+                      <TextInput
+                        v-model.lazy="fields.bulletThree"
+                        inline="true"
+                      />
                     </td>
                   </tr>
                   <tr v-if="fields.showCta">
@@ -203,12 +223,18 @@ export default {
         <![endif]-->
         `,
       fields: {
-        showIcon: true,
-        showImageHeadline: true,
+        image:
+          'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20200211_fa_secondary_a.jpg',
+        imageAlt: 'two people on mountain watching the sunset',
+        imageLink: `\${clickthrough('secondary_a_40k_img','linkname=secondary_a_40k_img')}`,
+        headline: 'More flying with&nbsp;friends',
+        body: `<p>Alaska Airlines Visa<sup>&reg;</sup> cardholders get more than just&nbsp;miles.<sup>&dagger;</sup></p>`,
+        bulletOne: 'Alaskaʼs Famous Companion Fare&trade;&nbsp;offer',
+        bulletTwo: '40,000 bonus mile&nbsp;offer',
+        bulletThree: 'Free checked bag',
         showCta: true,
         ctaText: 'APPLY NOW',
-        ctaLink: `\${clickthrough('secondary_a_40k_cta','linkname=secondary_a_40k_cta')}`,
-        showDivider: true
+        ctaLink: `\${clickthrough('secondary_a_40k_cta','linkname=secondary_a_40k_cta')}`
       }
     }
   },

@@ -6,7 +6,7 @@
     cellspacing="0"
     border="0"
     role="presentation"
-    style="width:100%;max-width:500px;margin: 0 auto;"
+    style="width:100%;max-width:500px;"
     class="mw98"
   >
     <ComponentSelector

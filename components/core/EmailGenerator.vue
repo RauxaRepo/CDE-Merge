@@ -501,6 +501,8 @@ main {
     transition: all 0.5s ease;
     margin: 2rem 0;
     .email {
+      display: flex;
+      justify-content: center;
       -webkit-transition: all 0.5s ease;
       overflow: auto;
     }

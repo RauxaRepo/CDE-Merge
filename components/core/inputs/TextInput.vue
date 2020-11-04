@@ -12,6 +12,9 @@
         <h2>{{ containerText ? `${containerText}` : 'Textarea' }}</h2>
         <slot></slot>
         <VueEditor v-model="editorValue" :editor-toolbar="customToolbar" />
+        <div style="margin-top: 0.3rem">
+          &reg;&nbsp;&trade;&nbsp;&copy;&nbsp;&dagger;&nbsp;æ
+        </div>
       </div>
     </portal>
   </span>

@@ -114,6 +114,13 @@ export default [
     client: 'alaska'
   },
   {
+    name: 'ASAMCKPrimaryOne',
+    type: 'asa-secondary',
+    text: 'Secondary 3 (Image Container)',
+    img: '/images/mck-primary-1.png',
+    client: 'alaska'
+  },
+  {
     name: 'ASAExecLetterTitleBasedPrimary',
     type: 'asa-hero',
     text: 'Title Based Primary',
@@ -156,6 +163,12 @@ export default [
     name: 'ASAFooter',
     type: 'asa-footer',
     text: 'Footer (Promotional / Transactional)',
+    client: 'alaska'
+  },
+  {
+    name: 'ASAFooterLegacyPromo',
+    type: 'asa-footer',
+    text: 'Footer Promotional Legacy',
     client: 'alaska'
   },
   {

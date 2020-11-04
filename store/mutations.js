@@ -18,6 +18,13 @@ export default {
       newAsset
     ]
   },
+  removeAsset(state, id) {
+    state.currentEmail.assets = [
+      ...state.currentEmail.assets.filter(
+        asset => asset.id !== id
+      )
+    ]
+  },
   updateComponent(state, update) {
     const containerToUpdate = getContainerToUpdate(state, update.name)
     containerToUpdate.components = [
