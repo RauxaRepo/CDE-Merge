@@ -9,8 +9,8 @@
         </span>
       </b-upload>
       <div v-if="errorFileName" class="error">
-        The file {{ errorFileName }} could not be uploaded. Please verify that the
-        file is the correct format.
+        The file {{ errorFileName }} could not be uploaded. Please verify that
+        the file is the correct format.
       </div>
     </aside>
     <main class="column">
@@ -27,7 +27,14 @@
             class="column is-one-third-tablet template"
           >
             <nuxt-link :to="`/create-email?template=${template.id}`">
-              <img :src="template.img || '/images/placeholder.png'" alt="" />
+              <img
+                :src="
+                  template.img
+                    ? require(`~/assets/images/${template.clientId}/${template.img}`)
+                    : '/images/placeholder.png'
+                "
+                alt=""
+              />
               <span>{{ template.name }}</span>
             </nuxt-link>
           </div>

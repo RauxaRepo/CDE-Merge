@@ -64,16 +64,16 @@
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
-              :class="{ active: mobilePreview === false }"
+              :class="{ active: $store.state.mobilePreview === false }"
               icon-right="laptop"
-              @click="mobilePreview = false"
+              @click="toggleMobilePreview(false)"
             />
             <b-button
               v-if="mode === 'preview'"
               class="button merge-button primary"
-              :class="{ active: mobilePreview === true }"
+              :class="{ active: $store.state.mobilePreview === true }"
               icon-right="cellphone"
-              @click="mobilePreview = true"
+              @click="toggleMobilePreview(true)"
             />
           </div>
         </nav>
@@ -84,7 +84,7 @@
         >
           <div class="viewport">
             <div
-              v-if="mode === 'preview' && mobilePreview"
+              v-if="mode === 'preview' && $store.state.mobilePreview"
               class="phone-options"
             >
               <b-button
@@ -97,9 +97,9 @@
                 {{ phone.name }}
               </b-button>
             </div>
-            <div :class="{ ['phone']: mode === 'preview' && mobilePreview }">
+            <div :class="{ ['phone']: mode === 'preview' && $store.state.mobilePreview }">
               <style
-                v-if="mode === 'preview' && mobilePreview"
+                v-if="$store.state.editMode && mode === 'preview' && $store.state.mobilePreview"
                 v-html="mobileStyle"
               ></style>
               <div
@@ -108,11 +108,11 @@
                 :class="{ edit: mode === 'edit' }"
                 :style="{
                   width:
-                    mode === 'preview' && mobilePreview
+                    mode === 'preview' && $store.state.mobilePreview
                       ? phones[selectedPhoneIndex].width
                       : 'auto',
                   height:
-                    mode === 'preview' && mobilePreview
+                    mode === 'preview' && $store.state.mobilePreview
                       ? phones[selectedPhoneIndex].height
                       : 'auto'
                 }"
@@ -169,7 +169,6 @@ export default {
     return {
       client: null,
       mode: 'edit',
-      mobilePreview: false,
       code: '',
       name: '',
       saveAttempted: false,
@@ -250,6 +249,7 @@ export default {
   mounted: function() {
     // Set preview mode as false if it was true in previous interaction
     this.$store.commit('setPreviewMode', false)
+    this.$store.commit('setMobilePreview', false)
     // clear portal
     this.$store.commit('setEditingId', null)
     // On existing email
@@ -341,6 +341,9 @@ export default {
       } else {
         this.code = ''
       }
+    },
+    toggleMobilePreview: function(isModalPreview) {
+      this.$store.commit('setMobilePreview', isModalPreview)
     },
     handleTemplateSelected: function(value) {
       this.$store.commit('clearCurrentEmail')

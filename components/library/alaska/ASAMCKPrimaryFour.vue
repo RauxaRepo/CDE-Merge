@@ -1,5 +1,8 @@
 <template>
-  <td :key="$store.state.editMode ? `${component.id}_Edit` : component.id " align="center">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+  >
     <ImageSelector
       v-model="fields.file"
       placeholder="/images/mck-primary-4-default.png"
@@ -113,9 +116,12 @@
                           `width:140px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:100px;line-height:100px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
                         "
                       >
-                        <strong
-                          ><TextInput v-model.lazy="fields.amount" inline="true"
-                        /></strong>
+                        <strong>
+                          <TextInput
+                            v-model.lazy="fields.amount"
+                            inline="true"
+                          />
+                        </strong>
                       </td>
                       <td
                         width="60"
@@ -164,13 +170,18 @@
               </tr>
               <tr v-else>
                 <td
-                  :style="`padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:100px;line-height:100px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`"
+                  :style="
+                    `padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:100px;line-height:100px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
+                  "
                 >
                   <span
                     style="font-size:58%; line-height:33px; vertical-align:33px;"
                     ><strong>$</strong></span
                   ><strong
-                    ><TextInput v-model.lazy="fields.amount" inline="true"/><span
+                    ><TextInput
+                      v-model.lazy="fields.amount"
+                      inline="true"
+                    /><span
                       style="font-size:55%; line-height:35px; vertical-align:35px;"
                       >*</span
                     ></strong
@@ -193,14 +204,12 @@ import TextInput from '@/components/core/inputs/TextInput'
 import ColorSelector from '@/components/core/inputs/ColorSelector'
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import { libComponentMixin } from '@/shared/mixins'
-import LinkField from '@/components/core/inputs/LinkField'
 
 export default {
   name: 'ASAMCKPrimaryFour',
   components: {
     ColorSelector,
     ImageSelector,
-    LinkField,
     TextInput
   },
   mixins: [libComponentMixin],

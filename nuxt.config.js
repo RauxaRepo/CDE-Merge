@@ -49,7 +49,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@aceforth/nuxt-optimized-images',
   ],
   /*
    ** Nuxt.js modules
@@ -62,6 +63,9 @@ export default {
     'nuxt-clipboard2',
     'portal-vue/nuxt'
   ],
+  optimizedImages: {
+    optimizeImages: true
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

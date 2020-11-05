@@ -42,9 +42,49 @@
         </b-checkbox>
       </b-field>
     </portal>
-    <fragment v-if="!$store.state.editMode">
-      {{ stylesSnippet }}
-    </fragment>
+    <style type="text/css">
+      @media screen and (max-device-width: 480px) {
+        .mob_divider {
+          height: 1px !important;
+          width: 80px !important;
+          line-height: 1px !important;
+        }
+        .padtop30 {
+          padding-top: 30px !important;
+        }
+        .ptb45 {
+          padding-top: 45px !important;
+          padding-bottom: 45px !important;
+        }
+        .pad0 {
+          padding: 0 !important;
+        }
+      }
+    </style>
+    <style
+      v-if="
+        $store.state.editMode &&
+          $store.state.previewMode &&
+          $store.state.mobilePreview
+      "
+      type="text/css"
+    >
+      .mob_divider {
+        height: 1px !important;
+        width: 80px !important;
+        line-height: 1px !important;
+      }
+      .padtop30 {
+        padding-top: 30px !important;
+      }
+      .ptb45 {
+        padding-top: 45px !important;
+        padding-bottom: 45px !important;
+      }
+      .pad0 {
+        padding: 0 !important;
+      }
+    </style>
     <table
       align="center"
       cellpadding="0"
@@ -713,27 +753,6 @@ export default {
   mixins: [libComponentMixin],
   data: function() {
     return {
-      stylesSnippet: ` 
-      <style type="text/css">
-        @media screen and (max-device-width:480px){
-            .mob_divider {
-                height:1px !important;
-                width:80px !important;
-                line-height:1px !important;
-            }
-            .padtop30 {
-                padding-top:30px !important;
-            }
-            .ptb45 {
-                padding-top:45px !important;
-                padding-bottom:45px !important;
-            }
-            .pad0 {
-                padding:0 !important;
-            }
-        }
-      </style>
-      `,
       ctaSnippet: `
         <!-- border cta -->
         <!--[if gte mso 9]>

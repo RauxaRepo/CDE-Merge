@@ -9,14 +9,17 @@
   >
     <td style="width:100%;display:table;">
       <table style="width:100%;">
-        <tr
-          v-if="$store.state.editMode && !$store.state.previewMode"
-        >
+        <tr v-if="$store.state.editMode && !$store.state.previewMode">
           <td class="selector">
             <span>{{ selectedDisplayName }}</span>
             <div class="actions">
-              <button v-if="count > 1 || selectedComponent" @click="handleRemoveComponent">
-                <b-icon :icon="count > 1 ? 'delete' : 'window-minimize'"></b-icon>
+              <button
+                v-if="count > 1 || selectedComponent"
+                @click="handleRemoveComponent"
+              >
+                <b-icon
+                  :icon="count > 1 ? 'delete' : 'window-minimize'"
+                ></b-icon>
               </button>
               <button
                 v-if="selectedComponent && hasControls"
@@ -59,7 +62,14 @@
               class="column is-one-third-tablet template"
             >
               <button @click="handleComponentSelected(option)">
-                <img :src="option.img || '/images/placeholder.png'" alt="" />
+                <img
+                  :src="
+                    option.img
+                      ? require(`~/assets/images/${option.client}/${option.img}`)
+                      : '/images/placeholder.png'
+                  "
+                  alt=""
+                />
                 <span>{{ option.text || option.name }}</span>
               </button>
             </div>
@@ -85,7 +95,10 @@ export default {
       if (!name) {
         return null
       }
-      return () => import(`@/components/library/${this.$store.state.currentClient.id}/${name}`)
+      return () =>
+        import(
+          `@/components/library/${this.$store.state.currentClient.id}/${name}`
+        )
     },
     filteredComponentList() {
       return this.$store.state.components.list.filter(
@@ -161,7 +174,7 @@ export default {
     background: none;
     border: none;
     &:hover {
-      color: $button-secondary
+      color: $button-secondary;
     }
   }
 }

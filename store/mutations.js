@@ -90,6 +90,9 @@ export default {
   setPreviewMode(state, value) {
     state.previewMode = value
   },
+  setMobilePreview(state, value) {
+    state.mobilePreview = value
+  },
   setUser(state, user) {
     if (state.auth) {
       state.auth.user = user
