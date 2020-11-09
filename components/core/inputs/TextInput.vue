@@ -11,10 +11,11 @@
       <div class="white-area">
         <h2>{{ containerText ? `${containerText}` : 'Textarea' }}</h2>
         <slot></slot>
-        <VueEditor v-model="editorValue" :editor-toolbar="customToolbar" />
-        <div style="margin-top: 0.3rem">
-          &reg;&nbsp;&trade;&nbsp;&copy;&nbsp;&dagger;&nbsp;æ
-        </div>
+        <VueEditor
+          ref="quillEditor"
+          v-model="editorValue"
+          :editor-options="editorSettings"
+        />
       </div>
     </portal>
   </span>
@@ -26,6 +27,31 @@ import { VueEditor } from 'vue2-editor'
 import { debounce } from 'lodash'
 import { getUID } from '@/shared/utils'
 
+const customToolbar = [
+  ['bold', 'italic', 'underline', 'strike'],
+  [
+    { align: '' },
+    { align: 'center' },
+    { align: 'right' },
+    { align: 'justify' }
+  ],
+
+  ['blockquote', 'code-block'],
+
+  [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+
+  [{ script: 'sub' }, { script: 'super' }],
+
+  [{ indent: '-1' }, { indent: '+1' }],
+
+  [{ color: [] }, { background: [] }],
+
+  ['link'],
+
+  [{ direction: 'rtl' }],
+  ['clean'],
+  ['reg', 'trade', 'copy', 'dagger', 'aelig', 'nbsp']
+]
 export default {
   name: 'TextInput',
   components: {
@@ -42,30 +68,33 @@ export default {
   data() {
     return {
       id: getUID(),
-      customToolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
-        [
-          { align: '' },
-          { align: 'center' },
-          { align: 'right' },
-          { align: 'justify' }
-        ],
-
-        ['blockquote', 'code-block'],
-
-        [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-
-        [{ script: 'sub' }, { script: 'super' }],
-
-        [{ indent: '-1' }, { indent: '+1' }],
-
-        [{ color: [] }, { background: [] }],
-
-        ['link'],
-
-        [{ direction: 'rtl' }],
-        ['clean']
-      ]
+      editorSettings: {
+        modules: {
+          toolbar: {
+            container: customToolbar,
+            handlers: {
+              reg: () => {
+                this.insertMarkup('<sup>&reg;</sup>')
+              },
+              trade: () => {
+                this.insertMarkup('<sup>&trade;</sup>')
+              },
+              copy: () => {
+                this.insertMarkup('<sup>&copy;</sup>')
+              },
+              dagger: () => {
+                this.insertMarkup('<sup>&dagger;</sup>')
+              },
+              aelig: () => {
+                this.insertMarkup('<sup>&aelig;</sup>')
+              },
+              nbsp: () => {
+                this.insertMarkup('<span>&nbsp;</span>')
+              },
+            }
+          }
+        }
+      }
     }
   },
   computed: {
@@ -107,6 +136,11 @@ export default {
     }
   },
   methods: {
+    insertMarkup(markup) {
+      const quill = this.$refs.quillEditor.quill
+      const pos = quill.getSelection(true).index
+      this.$refs.quillEditor.quill.clipboard.dangerouslyPasteHTML(pos, markup)
+    },
     onShowControls() {
       this.$store.commit('setEditingId', this.id)
     }

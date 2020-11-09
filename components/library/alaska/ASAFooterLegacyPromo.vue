@@ -268,7 +268,9 @@
                                 >
                                   Let's be friends.
                                 </td>
-                                <td style="font-size:0;width:17px;">&nbsp;</td>
+                                <td style="font-size:0;width:17px;">
+                                  &nbsp;
+                                </td>
                                 <td align="center" valign="bottom">
                                   <a
                                     href="${clickthrough('Social_Twitter','linkname=Social_Twitter','date_var='+deploy_date)}"
@@ -282,7 +284,9 @@
                                     />
                                   </a>
                                 </td>
-                                <td style="font-size:0;width:17px;">&nbsp;</td>
+                                <td style="font-size:0;width:17px;">
+                                  &nbsp;
+                                </td>
                                 <td align="center" valign="bottom">
                                   <a
                                     href="${clickthrough('Social_Facebook','linkname=Social_Facebook','date_var='+deploy_date)}"
@@ -296,7 +300,9 @@
                                     />
                                   </a>
                                 </td>
-                                <td style="font-size:0;width:17px;">&nbsp;</td>
+                                <td style="font-size:0;width:17px;">
+                                  &nbsp;
+                                </td>
                                 <td align="center" valign="bottom">
                                   <a
                                     href="${clickthrough('Social_Instagram','linkname=Social_Instagram','date_var='+deploy_date)}"
@@ -310,7 +316,9 @@
                                     />
                                   </a>
                                 </td>
-                                <td style="font-size:0;width:17px;">&nbsp;</td>
+                                <td style="font-size:0;width:17px;">
+                                  &nbsp;
+                                </td>
                                 <td align="center" valign="bottom">
                                   <a
                                     href="${clickthrough('Social_Pinterest','linkname=Social_Pinterest','date_var='+deploy_date)}"

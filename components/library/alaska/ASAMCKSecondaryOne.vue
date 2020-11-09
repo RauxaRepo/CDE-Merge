@@ -41,9 +41,9 @@
         <td
           style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:36px;color:#2774ae;text-align:center;"
         >
-          <strong
-            ><TextInput v-model.lazy="fields.headline" inline="true"
-          /></strong>
+          <strong>
+            <TextInput v-model.lazy="fields.headline" inline="true" />
+          </strong>
         </td>
       </tr>
       <tr v-if="fields.showBody">

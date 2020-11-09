@@ -181,9 +181,9 @@
                 align="center"
                 style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:24px;line-height:30px; color:#2774ae;"
               >
-                <strong
-                  ><TextInput v-model.lazy="fields.andText" inline="true"
-                /></strong>
+                <strong>
+                  <TextInput v-model.lazy="fields.andText" inline="true" />
+                </strong>
               </td>
             </tr>
           </table>

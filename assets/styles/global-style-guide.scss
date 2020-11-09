@@ -181,6 +181,39 @@ strong {
     font-size: 55%;
     line-height: 0.8;
   }
+  .ql-reg,
+  .ql-nbsp,
+  .ql-trade,
+  .ql-copy,
+  .ql-dagger,
+  .ql-aelig {
+    width: auto !important;
+    font-weight: bold;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    min-width: 28px;
+  }
+  .ql-reg::after {
+    content: '®';
+    font-size: 20px;
+    margin-top: 6px;
+  }
+  .ql-nbsp::after {
+    content: '&nbsp;';
+  }
+  .ql-trade::after {
+    content: '™';
+  }
+  .ql-copy::after {
+    content: '©';
+  }
+  .ql-dagger::after {
+    content: '†';
+  }
+  .ql-aelig::after {
+    content: 'æ';
+  }
 }
 
 .flex {
