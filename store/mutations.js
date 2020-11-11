@@ -20,9 +20,7 @@ export default {
   },
   removeAsset(state, id) {
     state.currentEmail.assets = [
-      ...state.currentEmail.assets.filter(
-        asset => asset.id !== id
-      )
+      ...state.currentEmail.assets.filter(asset => asset.id !== id)
     ]
   },
   updateComponent(state, update) {
@@ -57,6 +55,14 @@ export default {
       index,
       delta
     )
+  },
+  updateContainer(state, { containerIndex, newContainer }) {
+    state.currentEmail = {
+      ...state.currentEmail,
+      containers: state.currentEmail.containers.map((container, i) =>
+        i === containerIndex ? newContainer : container
+      )
+    }
   },
   setContainers(state, containers) {
     state.currentEmail = {

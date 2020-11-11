@@ -48,17 +48,20 @@
             :container-name="$store.state.currentEmail.containers[2].name"
             type="asa-primary"
           />
-          <ComponentSelector
-            v-for="(component, index) in $store.state.currentEmail.containers[3]
-              .components"
-            :key="component.id"
-            :component="component"
-            :count="$store.state.currentEmail.containers[3].components.length"
-            :max-components="2"
-            :index="index"
-            :container-name="$store.state.currentEmail.containers[3].name"
-            type="asa-secondary"
-          />
+          <draggable v-model="secondaries">
+            <ComponentSelector
+              v-for="(component, index) in $store.state.currentEmail
+                .containers[3].components"
+              :key="component.id"
+              :component="component"
+              :count="$store.state.currentEmail.containers[3].components.length"
+              :max-components="2"
+              :index="index"
+              :container-name="$store.state.currentEmail.containers[3].name"
+              type="asa-secondary"
+              draggable="true"
+            />
+          </draggable>
           <AddSelector
             v-if="$store.state.currentEmail.containers[3].components.length < 2"
             :container-name="$store.state.currentEmail.containers[3].name"
@@ -80,6 +83,7 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import AddSelector from '@/components/core/AddSelector'
 import ComponentSelector from '@/components/core/ComponentSelector'
 import { getUID } from '@/shared/utils'
@@ -88,7 +92,24 @@ export default {
   name: 'MCKOffer',
   components: {
     ComponentSelector,
-    AddSelector
+    AddSelector,
+    draggable
+  },
+  computed: {
+    secondaries: {
+      get() {
+        return this.$store.state.currentEmail.containers[3].components
+      },
+      set(value) {
+        this.$store.commit('updateContainer', {
+          containerIndex: 3,
+          newContainer: {
+            ...this.$store.state.currentEmail.containers[3],
+            components: value
+          }
+        })
+      }
+    }
   },
   mounted: function() {
     if (!this.$store.state.currentEmail.containers.length) {

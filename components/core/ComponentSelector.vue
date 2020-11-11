@@ -27,15 +27,9 @@
               >
                 <b-icon icon="cog"></b-icon>
               </button>
-              <!-- <button :disabled="index === 0" @click="handleMoveComponent(-1)">
-              <b-icon icon="chevron-up"></b-icon>
-            </button>
-            <button
-              :disabled="index === count - 1"
-              @click="handleMoveComponent(1)"
-            >
-              <b-icon icon="chevron-down"></b-icon>
-            </button> -->
+              <div v-if="draggable && count > 1" class="draggable">
+                <b-icon icon="drag"></b-icon>
+              </div>
             </div>
           </td>
         </tr>
@@ -82,7 +76,7 @@
 
 <script>
 export default {
-  props: ['component', 'type', 'containerName', 'count', 'index'],
+  props: ['component', 'type', 'containerName', 'count', 'index', 'draggable'],
   data: function() {
     return {
       selectedComponent: null,
