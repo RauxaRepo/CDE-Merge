@@ -50,6 +50,13 @@ const users = [
     password: 'alaska123',
     admin: false,
     clients: ['alaska']
+  },
+  {
+    id: '3',
+    username: 'rauxa',
+    password: 'rauxa123',
+    admin: false,
+    clients: ['rauxa']
   }
 ]
 

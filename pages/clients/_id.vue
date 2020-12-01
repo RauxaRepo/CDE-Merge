@@ -14,6 +14,9 @@
       </div>
     </aside>
     <main class="column">
+      <div v-if="templateGroups.length === 0" class="no-templates">
+        This client has no templates.
+      </div>
       <div
         v-for="(templates, group) in templateGroups"
         :key="group"

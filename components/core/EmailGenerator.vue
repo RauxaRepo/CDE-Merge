@@ -159,6 +159,7 @@ import pretty from 'pretty'
 import { saveAs } from 'file-saver'
 import { component as VueCodeHighlight } from 'vue-code-highlight'
 import 'vue-code-highlight/themes/prism-tomorrow.css'
+import { comb } from "email-comb"
 
 export default {
   components: {
@@ -327,7 +328,7 @@ export default {
           console.log(error)
         }
       })
-      return pretty(`${client.preHTML}${rawHtml}${client.postHTML}`)
+      return pretty(comb(`${client.preHTML}${rawHtml}${client.postHTML}`).result)
     },
     toggleMode: function(mode) {
       this.mode = mode

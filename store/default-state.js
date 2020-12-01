@@ -1,5 +1,6 @@
 import asaComponents from './asa-components'
 import alaska from './alaska'
+import rauxa from './rauxa'
 
 export default {
   presetTemplate: 'ExecLetter',
@@ -16,7 +17,7 @@ export default {
     assets: []
   },
   clients: {
-    list: [alaska, { id: 'test', name: 'Test Client' }]
+    list: [rauxa, alaska, { id: 'test', name: 'Test Client' }]
   },
   templates: {
     list: [
