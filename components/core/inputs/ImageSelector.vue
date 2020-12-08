@@ -9,8 +9,8 @@
         }"
       >
         <img
-          v-if="value"
-          :src="typeof value === 'string' ? value : value.src"
+          v-if="itemValue"
+          :src="typeof itemValue === 'string' ? itemValue : itemValue.src"
           :width="width || ''"
           :alt="alt || ''"
           :style="imgStyle || ''"
@@ -30,9 +30,9 @@
       <img
         v-else
         :src="
-          typeof value === 'string'
-            ? value
-            : `./images/${value ? value.name : ''}`
+          typeof itemValue === 'string'
+            ? itemValue
+            : `./images/${itemValue ? itemValue.name : ''}`
         "
         :width="width || ''"
         :alt="alt || ''"
@@ -85,7 +85,9 @@ export default {
     'imgStyle',
     'alignment',
     'containerText',
-    'controlsId'
+    'controlsId',
+    'itemIndex',
+    'matchingListing'
   ],
   data() {
     return {
@@ -95,15 +97,26 @@ export default {
     }
   },
   computed: {
-    src: function() {
-      return this.value ? URL.createObjectURL(this.value) : ''
+    itemValue: function() {
+      return this.itemIndex !== undefined
+        ? this.value[this.itemIndex]
+        : this.value
     }
   },
   watch: {
     url: function() {
       if (this.url) {
         if (isUrl(this.url)) {
-          this.$emit('input', this.url)
+          if (this.itemIndex !== undefined) {
+            this.$emit(
+              'input',
+              this.matchingListing.map((item, i) =>
+                this.itemIndex === i ? this.url : this.value[i]
+              )
+            )
+          } else {
+            this.$emit('input', this.url)
+          }
           this.$store.commit('removeAsset', this.id)
           this.isError = false
         } else {
@@ -120,11 +133,11 @@ export default {
       this.id = this.controlsId
     }
     // Placeholder string url
-    if (typeof this.value === 'string') {
-      this.url = this.value
+    if (typeof this.itemValue === 'string') {
+      this.url = this.itemValue
     }
     // Placeholder file
-    if (this.placeholder && !this.value) {
+    if (this.placeholder && !this.itemValue) {
       const placeholderSegments = this.placeholder.split('/')
       return axios
         .get(this.placeholder, {
@@ -142,15 +155,29 @@ export default {
   methods: {
     handleInput(file, name) {
       const reader = new FileReader()
+      const value = this.value
+      const matchingListing = this.matchingListing
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         const base64data = reader.result
         this.isError = false
         this.url = ''
-        this.$emit('input', {
-          name: name || file.name,
-          src: base64data
-        })
+        if (this.itemIndex !== undefined) {
+          const newValue = matchingListing.map((item, i) =>
+            this.itemIndex === i
+              ? {
+                  name: name || file.name,
+                  src: base64data
+                }
+              : value[i]
+          )
+          this.$emit('input', newValue)
+        } else {
+          this.$emit('input', {
+            name: name || file.name,
+            src: base64data
+          })
+        }
         this.$store.commit('addAsset', {
           id: this.id,
           type: 'image',

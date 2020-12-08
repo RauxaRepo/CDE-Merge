@@ -5,7 +5,8 @@
         class="button merge-button primary"
         @click="$store.commit('newComponent', containerName)"
       >
-        Add {{ containerName }}
+        <span v-if="buttonText">{{ buttonText }}</span>
+        <span v-else>Add {{ containerName }}</span>
       </b-button>
     </td>
   </tr>
@@ -14,7 +15,7 @@
 <script>
 export default {
   name: 'AddSelector',
-  props: ['containerName']
+  props: ['containerName', 'buttonText']
 }
 </script>
 <style lang="scss" scoped>

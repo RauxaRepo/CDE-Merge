@@ -43,86 +43,93 @@ export default [
   },
   {
     name: 'ASAMCKPrimaryOne',
-    type: 'asa-primary',
+    type: 'asa-content',
     text: 'Primary 1',
     img: 'mck-primary-1.png',
     client: 'alaska'
   },
   {
     name: 'ASAMCKPrimaryTwo',
-    type: 'asa-primary',
+    type: 'asa-content',
     text: 'Primary 2',
     img: 'mck-primary-2.png',
     client: 'alaska'
   },
   {
     name: 'ASAMCKPrimaryThree',
-    type: 'asa-primary',
+    type: 'asa-content',
     text: 'Primary 3',
     img: 'mck-primary-3.png',
     client: 'alaska'
   },
   {
     name: 'ASAMCKPrimaryFour',
-    type: 'asa-primary',
+    type: 'asa-content',
     text: 'Primary 4',
     img: 'mck-primary-4.png',
     client: 'alaska'
   },
   {
     name: 'ASAMCKSecondaryOne',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary 1',
     img: 'mck-secondary-1.png',
     client: 'alaska'
   },
   {
     name: 'ASAMCKSecondaryTwo',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary 2',
     img: 'mck-secondary-2.png',
     client: 'alaska'
   },
   {
+    name: 'ASAMCKSecondaryPeaceMindWhite',
+    type: 'asa-content',
+    text: 'Secondary Peace of Mind (White)',
+    img: 'secondary-peace-mind-white.png',
+    client: 'alaska'
+  },
+  {
+    name: 'ASAMCKSecondaryPeaceMindColor',
+    type: 'asa-content',
+    text: 'Secondary Peace of Mind (Color)',
+    img: 'secondary-peace-mind-color.png',
+    client: 'alaska'
+  },
+  {
     name: 'ASASecondaryBankCACC',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary Bank CA CC',
     img: 'secondary-bank-ca-cc.png',
     client: 'alaska'
   },
   {
     name: 'ASASecondaryBankCCSeven',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary Bank CC 7',
     img: 'secondary-bank-cc-7.png',
     client: 'alaska'
   },
   {
     name: 'ASASecondaryBankCCSix',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary Bank CC 6',
     img: 'secondary-bank-cc-6.png',
     client: 'alaska'
   },
   {
     name: 'ASASecondaryBank40k',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary Bank 40k',
     img: 'secondary-bank-40k.png',
     client: 'alaska'
   },
   {
     name: 'ASASecondaryBankCCThree',
-    type: 'asa-secondary',
+    type: 'asa-content',
     text: 'Secondary Bank CC 3',
     img: 'secondary-bank-cc-3.png',
-    client: 'alaska'
-  },
-  {
-    name: 'ASAMCKPrimaryOne',
-    type: 'asa-secondary',
-    text: 'Secondary 3 (Image Container)',
-    img: 'mck-primary-1.png',
     client: 'alaska'
   },
   {

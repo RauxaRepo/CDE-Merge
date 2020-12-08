@@ -120,8 +120,8 @@ export default {
     parsedValue: function() {
       let newValue =
         this.itemIndex !== undefined ? this.value[this.itemIndex] : this.value
-      if (this.value && this.value.includes('<p>')) {
-        newValue = this.value
+      if (newValue && newValue.includes('<p>')) {
+        newValue = newValue
           .replace(/<p>/g, '<span>')
           .replace(/<\/p>/g, this.inline ? '</span><br/>' : '</span><br/><br/>')
         newValue = newValue.substring(0, newValue.length - 5)

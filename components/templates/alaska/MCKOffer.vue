@@ -38,45 +38,36 @@
           border="0"
           style="width:100%;max-width:500px;"
         >
-          <ComponentSelector
-            v-for="(component, index) in $store.state.currentEmail.containers[2]
-              .components"
-            :key="component.id"
-            :component="component"
-            :count="$store.state.currentEmail.containers[2].components.length"
-            :index="index"
-            :container-name="$store.state.currentEmail.containers[2].name"
-            type="asa-primary"
-          />
-          <draggable v-model="secondaries">
+          <draggable v-model="contentComponents" :options="{disabled : $store.state.previewMode}">
             <ComponentSelector
               v-for="(component, index) in $store.state.currentEmail
-                .containers[3].components"
+                .containers[2].components"
               :key="component.id"
               :component="component"
-              :count="$store.state.currentEmail.containers[3].components.length"
+              :count="$store.state.currentEmail.containers[2].components.length"
               :max-components="2"
               :index="index"
-              :container-name="$store.state.currentEmail.containers[3].name"
-              type="asa-secondary"
+              :container-name="$store.state.currentEmail.containers[2].name"
+              type="asa-content"
               draggable="true"
+              has-search="true"
             />
           </draggable>
           <AddSelector
-            v-if="$store.state.currentEmail.containers[3].components.length < 2"
-            :container-name="$store.state.currentEmail.containers[3].name"
+            :container-name="$store.state.currentEmail.containers[2].name"
+            button-text="Add Module"
           />
         </table>
       </td>
     </tr>
     <ComponentSelector
-      v-for="(component, index) in $store.state.currentEmail.containers[4]
+      v-for="(component, index) in $store.state.currentEmail.containers[3]
         .components"
       :key="component.id"
       :component="component"
-      :count="$store.state.currentEmail.containers[4].components.length"
+      :count="$store.state.currentEmail.containers[3].components.length"
       :index="index"
-      :container-name="$store.state.currentEmail.containers[4].name"
+      :container-name="$store.state.currentEmail.containers[3].name"
       type="asa-footer"
     />
   </table>
@@ -96,15 +87,15 @@ export default {
     draggable
   },
   computed: {
-    secondaries: {
+    contentComponents: {
       get() {
-        return this.$store.state.currentEmail.containers[3].components
+        return this.$store.state.currentEmail.containers[2].components
       },
       set(value) {
         this.$store.commit('updateContainer', {
-          containerIndex: 3,
+          containerIndex: 2,
           newContainer: {
-            ...this.$store.state.currentEmail.containers[3],
+            ...this.$store.state.currentEmail.containers[2],
             components: value
           }
         })
@@ -123,11 +114,7 @@ export default {
           components: [{ id: getUID(), name: 'ASAHeaderOneThirdAlt' }]
         },
         {
-          name: 'Primary',
-          components: [{ id: getUID() }]
-        },
-        {
-          name: 'Secondary',
+          name: 'Content',
           components: [{ id: getUID() }]
         },
         {

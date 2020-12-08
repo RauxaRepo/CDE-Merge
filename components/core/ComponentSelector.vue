@@ -50,6 +50,14 @@
           "
         >
           <td class="columns is-multiline component-options">
+            <b-field
+              v-if="hasSearch"
+              class="search-field"
+              label-position="on-border"
+              label="Filter"
+            >
+              <b-input v-model="search"></b-input>
+            </b-field>
             <div
               v-for="option in filteredComponentList"
               :key="option.name"
@@ -76,11 +84,12 @@
 
 <script>
 export default {
-  props: ['component', 'type', 'containerName', 'count', 'index', 'draggable'],
+  props: ['component', 'type', 'containerName', 'count', 'index', 'draggable', 'hasSearch'],
   data: function() {
     return {
       selectedComponent: null,
-      hasControls: false
+      hasControls: false,
+      search: ''
     }
   },
   computed: {
@@ -96,7 +105,9 @@ export default {
     },
     filteredComponentList() {
       return this.$store.state.components.list.filter(
-        component => component.type === this.type
+        component =>
+          component.type === this.type &&
+          (!this.search || component.text.toLowerCase().includes(this.search))
       )
     },
     selectedDisplayName() {
@@ -171,6 +182,10 @@ export default {
       color: $button-secondary;
     }
   }
+}
+.search-field {
+  width: 100%;
+  margin: 1rem 0.5rem 0.5rem;
 }
 .component-options {
   padding: 1rem;
