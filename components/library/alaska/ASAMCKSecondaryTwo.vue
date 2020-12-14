@@ -17,6 +17,11 @@
           Icon
         </b-checkbox>
       </b-field>
+      <b-field v-if="fields.showIcon">
+        <b-checkbox v-model="fields.fixedIconWidth">
+          Fixed Icon Width
+        </b-checkbox>
+      </b-field>
       <b-field>
         <b-checkbox v-model="fields.showHeadline">
           Headline
@@ -69,10 +74,9 @@
                 <ImageSelector
                   v-model="fields.file"
                   placeholder="/images/location_icon.png"
-                  width="82"
                   border="0"
                   alt=""
-                  img-style="display:block; width:49px; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;"
+                  :img-style="`display:block; width: ${fields.fixedIconWidth ? '49px' : 'auto'}; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;`"
                 />
               </td>
             </tr>
@@ -224,6 +228,7 @@ export default {
       ],
       fields: {
         showIcon: true,
+        fixedIconWidth: true,
         file: null,
         bgColor: '#53B390',
         showHeadline: true,
