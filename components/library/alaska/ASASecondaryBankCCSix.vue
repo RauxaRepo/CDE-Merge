@@ -13,6 +13,16 @@
         </b-checkbox>
       </b-field>
       <b-field>
+        <b-checkbox v-model="fields.showImage">
+          Image
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showAnd">
           And
         </b-checkbox>
@@ -75,7 +85,7 @@
             role="presentation"
             style="width: 100%;"
           >
-            <tr>
+            <tr v-if="fields.showImage">
               <td align="center">
                 <a
                   v-if="!$store.state.editMode && fields.imageLink"
@@ -107,7 +117,7 @@
                 </ImageSelector>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadline">
               <td
                 align="center"
                 style="padding-top: 40px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:24px;line-height:30px; color:#2774ae;"
@@ -300,10 +310,12 @@ export default {
         <![endif]-->
         `,
       fields: {
+        showImage: true,
         image:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20201104_statement_secondaryA_CC.png',
         imageAlt: 'Alaska Airlines Visa credit card',
         imageLink: `\${clickthrough('secondary_a_40k_img','linkname=secondary_a_40k_img')}`,
+        showHeadline: true,
         headline:
           '<p>$0 introductory annual fee,</p><p>then $75 per&nbsp;year<sup>†</sup></p>',
         showAnd: true,

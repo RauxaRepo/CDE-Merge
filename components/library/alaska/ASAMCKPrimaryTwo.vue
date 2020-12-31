@@ -11,7 +11,18 @@
       :container-text="`${containerText}`"
       :controls-id="component.id"
     >
+      <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showCta">
+          CTA
+        </b-checkbox>
+      </b-field>
       <h4>Background</h4>
+      <p><small>Image size must be 1000 x 900px.</small></p>
     </ImageSelector>
     <table
       cellpadding="0"
@@ -53,6 +64,7 @@
           <div>
             <!-- TOP HEADLINE AND BODY COPY -->
             <table
+              v-if="fields.showHeadline"
               align="center"
               cellpadding="0"
               cellspacing="0"
@@ -82,6 +94,7 @@
 
             <!-- CTA AND SUB COPY -->
             <table
+              v-if="fields.showCta"
               align="center"
               cellpadding="0"
               cellspacing="0"
@@ -214,7 +227,9 @@ export default {
         headline: '<p>Lorem ipsum headline </p><p>$XX/XX% OFF</p>',
         textColor: '#FFFFFF',
         ctaText: 'CTA 20 CHAR MAX',
-        link: ''
+        link: '',
+        showHeadline: true,
+        showCta: true,
       }
     }
   },

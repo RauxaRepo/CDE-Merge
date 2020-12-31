@@ -8,13 +8,18 @@
         <h2>{{ containerText }}</h2>
       </div>
       <b-field>
-        <b-checkbox v-model="fields.showDivider">
-          Divider
+        <b-checkbox v-model="fields.showImage">
+          Image
         </b-checkbox>
       </b-field>
       <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field v-if="fields.showHeadline">
         <b-checkbox v-model="fields.showIcon">
-          Inline Icon
+          Headline Inline Icon
         </b-checkbox>
       </b-field>
       <b-field>
@@ -23,8 +28,18 @@
         </b-checkbox>
       </b-field>
       <b-field>
+        <b-checkbox v-model="fields.showDisclaimer">
+          Disclaimer
+        </b-checkbox>
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showCta">
           CTA
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showDivider">
+          Bottom Divider
         </b-checkbox>
       </b-field>
     </portal>
@@ -43,7 +58,7 @@
             role="presentation"
             style="width: 100%;"
           >
-            <tr>
+            <tr v-if="fields.showImage">
               <td align="center" style="padding: 50px 0 0 0;">
                 <a
                   v-if="!$store.state.editMode && fields.imageLink"
@@ -73,7 +88,7 @@
                 </ImageSelector>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadline">
               <td
                 align="center"
                 style="padding-top: 25px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:24px;line-height:30px;color:#2774ae;"
@@ -114,6 +129,7 @@
           </table>
 
           <table
+            v-if="fields.showDisclaimer"
             cellpadding="0"
             cellspacing="0"
             border="0"
@@ -237,11 +253,13 @@ export default {
         <![endif]-->
         `,
       fields: {
+        showImage: true,
         image:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20200708_Statement_visa_sig_card_anita.png',
         imageAlt: 'Alaska Airlines Visa Signature card',
         imageLink: `\${clickthrough('secondary_a_40k_img','linkname=secondary_a_40k_img')}`,
         showIcon: true,
+        showHeadline: true,
         headline: '40,000 bonus mile offer.',
         showImageHeadline: true,
         imageHeadline:
@@ -251,6 +269,7 @@ export default {
         ctaText: 'APPLY NOW',
         ctaLink: `\${clickthrough('secondary_a_40k_cta','linkname=secondary_a_40k_cta')}`,
         showDivider: true,
+        showDisclaimer: true,
         disclaimer: `<p>Ready for more? Get a 40,000 bonus mile offer with the Alaska Airlines</p><p>Visa Signature card.<sup>&dagger;</sup></p>`
       }
     }

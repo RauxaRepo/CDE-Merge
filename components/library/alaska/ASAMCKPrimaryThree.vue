@@ -1,5 +1,8 @@
 <template>
-  <td :key="$store.state.editMode ? `${component.id}_Edit` : component.id " align="center">
+  <td
+    :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+    align="center"
+  >
     <ImageSelector
       v-model="fields.file"
       width="500"
@@ -13,14 +16,34 @@
         title="Text Color"
       />
       <div class="field">
+        <b-field>
+          <b-checkbox v-model="fields.showHeadline">
+            Headline
+          </b-checkbox>
+        </b-field>
+        <b-field>
+          <b-checkbox v-model="fields.showSubHeadline">
+            Sub Headline
+          </b-checkbox>
+        </b-field>
+        <div class="field">
+          <b-checkbox v-model="fields.showAmount">
+            Show Amount
+          </b-checkbox>
+        </div>
+        <div v-if="fields.showAmount" class="field">
+          <b-checkbox v-model="fields.withPercentage">
+            Percent off version
+          </b-checkbox>
+        </div>
+        <b-field>
+          <b-checkbox v-model="fields.showCta">
+            CTA
+          </b-checkbox>
+        </b-field>
         <div class="field">
           <b-checkbox v-model="fields.showLegal">
             Legal
-          </b-checkbox>
-        </div>
-        <div class="field">
-          <b-checkbox v-model="fields.withPercentage">
-            Percent off version
           </b-checkbox>
         </div>
       </div>
@@ -68,7 +91,7 @@
             role="presentation"
             style="width: 100%;"
           >
-            <tr>
+            <tr v-if="fields.showHeadline">
               <td
                 :style="
                   `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:36px;line-height:38px;color:${fields.textColor};text-align:center; letter-spacing: .05em;`
@@ -79,16 +102,18 @@
                 </strong>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showSubHeadline">
               <td
-                :style="`padding-top: 5px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:21px;line-height:24px;color:${fields.textColor};text-align:center;letter-spacing: .13em;`"
+                :style="
+                  `padding-top: 5px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:21px;line-height:24px;color:${fields.textColor};text-align:center;letter-spacing: .13em;`
+                "
               >
                 <strong>
                   <TextInput v-model.lazy="fields.subHeadline" inline="true" />
                 </strong>
               </td>
             </tr>
-            <tr v-if="fields.withPercentage">
+            <tr v-if="fields.showAmount && fields.withPercentage">
               <td
                 :style="
                   `padding-top: 20px; mso-padding-bottom-alt:10px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
@@ -105,7 +130,9 @@
                   <tr>
                     <td
                       width="200 "
-                      :style="`width:200px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:140px;line-height:140px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`"
+                      :style="
+                        `width:200px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:140px;line-height:140px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
+                      "
                     >
                       <strong>
                         <TextInput v-model.lazy="fields.amount" inline="true" />
@@ -113,7 +140,9 @@
                     </td>
                     <td
                       width="85"
-                      :style="`width:85px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`"
+                      :style="
+                        `width:85px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
+                      "
                     >
                       <table
                         align="center"
@@ -125,14 +154,18 @@
                       >
                         <tr>
                           <td
-                            :style="`font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:90px;line-height:60px; mso-line-height-alt:72px; mso-text-raise: -10px;color:${fields.textColor};mso-line-height-rule:exactly;`"
+                            :style="
+                              `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:90px;line-height:60px; mso-line-height-alt:72px; mso-text-raise: -10px;color:${fields.textColor};mso-line-height-rule:exactly;`
+                            "
                           >
                             <strong>%</strong>
                           </td>
                         </tr>
                         <tr>
                           <td
-                            :style="`font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:36px;line-height:36px; padding-top:5px; color:${fields.textColor};mso-line-height-rule:exactly;`"
+                            :style="
+                              `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:36px;line-height:36px; padding-top:5px; color:${fields.textColor};mso-line-height-rule:exactly;`
+                            "
                           >
                             <strong
                               >OFF<span
@@ -148,9 +181,11 @@
                 </table>
               </td>
             </tr>
-            <tr v-else>
+            <tr v-if="fields.showAmount && !fields.withPercentage">
               <td
-                :style="`padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:140px;line-height:140px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`"
+                :style="
+                  `padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:140px;line-height:140px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
+                "
               >
                 <span
                   style="font-size:58%; line-height:44px; vertical-align:44px;"
@@ -163,8 +198,8 @@
                 >
               </td>
             </tr>
-            <tr>
-              <td align="center">
+            <tr v-if="fields.showCta">
+              <td align="center" :style="`padding-top: ${fields.showAmount ? '0' : '20'}px;`">
                 <fragment v-if="!$store.state.editMode">
                   {{ ctaSnippet }}
                 </fragment>
@@ -280,13 +315,17 @@ export default {
         `,
       fields: {
         file: null,
+        showHeadline: true,
         headline: 'ONE DAY ONLY!',
+        showSubHeadline: true,
         subHeadline: 'ONE-WAY STARTING&nbsp;AT',
         textColor: '#2774ae',
+        showAmount: true,
         amount: 'XX',
         withPercentage: false,
         showLegal: true,
         legal: '*Legal line about offer goes here with link.',
+        showCta: true,
         ctaText: 'CTA 20 CHAR MAX',
         link: ''
       }

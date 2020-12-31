@@ -10,6 +10,11 @@
         <h2>{{ containerText }}</h2>
       </div>
       <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Show Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showBody">
           Body Copy
         </b-checkbox>
@@ -37,7 +42,7 @@
       role="presentation"
       style="width:70%;max-width:350px;"
     >
-      <tr>
+      <tr v-if="fields.showHeadline">
         <td
           style="padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:36px;color:#2774ae;text-align:center;"
         >
@@ -180,6 +185,7 @@ export default {
       ],
       fields: {
         file: null,
+        showHeadline: true,
         headline: 'Lorem ipsum dolor sit&nbsp;amet.',
         showBody: true,
         body:

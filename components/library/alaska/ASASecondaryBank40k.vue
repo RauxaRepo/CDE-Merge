@@ -8,6 +8,36 @@
         <h2>{{ containerText }}</h2>
       </div>
       <b-field>
+        <b-checkbox v-model="fields.showImage">
+          Image
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showBody">
+          Body
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showBulletOne">
+          Bullet One
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showBulletTwo">
+          Bullet Two
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showBulletThree">
+          Bullet Three
+        </b-checkbox>
+      </b-field>
+      <b-field>
         <b-checkbox v-model="fields.showCta">
           CTA
         </b-checkbox>
@@ -29,7 +59,7 @@
             border="0"
             style="width:100%;"
           >
-            <tr>
+            <tr v-if="fields.showImage">
               <td align="center">
                 <!-- section image -->
                 <a
@@ -65,6 +95,7 @@
               <td align="center" style="padding:30px 0;">
                 <!-- section message -->
                 <table
+                  v-if="fields.showHeadline"
                   role="presentation"
                   cellpadding="0"
                   cellspacing="0"
@@ -92,12 +123,14 @@
                       style="padding-top:20px;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:26px;color:#3c3b3f;text-align:center;"
                     >
                       <TextInput
+                        v-if="fields.showBody"
                         v-model.lazy="fields.body"
                         inline="true"
                         sup-style="font-size:55%; line-height:7px; vertical-align:7px;"
                       />
-                      <br />
+                      <br v-if="fields.showBulletOne" />
                       <img
+                        v-if="fields.showBulletOne"
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
                         width="15"
                         height="12"
@@ -106,11 +139,13 @@
                         alt="&#x2713;"
                       />
                       <TextInput
+                        v-if="fields.showBulletOne"
                         v-model.lazy="fields.bulletOne"
                         inline="true"
                       />
-                      <br />
+                      <br v-if="fields.showBulletTwo" />
                       <img
+                        v-if="fields.showBulletTwo"
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
                         width="15"
                         height="12"
@@ -119,11 +154,13 @@
                         alt="&#x2713;"
                       />
                       <TextInput
+                        v-if="fields.showBulletTwo"
                         v-model.lazy="fields.bulletTwo"
                         inline="true"
                       />
-                      <br />
+                      <br v-if="fields.showBulletThree" />
                       <img
+                        v-if="fields.showBulletThree"
                         src="https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/secondary_a_checkmark.png"
                         width="15"
                         height="12"
@@ -132,6 +169,7 @@
                         alt="&#x2713;"
                       />
                       <TextInput
+                        v-if="fields.showBulletThree"
                         v-model.lazy="fields.bulletThree"
                         inline="true"
                       />
@@ -226,14 +264,20 @@ export default {
         <![endif]-->
         `,
       fields: {
+        showImage: true,
         image:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20200211_fa_secondary_a.jpg',
         imageAlt: 'two people on mountain watching the sunset',
         imageLink: `\${clickthrough('secondary_a_40k_img','linkname=secondary_a_40k_img')}`,
+        showHeadline: true,
         headline: 'More flying with&nbsp;friends',
+        showBody: true,
         body: `<p>Alaska Airlines Visa<sup>&reg;</sup> cardholders get more than just&nbsp;miles.<sup>&dagger;</sup></p>`,
+        showBulletOne: true,
         bulletOne: 'Alaskaʼs Famous Companion Fare&trade;&nbsp;offer',
+        showBulletTwo: true,
         bulletTwo: '40,000 bonus mile&nbsp;offer',
+        showBulletThree: true,
         bulletThree: 'Free checked bag',
         showCta: true,
         ctaText: 'APPLY NOW',

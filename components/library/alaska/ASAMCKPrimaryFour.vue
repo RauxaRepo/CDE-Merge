@@ -17,7 +17,22 @@
         title="Text Color"
       />
       <div class="field">
+        <b-field>
+          <b-checkbox v-model="fields.showHeadline">
+            Headline
+          </b-checkbox>
+        </b-field>
+        <b-field>
+          <b-checkbox v-model="fields.showSubHeadline">
+            Sub Headline
+          </b-checkbox>
+        </b-field>
         <div class="field">
+          <b-checkbox v-model="fields.showAmount">
+            Show Amount
+          </b-checkbox>
+        </div>
+        <div v-if="fields.showAmount" class="field">
           <b-checkbox v-model="fields.withPercentage">
             Percent off version
           </b-checkbox>
@@ -72,7 +87,7 @@
               role="presentation"
               style="margin: 0 auto;"
             >
-              <tr>
+              <tr v-if="fields.showHeadline">
                 <td
                   :style="
                     `padding-top:70px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:21px;line-height:21px;color:${fields.textColor};text-align:center; letter-spacing: .05em;`
@@ -83,10 +98,10 @@
                   </strong>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="fields.showSubHeadline">
                 <td
                   :style="
-                    `padding-top: 5px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:32px;line-height:32px;color:${fields.textColor};text-align:center;`
+                    `padding-top: ${fields.showHeadline ? '5' : '70'}px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:32px;line-height:32px;color:${fields.textColor};text-align:center;`
                   "
                 >
                   <strong>
@@ -97,9 +112,9 @@
                   </strong>
                 </td>
               </tr>
-              <tr v-if="fields.withPercentage">
+              <tr v-if="fields.showAmount && fields.withPercentage">
                 <td
-                  style="padding-top: 20px; mso-padding-bottom-alt:10px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#ffffff;text-align:center;mso-line-height-rule:exactly;"
+                  :style="`padding-top: ${fields.showHeadline || fields.showSubHeadline ? '20' : '70'}px; mso-padding-bottom-alt:10px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`"
                 >
                   <table
                     align="center"
@@ -168,10 +183,10 @@
                   </table>
                 </td>
               </tr>
-              <tr v-else>
+              <tr v-if="fields.showAmount && !fields.withPercentage">
                 <td
                   :style="
-                    `padding-top: 20px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:100px;line-height:100px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
+                    `padding-top: ${fields.showHeadline || fields.showSubHeadline ? '20' : '70'}px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:100px;line-height:100px;color:${fields.textColor};text-align:center;mso-line-height-rule:exactly;`
                   "
                 >
                   <span
@@ -225,9 +240,12 @@ export default {
       `,
       fields: {
         file: null,
+        showHeadline: true,
         headline: 'ONE-WAY FLIGHTS',
+        showSubHeadline: true,
         subHeadline: 'STARTING&nbsp;AT',
         textColor: '#FFFFFF',
+        showAmount: true,
         amount: 'XX',
         withPercentage: false
       }

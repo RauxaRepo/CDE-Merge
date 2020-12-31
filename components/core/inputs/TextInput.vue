@@ -91,6 +91,23 @@ export default {
               nbsp: () => {
                 this.insertMarkup('<span>&nbsp;</span>')
               },
+              link: (value) => {
+                const quill = this.$refs.quillEditor.quill
+                if (value) {
+                  this.$buefy.dialog.prompt({
+                    message: `Enter the URL`,
+                    inputAttrs: {
+                      placeholder: 'https://rauxa.com/'
+                    },
+                    trapFocus: true,
+                    onConfirm: href => {
+                      quill.format('link', href)
+                    }
+                  })
+                } else {
+                  quill.format('link', false)
+                }
+              }
             }
           }
         }
@@ -101,7 +118,7 @@ export default {
     editorValue: {
       get() {
         return this.itemIndex !== undefined
-          ? this.value[this.itemIndex]
+          ? this.value[this.itemIndex].text
           : this.value
       },
       set: debounce(function(newValue) {
@@ -109,7 +126,7 @@ export default {
           this.$emit(
             'input',
             this.value.map((item, i) =>
-              this.itemIndex === i ? newValue : item
+              this.itemIndex === i ? { ...item, text: newValue } : item
             )
           )
         } else {
@@ -119,7 +136,7 @@ export default {
     },
     parsedValue: function() {
       let newValue =
-        this.itemIndex !== undefined ? this.value[this.itemIndex] : this.value
+        this.itemIndex !== undefined ? this.value[this.itemIndex].text : this.value
       if (newValue && newValue.includes('<p>')) {
         newValue = newValue
           .replace(/<p>/g, '<span>')

@@ -142,6 +142,9 @@ body {
   background: $white;
   line-height: 1.2;
 }
+small {
+  font-size: .80rem;
+}
 .wrapper {
   padding: 0 1rem;
   max-width: 1600px;
@@ -167,8 +170,10 @@ strong {
   font-weight: 700;
 }
 .quillWrapper {
-  max-height: 400px;
-  overflow: auto;
+  .ql-editor {
+    max-height: 400px;
+    overflow-y: auto;
+  }
   p {
     margin-bottom: 1em !important;
   }

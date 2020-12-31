@@ -79,8 +79,7 @@
               <tr>
                 <td align="center" style="padding-top: 34px;">
                   <ImageSelector
-                    v-model="fields.listingIcons"
-                    :matching-listing="fields.listing"
+                    v-model="fields.listing"
                     :item-index="i"
                     :placeholder="listingIconsDefaults[i]"
                     width="79"
@@ -116,6 +115,18 @@ import TextInput from '@/components/core/inputs/TextInput'
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import { libComponentMixin } from '@/shared/mixins'
 
+const defaultListing = [
+  {
+    text: `<p><a href="\${clickthrough('secondary_a_peaceofmind_blocked_text','linkname=secondary_a_peaceofmind_blocked_text||2020_CV_AW||')}">Middle seats blocked</a></p><p>through&nbsp;1/6/2021.**</p>`
+  },
+  {
+    text: `<p>No change fees. Ever.</p><p><a href="\${clickthrough('secondary_a_peaceofmind_learnmore_text','linkname=secondary_a_peaceofmind_learnmore_text||2020_CV_AW||')}" >Learn more</a></p>`
+  },
+  {
+    text: `<p><a href="\${clickthrough('secondary_a_peaceofmind_masks_text','linkname=secondary_a_peaceofmind_masks_text||2020_CV_AW||')}" >Masks required</a> for all guests</p><p>over age&nbsp;2.<sup>&dagger;</sup></p>`
+  }
+]
+
 export default {
   name: 'ASAMCKSecondaryPeaceMindWhite',
   components: {
@@ -130,17 +141,12 @@ export default {
         '/images/alaska/20201022_RetryKeepFly_MCK_heart-icon.png',
         '/images/alaska/20201022_RetryKeepFly_MCK_mask-icon.png'
       ],
-      listingDefaults: [
-        `<p>Middle seats blocked</p><p>through&nbsp;1/6/2021.**</p>`,
-        `<p>No change fees. Ever.</p><p>Learn more</p>`,
-        `<p>Masks required for all guests</p><p>over age&nbsp;2.<sup>&dagger;</sup></p>`
-      ],
+      listingDefaults: defaultListing,
       fields: {
         showSeparator: true,
         showHeadline: true,
         headline: '<p>BOOK WITH</p><p>PEACE OF&nbsp;MIND.</p>',
-        listingIcons: [],
-        listing: []
+        listing: [...defaultListing]
       }
     }
   },

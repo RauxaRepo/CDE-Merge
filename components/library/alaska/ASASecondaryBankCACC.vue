@@ -10,6 +10,26 @@
       </div>
       <h4>Left</h4>
       <b-field>
+        <b-checkbox v-model="fields.showImageOne">
+          Image
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showHeadlineOne">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showAmountOne">
+          Amount
+        </b-checkbox>
+      </b-field>
+      <b-field v-if="fields.showAmountOne">
+        <b-checkbox v-model="fields.showAmountOfferOne">
+          Amount Offer
+        </b-checkbox>
+      </b-field>
+      <b-field v-if="fields.showAmountOne">
         <b-checkbox v-model="fields.bagsOne">
           Bags
         </b-checkbox>
@@ -20,13 +40,33 @@
         </b-checkbox>
       </b-field>
       <b-field>
-        <b-checkbox v-model="fields.disclaimerOne">
+        <b-checkbox v-model="fields.showDisclaimerOne">
           Disclaimer
         </b-checkbox>
       </b-field>
       <div class="section-separator"></div>
       <h4>Right</h4>
       <b-field>
+        <b-checkbox v-model="fields.showImageTwo">
+          Image
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showHeadlineTwo">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showAmountTwo">
+          Amount
+        </b-checkbox>
+      </b-field>
+      <b-field v-if="fields.showAmountTwo">
+        <b-checkbox v-model="fields.showAmountOfferTwo">
+          Amount Offer
+        </b-checkbox>
+      </b-field>
+      <b-field v-if="fields.showAmountTwo">
         <b-checkbox v-model="fields.bagsTwo">
           Bags
         </b-checkbox>
@@ -37,7 +77,7 @@
         </b-checkbox>
       </b-field>
       <b-field>
-        <b-checkbox v-model="fields.disclaimerTwo">
+        <b-checkbox v-model="fields.showDisclaimerTwo">
           Disclaimer
         </b-checkbox>
       </b-field>
@@ -135,7 +175,7 @@
             style="width:175px;margin: 0;"
             class="w100"
           >
-            <tr>
+            <tr v-if="fields.showImageOne">
               <td
                 width="175"
                 align="center"
@@ -172,7 +212,7 @@
                 </ImageSelector>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadlineOne">
               <td
                 align="center"
                 style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:34px;color:#01426A;text-align:center; padding-top: 35px; font-weight: bold;"
@@ -184,7 +224,7 @@
                 />
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showAmountOne">
               <td
                 align="center"
                 style="padding-top: 30px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;color:#48A9C5; font-weight: bold;"
@@ -220,17 +260,18 @@
                             />
                           </td>
                         </tr>
-                        <tr>
+                        <tr v-if="fields.showAmountOfferOne">
                           <td
                             align="center"
                             height="66"
                             valign="top"
                             style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
                           >
-                            bonus mile offer<span
-                              style="font-size:55%; line-height:6px; vertical-align:6px;"
-                              >&dagger;&dagger;</span
-                            >
+                            <TextInput
+                              v-model.lazy="fields.amountOfferOne"
+                              inline="true"
+                              sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
+                            />
                           </td>
                         </tr>
                       </table>
@@ -298,10 +339,12 @@
                       height="66"
                       style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
                     >
-                      bonus mile<br />offer<span
-                        style="font-size:55%; line-height:6px; vertical-align:6px;"
-                        >&dagger;&dagger;</span
-                      >
+                      <TextInput
+                        v-if="fields.showAmountOfferOne"
+                        v-model.lazy="fields.amountOfferOne"
+                        inline="true"
+                        sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
+                      />
                     </td>
                   </tr>
                 </table>
@@ -363,7 +406,7 @@
           </table>
 
           <table
-            v-if="fields.disclaimerOne"
+            v-if="fields.showDisclaimerOne"
             width="175"
             cellpadding="0"
             cellspacing="0"
@@ -379,21 +422,11 @@
                     align="center"
                     style="padding-top: 30px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:14px;line-height:22px;color:#3C3B3F;text-align:center; font-weight: normal;"
                   >
-                    Available for individuals<br class="hide" />
-                    with income greater than<br class="hide" />
                     <TextInput
-                      v-model.lazy="fields.disclaimerOneAmountOne"
+                      v-model.lazy="fields.disclaimerOne"
                       inline="true"
+                      sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
                     />
-                    or households<br class="hide" />
-                    greater than
-                    <TextInput
-                      v-model.lazy="fields.disclaimerOneAmountTwo"
-                      inline="true"
-                    />&nbsp;CAD.<span
-                      style="font-size:55%; line-height:6px; vertical-align:6px;"
-                      >&dagger;&dagger;&dagger;</span
-                    >
                   </td>
                 </tr>
               </td>
@@ -448,7 +481,7 @@
             style="width:175px;margin: 0;"
             class="w100"
           >
-            <tr>
+            <tr v-if="fields.showImageTwo">
               <td
                 align="center"
                 width="168"
@@ -483,7 +516,7 @@
                 </ImageSelector>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadlineTwo">
               <td
                 align="center"
                 style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:24px;line-height:34px;color:#01426A;text-align:center; padding-top: 35px; font-weight: bold;"
@@ -495,7 +528,7 @@
                 />
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showAmountTwo">
               <td
                 align="center"
                 style="padding-top: 30px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;color:#53B390; font-weight: bold;"
@@ -531,17 +564,18 @@
                             />
                           </td>
                         </tr>
-                        <tr>
+                        <tr v-if="fields.showAmountOfferTwo">
                           <td
                             align="center"
                             height="66"
                             valign="top"
                             style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
                           >
-                            bonus mile offer<span
-                              style="font-size:55%; line-height:6px; vertical-align:6px;"
-                              >&dagger;&dagger;</span
-                            >
+                            <TextInput
+                              v-model.lazy="fields.amountOfferTwo"
+                              inline="true"
+                              sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
+                            />
                           </td>
                         </tr>
                       </table>
@@ -609,10 +643,12 @@
                       height="66"
                       style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
                     >
-                      bonus mile<br />offer<span
-                        style="font-size:55%; line-height:6px; vertical-align:6px;"
-                        >&dagger;&dagger;</span
-                      >
+                      <TextInput
+                        v-if="fields.showAmountOfferTwo"
+                        v-model.lazy="fields.amountOfferTwo"
+                        inline="true"
+                        sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
+                      />
                     </td>
                   </tr>
                 </table>
@@ -671,7 +707,7 @@
           </table>
 
           <table
-            v-if="fields.disclaimerTwo"
+            v-if="fields.showDisclaimerTwo"
             width="175"
             cellpadding="0"
             cellspacing="0"
@@ -687,21 +723,11 @@
                     align="center"
                     style="padding-top: 30px; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:14px;line-height:22px;color:#3C3B3F;text-align:center; font-weight: normal;"
                   >
-                    Available for individuals<br class="hide" />
-                    with income greater than<br class="hide" />
                     <TextInput
-                      v-model.lazy="fields.disclaimerTwoAmountOne"
+                      v-model.lazy="fields.disclaimerTwo"
                       inline="true"
+                      sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
                     />
-                    or households<br class="hide" />
-                    greater than
-                    <TextInput
-                      v-model.lazy="fields.disclaimerTwoAmountTwo"
-                      inline="true"
-                    />&nbsp;CAD.<span
-                      style="font-size:55%; line-height:6px; vertical-align:6px;"
-                      >&dagger;&dagger;&dagger;</span
-                    >
                   </td>
                 </tr>
               </td>
@@ -776,20 +802,30 @@ export default {
         <![endif]-->
         `,
       fields: {
+        showImageOne: true,
         imageOne:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20201002_CA-ITA_ccimg_A.png',
         imageOneAlt: 'Alaska Airlines Platinum Plus Mastercard®',
         imageOneLink: `\${clickthrough('primary_card_offer_img1_platinum','linkname=primary_card_offer_img1_platinum')}`,
+        showImageTwo: true,
         imageTwo:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/20201002_CA-ITA_ccimg_B.png',
         imageTwoAlt: 'Alaska Airlines World Elite Mastercard®',
         imageTwoLink: `\${clickthrough('primary_card_offer_img2_elite','linkname=primary_card_offer_img2_elite')}`,
+        showHeadlineOne: true,
         headlineOne: `<p>Alaska Airlines</p><p>Platinum Plus</p><p>Mastercard <sup>&reg;</sup></p>`,
+        showHeadlineTwo: true,
         headlineTwo: `<p>Alaska Airlines</p><p>World Elite</p><p>Mastercard <sup>&reg;</sup></p>`,
+        showAmountOne: true,
         amountOne: '30k',
+        showAmountOfferOne: true,
+        amountOfferOne: `<p>bonus mile offer<sup>&dagger;&dagger;</sup></p>`,
         bagsOne: false,
         bagsAmountOne: '6',
+        showAmountTwo: true,
         amountTwo: '20k',
+        showAmountOfferTwo: true,
+        amountOfferTwo: `<p>bonus mile offer<sup>&dagger;&dagger;</sup></p>`,
         bagsTwo: true,
         bagsAmountTwo: '6',
         showCtaOne: true,
@@ -798,12 +834,10 @@ export default {
         showCtaTwo: true,
         ctaTwoText: 'APPLY NOW',
         ctaTwoLink: `\${clickthrough('primary_card_offer_cta_elite','linkname=primary_card_offer_cta_elite')}`,
-        disclaimerOne: false,
-        disclaimerOneAmountOne: '$80,000',
-        disclaimerOneAmountTwo: '$150,000',
-        disclaimerTwo: true,
-        disclaimerTwoAmountOne: '$80,000',
-        disclaimerTwoAmountTwo: '$150,000'
+        showDisclaimerOne: false,
+        disclaimerOne: `<p>Available for individuals<br class="hide" /> with income greater than<br class="hide" /> $80,000 or households<br class="hide" /> greater than $150,000&nbsp;CAD.<sup>&dagger;&dagger;&dagger;</sup> </p>`,
+        showDisclaimerTwo: true,
+        disclaimerTwo: `<p>Available for individuals<br class="hide" /> with income greater than<br class="hide" /> $80,000 or households<br class="hide" /> greater than $150,000&nbsp;CAD.<sup>&dagger;&dagger;&dagger;</sup> </p>`
       }
     }
   },

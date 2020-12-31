@@ -8,13 +8,33 @@
         <h2>{{ containerText }}</h2>
       </div>
       <b-field>
-        <b-checkbox v-model="fields.showDivider">
-          Divider
+        <b-checkbox v-model="fields.showDividerTop">
+          Divider Top
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showImage">
+          Image
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showHeadline">
+          Headline
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showDisclaimer">
+          Disclaimer
         </b-checkbox>
       </b-field>
       <b-field>
         <b-checkbox v-model="fields.showCta">
           CTA
+        </b-checkbox>
+      </b-field>
+      <b-field>
+        <b-checkbox v-model="fields.showDividerBottom">
+          Divider Bottom
         </b-checkbox>
       </b-field>
     </portal>
@@ -28,7 +48,7 @@
       style="width:100%; max-width: 500px; background-color: #ffffff;"
     >
       <!-- dividing line -->
-      <tr>
+      <tr v-if="fields.showDividerTop">
         <td align="center">
           <table
             role="presentation"
@@ -59,7 +79,7 @@
             role="presentation"
             style="width: 68%;"
           >
-            <tr>
+            <tr v-if="fields.showImage">
               <td align="center" style="padding: 50px 0 0 0;">
                 <a
                   v-if="!$store.state.editMode && fields.imageLink"
@@ -91,25 +111,24 @@
                 </ImageSelector>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showHeadline">
               <td
                 style="padding: 30px 0 25px 0;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:24px;line-height:30px;color:#2774ae;text-align:center;"
               >
-                <strong
-                  ><TextInput v-model.lazy="fields.headline" inline="true" /></strong
-                >
+                <strong>
+                  <TextInput v-model.lazy="fields.headline" inline="true" />
+                </strong>
               </td>
             </tr>
-            <tr>
+            <tr v-if="fields.showDisclaimer">
               <td
                 style="padding: 0 0 35px 0; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px;line-height:24px;color:#3c3b3f;text-align:center;"
               >
-                Apply today and you could get a <TextInput v-model.lazy="fields.disclaimerAmount" inline="true" /> statement credit offer<span
-                  style="font-size:55%; line-height:6px; vertical-align:6px;"
-                  >‡</span
-                >
-                after qualifying spend, plus exclusive cardholder benefits built
-                for our Canadian&nbsp;guests.
+                <TextInput
+                  v-model.lazy="fields.disclaimer"
+                  inline="true"
+                  sup-style="font-size:55%; line-height:6px; vertical-align:6px;"
+                />
               </td>
             </tr>
             <tr v-if="fields.showCta">
@@ -164,7 +183,7 @@
           </table>
         </td>
       </tr>
-      <tr v-if="fields.showDivider">
+      <tr v-if="fields.showDividerBottom">
         <td align="center">
           <table
             cellpadding="0"
@@ -226,16 +245,20 @@ export default {
           <![endif]-->
         `,
       fields: {
+        showDividerTop: true,
+        showImage: true,
         image:
           'https://static.cdn.responsys.net/i5/responsysimages/content/alaskaair/ABANXX_WE_CC_CTM_LRG_MKT_B_shadow.png',
         imageAlt: 'Alaska Airlines Mastercard credit card',
         imageLink: `\${clickthrough('secondary_a_canadacard_img','linkname=secondary_a_canadacard_img')}`,
+        showHeadline: true,
         headline: '<p>$100 statement credit</p><p>is just the start.</p>',
         showCta: true,
         ctaText: 'APPLY NOW',
         ctaLink: `\${clickthrough('secondary_a_canadacard_cta','linkname=secondary_a_canadacard_cta')}`,
-        showDivider: true,
-        disclaimerAmount: '$100'
+        showDisclaimer: true,
+        disclaimer: '<p>Apply today and you could get a $100 statement credit offer<sup>&dagger;</sup> after qualifying spend, plus exclusive cardholder benefits built for our Canadian&nbsp;guests.</p>',
+        showDividerBottom: true
       }
     }
   },

@@ -86,8 +86,7 @@ export default {
     'alignment',
     'containerText',
     'controlsId',
-    'itemIndex',
-    'matchingListing'
+    'itemIndex'
   ],
   data() {
     return {
@@ -100,6 +99,8 @@ export default {
     itemValue: function() {
       return this.itemIndex !== undefined
         ? this.value[this.itemIndex]
+          ? this.value[this.itemIndex].image
+          : null
         : this.value
     }
   },
@@ -110,8 +111,10 @@ export default {
           if (this.itemIndex !== undefined) {
             this.$emit(
               'input',
-              this.matchingListing.map((item, i) =>
-                this.itemIndex === i ? this.url : this.value[i]
+              this.value.map((item, i) =>
+                this.itemIndex === i
+                  ? { ...item, image: this.url }
+                  : this.value[i]
               )
             )
           } else {
@@ -139,35 +142,39 @@ export default {
     // Placeholder file
     if (this.placeholder && !this.itemValue) {
       const placeholderSegments = this.placeholder.split('/')
-      return axios
-        .get(this.placeholder, {
-          responseType: 'blob'
-        })
-        .then(response =>
-          this.handleInput(
-            response.data,
-            placeholderSegments[placeholderSegments.length - 1]
+      setTimeout(() => {
+        return axios
+          .get(this.placeholder, {
+            responseType: 'blob'
+          })
+          .then(response =>
+            this.handleInput(
+              response.data,
+              placeholderSegments[placeholderSegments.length - 1]
+            )
           )
-        )
-        .catch(err => console.log(err))
+          .catch(err => console.log(err))
+      }, ((this.itemIndex || -1) + 1) * 300)
     }
   },
   methods: {
     handleInput(file, name) {
       const reader = new FileReader()
       const value = this.value
-      const matchingListing = this.matchingListing
       reader.readAsDataURL(file)
       reader.onloadend = () => {
         const base64data = reader.result
         this.isError = false
         this.url = ''
         if (this.itemIndex !== undefined) {
-          const newValue = matchingListing.map((item, i) =>
+          const newValue = this.value.map((item, i) =>
             this.itemIndex === i
               ? {
-                  name: name || file.name,
-                  src: base64data
+                  ...item,
+                  image: {
+                    name: name || file.name,
+                    src: base64data
+                  }
                 }
               : value[i]
           )
@@ -210,7 +217,7 @@ export default {
 }
 .add-message {
   text-align: center !important;
-  background: $black !important;
+  background: $blue !important;
   color: $white !important;
   font-size: 1rem !important;
   padding: 1rem !important;
