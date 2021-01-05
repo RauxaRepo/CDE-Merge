@@ -33,6 +33,11 @@
           CTA
         </b-checkbox>
       </b-field>
+      <b-field v-if="fields.showCta">
+        <b-checkbox v-model="fields.ghostCta">
+          Ghost CTA
+        </b-checkbox>
+      </b-field>
     </portal>
     <!-- section message -->
     <table
@@ -95,7 +100,7 @@
           <TextInput v-model.lazy="fields.secondaryBody" />
         </td>
       </tr>
-      <tr v-if="fields.showCta">
+      <tr v-if="fields.showCta && !fields.ghostCta">
         <td align="center" style="padding-top:20px; padding-bottom:40px;">
           <fragment v-if="!$store.state.editMode">
             {{ ctaSnippet }}
@@ -128,6 +133,43 @@
                   >
                     <TextInput v-model.lazy="fields.ctaText" inline="true">
                       <LinkField v-model="fields.link" />
+                    </TextInput>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+          <!-- /border cta -->
+        </td>
+      </tr>
+      <tr v-if="fields.showCta && fields.ghostCta">
+        <td align="center" style="padding-top:20px; padding-bottom:40px;">
+          <fragment v-if="!$store.state.editMode">
+            {{ borderCtaSnippet }}
+          </fragment>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td class="secondary_b_fasttrack_cta">
+                <div>
+                  <a
+                    v-if="
+                      (!$store.state.editMode || $store.state.previewMode) &&
+                        fields.ctaLink
+                    "
+                    :href="fields.ctaLink"
+                    style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
+                    class="resetBorder buttonHoverBorder"
+                  >
+                    <TextInput v-model.lazy="fields.ctaText" inline="true" />
+                  </a>
+                  <span
+                    v-else
+                    style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
+                    class="resetBorder buttonHoverBorder"
+                  >
+                    <TextInput v-model.lazy="fields.ctaText" inline="true">
+                      <LinkField v-model="fields.ctaLink" />
                     </TextInput>
                   </span>
                 </div>
@@ -178,6 +220,15 @@ export default {
           <![endif]-->
       <![endif]-->
         `,
+      borderCtaSnippet: `
+          <!-- border cta -->
+          <!--[if gte mso 9]>
+          <style type="text/css">
+          .secondary_b_fasttrack_cta {border:2px solid #2774ae !important;padding:11px 24px !important;border-collapse:collapse !important;}
+          .resetBorder {border:none !important;}
+          </style>
+          <![endif]-->
+        `,
       listingDefaults: [
         '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p><p>Repellat, aliquam! Velit veniam.</p>',
         '<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>',
@@ -194,6 +245,7 @@ export default {
         secondaryBody:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, seddo&nbsp;eiusmod.',
         showCta: true,
+        ghostCta: false,
         ctaText: 'CTA 20 CHAR MAX',
         link: `\${clickthrough('secondary1_cta','linkname=secondary1_cta')}`,
         listing: []
