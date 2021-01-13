@@ -16,13 +16,15 @@
           style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:14px;line-height:20px;color:#3c3d3f;text-align:left;"
         >
           <TextInput
-            v-if="$store.state.editMode"
+            v-if="$store.state.editMode && !$store.state.previewMode"
             v-model.lazy="fields.preheader"
             inline="true"
-          />
+          >
+            <LinkField v-model="fields.link" />
+          </TextInput>
           <a
             v-else
-            href="${clickthrough('preheader_all_text','linkname=preheader_all_text')}"
+            :href="fields.link"
             style="color:#3c3d3f; text-decoration:underline;"
             target="_blank"
           >
@@ -53,17 +55,20 @@
 <script>
 import TextInput from '@/components/core/inputs/TextInput'
 import { libComponentMixin } from '@/shared/mixins'
+import LinkField from '@/components/core/inputs/LinkField'
 
 export default {
   name: 'ASAExecLetterPreHeader',
   components: {
-    TextInput
+    TextInput,
+    LinkField
   },
   mixins: [libComponentMixin],
   data: function() {
     return {
       fields: {
-        preheader: 'TBD Preheader'
+        preheader: 'TBD Preheader',
+        link: `\${clickthrough('preheader_all_text','linkname=preheader_all_text')}}`
       }
     }
   }

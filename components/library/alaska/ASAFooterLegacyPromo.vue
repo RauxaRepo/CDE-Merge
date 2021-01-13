@@ -15,6 +15,7 @@
       </div>
     </portal>
     <table
+      role="presentation"
       cellpadding="0"
       cellspacing="0"
       border="0"
@@ -30,6 +31,7 @@
             <tr>
               <td align="center" valign="top" style="width: 100%;">
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"
@@ -47,6 +49,7 @@
                         class="mw100"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -55,6 +58,7 @@
                           <tr>
                             <td style="padding-bottom:15px;">
                               <table
+                                role="presentation"
                                 cellpadding="0"
                                 cellspacing="0"
                                 border="0"
@@ -90,6 +94,7 @@
                         class="mw100"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -98,6 +103,7 @@
                           <tr>
                             <td style="padding-bottom:15px;">
                               <table
+                                role="presentation"
                                 cellpadding="0"
                                 cellspacing="0"
                                 border="0"
@@ -136,6 +142,7 @@
             <tr>
               <td align="center" style="padding-bottom: 40px;">
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"
@@ -176,6 +183,7 @@
                 style="padding:20px 0;background-color:#f5f5f5;"
               >
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"
@@ -192,6 +200,7 @@
                         class="mw100"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -215,6 +224,7 @@
                         class="mw100"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -244,6 +254,7 @@
             <tr>
               <td style="background-color:#01426a;border-radius: 0 0 4px 4px;">
                 <table
+                  role="presentation"
                   cellpadding="0"
                   cellspacing="0"
                   border="0"
@@ -252,6 +263,7 @@
                   <tr>
                     <td align="center" style="width:70%;">
                       <table
+                        role="presentation"
                         align="center"
                         cellpadding="0"
                         cellspacing="0"
@@ -260,7 +272,7 @@
                       >
                         <tr>
                           <td align="left" style="padding-top:20px;">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                               <tr>
                                 <td
                                   valign="bottom"
@@ -406,7 +418,7 @@ export default {
     return {
       tableOneOpeningSnippet: `
         <!--[if (gte mso 9)|(IE)]>
-        <table cellpadding="0" cellspacing="0" border="0" style="width:320px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:320px;">
         <tr>
         <td align="center" style="width:54%;">
         <![endif]-->`,
@@ -419,7 +431,7 @@ export default {
         <![endif]-->`,
       tableTwoOpeningSnippet: ` 
         <!--[if (gte mso 9)|(IE)]>
-        <table cellpadding="0" cellspacing="0" border="0" style="width:460px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:460px;">
         <tr>
         <td align="left" style="width:290px;">
         <![endif]-->`,

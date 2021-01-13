@@ -13,10 +13,10 @@
     </portal>
 
     <table
+      role="presentation"
       cellpadding="0"
       cellspacing="0"
       border="0"
-      role="presentation"
       style="width:100%;max-width:500px;background-color:#01426a;border-radius:6px 4px 0 0;"
     >
       <tr>

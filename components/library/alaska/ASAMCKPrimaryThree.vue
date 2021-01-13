@@ -338,7 +338,7 @@ export default {
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:500px; height:460px;">
                 <v:fill type="frame" color="#2774ae" src="./images/${this.fields.file.name}" />
                 <v:textbox inset="0,0,0,0">
-                <table cellpadding="0" cellspacing="0"><tr><td height="460" align="center" valign="top" style="width:500px;height:460px;">
+                <table role="presentation" cellpadding="0" cellspacing="0"><tr><td height="460" align="center" valign="top" style="width:500px;height:460px;">
                 <!
           [endif]-->`
         : ''

@@ -126,6 +126,7 @@
       }
     </style>
     <table
+      role="presentation"
       align="center"
       cellpadding="0"
       cellspacing="0"
@@ -359,6 +360,7 @@
                   {{ ctaSnippet }}
                 </fragment>
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"
@@ -660,6 +662,7 @@
                 style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;color:#48A9C5; font-weight: bold;"
               >
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"

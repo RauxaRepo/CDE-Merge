@@ -18,6 +18,7 @@
       {{ assigns }}
     </fragment>
     <table
+      role="presentation"
       cellpadding="0"
       cellspacing="0"
       border="0"
@@ -50,11 +51,12 @@
         </td>
         <td valign="bottom" style="width:60%;">
           <!--mp/tier info-->
-          <table cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
             <tr>
               <td align="center" style="padding:15px 0;">
                 <table
                   v-if="!$store.state.editMode"
+                  role="presentation"
                   cellpadding="0"
                   cellspacing="0"
                   border="0"
@@ -66,6 +68,7 @@
                 </table>
                 <table
                   v-else
+                  role="presentation"
                   cellpadding="0"
                   cellspacing="0"
                   border="0"
@@ -96,6 +99,7 @@
     <table
       v-if="fields.statement"
       :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
+      role="presentation"
       cellpadding="0"
       cellspacing="0"
       border="0"
@@ -107,6 +111,7 @@
             {{ tableOneOpeningSnippet }}
           </fragment>
           <table
+            role="presentation"
             cellpadding="0"
             cellspacing="0"
             border="0"
@@ -115,6 +120,7 @@
             <tr>
               <td align="center" valign="top" style="width: 100%;">
                 <table
+                  role="presentation"
                   align="center"
                   cellpadding="0"
                   cellspacing="0"
@@ -134,6 +140,7 @@
                         style="display:inline-block;width:100%;max-width:230px;vertical-align:top;"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -142,6 +149,7 @@
                           <tr>
                             <td style="padding-bottom:15px;">
                               <table
+                                role="presentation"
                                 cellpadding="0"
                                 cellspacing="0"
                                 border="0"
@@ -179,6 +187,7 @@
                         style="display:inline-block;width: 100%;max-width:230px;vertical-align:top;"
                       >
                         <table
+                          role="presentation"
                           cellpadding="0"
                           cellspacing="0"
                           border="0"
@@ -187,6 +196,7 @@
                           <tr>
                             <td style="padding-bottom:15px;">
                               <table
+                                role="presentation"
                                 cellpadding="0"
                                 cellspacing="0"
                                 border="0"
@@ -246,8 +256,8 @@ export default {
   mixins: [libComponentMixin],
   data: function() {
     return {
-      tableOneOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr><td align="center" valign="top"><![endif]-->`,
-      tableTwoOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table cellpadding="0" cellspacing="0" border="0" style="width:460px;"><tr><td align="center" style="width:50%;"><![endif]-->`,
+      tableOneOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr><td align="center" valign="top"><![endif]-->`,
+      tableTwoOpeningSnippet: `<!--[if (gte mso 9)|(IE)]><table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:460px;"><tr><td align="center" style="width:50%;"><![endif]-->`,
       tableTwoMiddleSnippet: `<!--[if (gte mso 9)|(IE)]></td><td align="center" style="width:50%;"><![endif]-->`,
       closingSnippet: `<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->`,
       assigns: `

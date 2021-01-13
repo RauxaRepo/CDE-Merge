@@ -159,14 +159,14 @@
                     "
                     :href="fields.ctaLink"
                     style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                    class="resetBorder buttonHoverBorder"
+                    class="resetBorder buttonHoverBorderBlue"
                   >
                     <TextInput v-model.lazy="fields.ctaText" inline="true" />
                   </a>
                   <span
                     v-else
                     style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                    class="resetBorder buttonHoverBorder"
+                    class="resetBorder buttonHoverBorderBlue"
                   >
                     <TextInput v-model.lazy="fields.ctaText" inline="true">
                       <LinkField v-model="fields.ctaLink" />

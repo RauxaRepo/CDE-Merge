@@ -303,7 +303,14 @@ a[x-apple-data-detectors] {
    color:#f5f5f5 !important;
    border-color:#f5f5f5 !important;
 }
-
+.buttonHoverBorderGreen {
+   -webkit-transition: all 300ms ease;
+   transition: all 300ms ease;
+ }
+ 
+.buttonHoverBorderGreen:hover {
+   background-color: #4ca886 !important;
+}
 @media screen and (max-width:499px){
  ${mobileStyle}
 }
@@ -354,7 +361,7 @@ export default {
         <tr>
           <td align="center">
           <!--[if (gte mso 9)|(IE)]>
-            <table align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
+            <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
               <tr>
                   <td align="center" valign="top">
                       <![endif]-->`,

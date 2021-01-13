@@ -155,14 +155,14 @@
                           "
                           :href="fields.link"
                           style="border: 2px solid #ffffff; padding: 12px 24px; border-radius: 0px; color: #ffffff; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                          class="resetBorder buttonHoverBorderWhite"
+                          class="resetBorder buttonHoverBorderGreen"
                         >
                           CTA 20 CHAR MAX
                         </a>
                         <span
                           v-else
                           style="border: 2px solid #ffffff; padding: 12px 24px; border-radius: 0px; color: #ffffff; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                          class="resetBorder buttonHover"
+                          class="resetBorder buttonHoverBorderGreen"
                         >
                           <TextInput
                             v-model.lazy="fields.ctaText"

@@ -354,7 +354,7 @@ export default {
         <tr>
           <td align="center">
           <!--[if (gte mso 9)|(IE)]>
-            <table align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
+            <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
               <tr>
                   <td align="center" valign="top">
                       <![endif]-->`,

@@ -8,7 +8,7 @@
     }"
   >
     <td style="width:100%;display:table;">
-      <table style="width:100%;">
+      <table style="width:100%;" role="presentation">
         <tr v-if="$store.state.editMode && !$store.state.previewMode">
           <td class="selector">
             <span>{{ selectedDisplayName }}</span>

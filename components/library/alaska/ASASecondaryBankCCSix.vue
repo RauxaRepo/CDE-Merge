@@ -231,7 +231,7 @@
                           "
                           :href="fields.ctaLink"
                           style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                          class="resetBorder buttonHoverBorder"
+                          class="resetBorder buttonHoverBorderBlue"
                         >
                           <TextInput
                             v-model.lazy="fields.ctaText"
@@ -241,7 +241,7 @@
                         <span
                           v-else
                           style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
-                          class="resetBorder buttonHoverBorder"
+                          class="resetBorder buttonHoverBorderBlue"
                         >
                           <TextInput
                             v-model.lazy="fields.ctaText"
@@ -284,7 +284,7 @@ export default {
   data: function() {
     return {
       openTableSnippet: `<!--[if (gte mso 9)|(IE)]>
-    <table align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
+    <table role="presentation" align="center" cellpadding="0" cellspacing="0" border="0" style="width:500px;">
     <tr>
     <td align="center" valign="top">
     <![endif]-->`,
