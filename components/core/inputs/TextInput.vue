@@ -38,7 +38,7 @@ const customToolbar = [
 
   ['blockquote', 'code-block'],
 
-  [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+  [{ list: 'ordered' }, { list: 'bullet' }],
 
   [{ script: 'sub' }, { script: 'super' }],
 
@@ -91,7 +91,7 @@ export default {
               nbsp: () => {
                 this.insertMarkup('<span>&nbsp;</span>')
               },
-              link: (value) => {
+              link: value => {
                 const quill = this.$refs.quillEditor.quill
                 if (value) {
                   this.$buefy.dialog.prompt({
@@ -136,12 +136,71 @@ export default {
     },
     parsedValue: function() {
       let newValue =
-        this.itemIndex !== undefined ? this.value[this.itemIndex].text : this.value
+        this.itemIndex !== undefined
+          ? this.value[this.itemIndex].text
+          : this.value
       if (newValue && newValue.includes('<p>')) {
         newValue = newValue
           .replace(/<p>/g, '<span>')
           .replace(/<\/p>/g, this.inline ? '</span><br/>' : '</span><br/><br/>')
         newValue = newValue.substring(0, newValue.length - 5)
+      }
+      if (newValue && newValue.includes('<ul>')) {
+        // ul
+        const reg = /<ul>(.*?)<\/ul>/g
+        let result
+        while ((result = reg.exec(newValue)) !== null) {
+          const prevValue = result[1]
+          newValue = newValue.replace(
+            prevValue,
+            result[1]
+              .replace(
+                /<li>/g,
+                `<tr>
+            <td style="vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;">&#8226;</td>
+            <td style="padding-left: 10px;">`
+              )
+              .replace(/<\/li>/g, '</td></tr>')
+          )
+        }
+        newValue = newValue
+          .replace(
+            /<ul>/g,
+            '<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" class="w92">'
+          )
+          .replace(/<\/ul>/g, '</table><br/>')
+      }
+      if (newValue && newValue.includes('<ol>')) {
+        // ul
+        const reg = /<ol>(.*?)<\/ol>/g
+        let result
+        while ((result = reg.exec(newValue)) !== null) {
+          const prevValue = result[1]
+          let updatedValue = result[1]
+          const liReg = /<li>/g
+          let liResult
+          let count = 1
+          while ((liResult = liReg.exec(prevValue)) !== null) {
+            updatedValue = updatedValue.replace(
+              liResult[0],
+              liResult[0].replace(
+                /<li>/g,
+                `<tr>
+            <td style="vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;">${count}.</td>
+            <td style="padding-left: 10px;">`
+              )
+            )
+            count++
+          }
+          updatedValue = updatedValue.replace(/<\/li>/g, '</td></tr>')
+          newValue = newValue.replace(prevValue, updatedValue)
+        }
+        newValue = newValue
+          .replace(
+            /<ol>/g,
+            '<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" class="w92">'
+          )
+          .replace(/<\/ol>/g, '</table><br/>')
       }
       if (this.linkStyle) {
         newValue = newValue.replace(/<a/g, `<a style="${this.linkStyle}"`)

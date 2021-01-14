@@ -48,7 +48,7 @@
         >
           <TextInput
             v-model.lazy="fields.body"
-            link-style="color:#3c3d3f; text-decoration:underline;"
+            link-style="color:#2774ae; text-decoration:underline;"
           >
             <div class="flex field-row">
               <b-field>
@@ -75,9 +75,10 @@
               </b-field>
               <b-button
                 class="button merge-button primary"
-                icon-right="format-clear"
                 @click="fields.body = defaultBody"
-              />
+              >
+                Reset
+              </b-button>
             </div>
           </TextInput>
         </td>

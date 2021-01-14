@@ -254,7 +254,7 @@
                   View in web
                 </a>
                 <br />
-                <span :style="`color: ${fields.textColor};`">
+                <span :style="`color: ${$store.state.editMode && !$store.state.previewMode ? fields.textColor : fields.bgColor};`">
                   ${campaign.name}</span
                 >
               </td>
