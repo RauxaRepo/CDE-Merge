@@ -41,6 +41,11 @@
             CTA
           </b-checkbox>
         </b-field>
+        <b-field v-if="fields.showCta">
+          <b-checkbox v-model="fields.ghostCta">
+            Ghost CTA
+          </b-checkbox>
+        </b-field>
         <div class="field">
           <b-checkbox v-model="fields.showLegal">
             Legal
@@ -198,8 +203,11 @@
                 >
               </td>
             </tr>
-            <tr v-if="fields.showCta">
-              <td align="center" :style="`padding-top: ${fields.showAmount ? '0' : '20'}px;`">
+            <tr v-if="fields.showCta && !fields.ghostCta">
+              <td
+                align="center"
+                :style="`padding-top: ${fields.showAmount ? '0' : '20'}px;`"
+              >
                 <fragment v-if="!$store.state.editMode">
                   {{ ctaSnippet }}
                 </fragment>
@@ -238,6 +246,58 @@
                             inline="true"
                           >
                             <LinkField v-model="fields.link" />
+                          </TextInput>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- /border cta -->
+              </td>
+            </tr>
+            <tr v-if="fields.showCta && fields.ghostCta">
+              <td
+                align="center"
+                :style="`padding-top: ${fields.showAmount ? '0' : '20'}px;`"
+              >
+                <fragment v-if="!$store.state.editMode">
+                  {{ borderCtaSnippet }}
+                </fragment>
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                >
+                  <tr>
+                    <td class="secondary_b_fasttrack_cta">
+                      <div>
+                        <a
+                          v-if="
+                            (!$store.state.editMode ||
+                              $store.state.previewMode) &&
+                              fields.ctaLink
+                          "
+                          :href="fields.ctaLink"
+                          style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
+                          class="resetBorder buttonHoverBorderBlue"
+                        >
+                          <TextInput
+                            v-model.lazy="fields.ctaText"
+                            inline="true"
+                          />
+                        </a>
+                        <span
+                          v-else
+                          style="border: 2px solid #2774ae; padding: 11px 24px; border-radius: 0px; color: #2774ae; display: inline-block; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: bold; line-height: 20px; text-align: center; text-decoration: none;"
+                          class="resetBorder buttonHoverBorderBlue"
+                        >
+                          <TextInput
+                            v-model.lazy="fields.ctaText"
+                            inline="true"
+                          >
+                            <LinkField v-model="fields.ctaLink" />
                           </TextInput>
                         </span>
                       </div>
@@ -313,6 +373,15 @@ export default {
         </style>
       <![endif]-->
         `,
+      borderCtaSnippet: `
+          <!-- border cta -->
+          <!--[if gte mso 9]>
+          <style type="text/css">
+          .secondary_b_fasttrack_cta {border:2px solid #2774ae !important;padding:11px 24px !important;border-collapse:collapse !important;}
+          .resetBorder {border:none !important;}
+          </style>
+          <![endif]-->
+        `,
       fields: {
         file: null,
         showHeadline: true,
@@ -324,8 +393,9 @@ export default {
         amount: 'XX',
         withPercentage: false,
         showLegal: true,
-        legal: '*Legal line about offer goes here with link.',
+        legal: `<p>*Legal line about offer goes here with <a href="\${clickthrough('primary_3_legal','linkname=primary_3_legal||2020_CV_AW||')}" >link</a>.</p>`,
         showCta: true,
+        ghostCta: false,
         ctaText: 'CTA 20 CHAR MAX',
         link: ''
       }

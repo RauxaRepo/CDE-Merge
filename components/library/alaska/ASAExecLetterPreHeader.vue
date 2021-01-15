@@ -64,7 +64,7 @@ export default {
       hackSnippet: `<!-- <#include "cms://contentlibrary/globalassets/header/ph_space_longer.htm"> -->`,
       fields: {
         preheader: 'TBD Preheader',
-        link: `\${clickthrough('preheader_all_text','linkname=preheader_all_text')}}`
+        link: ''
       }
     }
   }
