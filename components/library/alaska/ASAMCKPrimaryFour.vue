@@ -39,7 +39,7 @@
         </div>
       </div>
       <h4>Background</h4>
-      <p><small>Image size must be 1000 x 900px.</small></p>
+      <p><small>Image size must be 1000 x 600px.</small></p>
     </ImageSelector>
     <table
       cellpadding="0"
