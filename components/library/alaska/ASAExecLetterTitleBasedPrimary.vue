@@ -70,7 +70,7 @@
       </tr>
       <!-- divider line -->
       <tr>
-        <td align="left" style="padding-top: 30px;">
+        <td align="left" style="padding-top: 10px;">
           <table
             role="presentation"
             cellpadding="0"

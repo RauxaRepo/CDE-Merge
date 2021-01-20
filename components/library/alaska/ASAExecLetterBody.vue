@@ -2,7 +2,7 @@
   <td
     :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
     align="center"
-    style="background-color:#ffffff;padding-top:50px; padding-bottom: 40px;"
+    style="background-color:#ffffff;padding-top:30px; padding-bottom: 40px;"
   >
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <div class="white-area">
