@@ -117,9 +117,6 @@ import { libComponentMixin } from '@/shared/mixins'
 
 const defaultListing = [
   {
-    text: `<p><a href="\${clickthrough('secondary_a_peaceofmind_blocked_text','linkname=secondary_a_peaceofmind_blocked_text||2020_CV_AW||')}">Middle seats blocked</a></p><p>through&nbsp;1/6/2021.**</p>`
-  },
-  {
     text: `<p>No change fees. Ever.</p><p><a href="\${clickthrough('secondary_a_peaceofmind_learnmore_text','linkname=secondary_a_peaceofmind_learnmore_text||2020_CV_AW||')}" >Learn more</a></p>`
   },
   {
