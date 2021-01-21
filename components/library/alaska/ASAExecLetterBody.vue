@@ -14,7 +14,10 @@
           Heading
         </b-checkbox>
       </div>
-      <b-checkbox v-model="fields.showSignatureImage">
+      <b-checkbox v-model="fields.showSignature">
+        Signature
+      </b-checkbox>
+      <b-checkbox v-if="fields.showSignature" v-model="fields.showSignatureImage">
         Signature Image
       </b-checkbox>
     </portal>
@@ -84,7 +87,7 @@
         </td>
       </tr>
       <!-- sincerely + signature image + signoff -->
-      <tr>
+      <tr v-if="fields.showSignature">
         <td
           :style="
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
@@ -96,7 +99,7 @@
           /><br /><br />
         </td>
       </tr>
-      <tr v-if="fields.showSignatureImage !== false">
+      <tr v-if="fields.showSignature && fields.showSignatureImage !== false">
         <td
           :style="
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; color:#3c3b3f;text-align:${fields.alignment};`
@@ -112,7 +115,7 @@
           />
         </td>
       </tr>
-      <tr>
+      <tr v-if="fields.showSignature">
         <td
           :style="
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
@@ -168,6 +171,7 @@ export default {
         file: null,
         link: '',
         alignment: 'left',
+        showSignature: true,
         showSignatureImage: true,
         signatureStart: 'Sincerely,',
         signatureName: 'Andrew Harrison',
