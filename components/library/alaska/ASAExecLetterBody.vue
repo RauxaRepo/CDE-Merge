@@ -17,7 +17,10 @@
       <b-checkbox v-model="fields.showSignature">
         Signature
       </b-checkbox>
-      <b-checkbox v-if="fields.showSignature" v-model="fields.showSignatureImage">
+      <b-checkbox
+        v-if="fields.showSignature"
+        v-model="fields.showSignatureImage"
+      >
         Signature Image
       </b-checkbox>
     </portal>
@@ -27,7 +30,7 @@
       cellspacing="0"
       border="0"
       align="center"
-      style="width:73%;max-width: 366px;"
+      style="max-width: 366px;"
       class="w92"
     >
       <tr v-if="fields.showHeading">
@@ -93,6 +96,7 @@
             `font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:24px;color:#3c3b3f;text-align:${fields.alignment};`
           "
         >
+          <br />
           <TextInput
             v-model.lazy="fields.signatureStart"
             inline="true"
