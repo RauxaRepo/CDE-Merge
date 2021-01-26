@@ -258,6 +258,14 @@ a[x-apple-data-detectors] {
    -webkit-transition:all 300ms ease;
    transition:all 300ms ease;
 }
+.buttonHoverBorder {
+   -webkit-transition:all 300ms ease;
+   transition:all 300ms ease;
+}
+
+.buttonHoverBorder:hover {
+   background-color: #f0f0f0 !important;
+}
 
 .buttonHoverBreeze {
    -webkit-transition:all 300ms ease;

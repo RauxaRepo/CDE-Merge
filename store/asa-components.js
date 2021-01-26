@@ -98,6 +98,13 @@ export default [
     client: 'alaska'
   },
   {
+    name: 'SecondaryStatementOffer',
+    type: 'asa-content',
+    text: 'Secondary Statement Offer',
+    img: 'secondary-statement-offer.png',
+    client: 'alaska'
+  },
+  {
     name: 'ASASecondaryBankCACC',
     type: 'asa-content',
     text: 'Secondary Bank CA CC',
@@ -126,10 +133,24 @@ export default [
     client: 'alaska'
   },
   {
+    name: 'ASASecondaryBank50k',
+    type: 'asa-content',
+    text: 'Secondary Bank 50k',
+    img: 'secondary-bank-50k.png',
+    client: 'alaska'
+  },
+  {
     name: 'ASASecondaryBankCCThree',
     type: 'asa-content',
     text: 'Secondary Bank CC 3',
     img: 'secondary-bank-cc-3.png',
+    client: 'alaska'
+  },
+  {
+    name: 'ASASecondaryFareAlert',
+    type: 'asa-content',
+    text: 'Secondary Fare Alert',
+    img: 'secondary-fare-alert.png',
     client: 'alaska'
   },
   {
