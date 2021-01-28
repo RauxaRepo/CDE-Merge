@@ -9,7 +9,7 @@
     :data-name="selectedDisplayName"
   >
     <td style="width:100%;display:table;">
-      <table style="width:100%;" role="presentation">
+      <table style="width:100%;" role="presentation" cellpadding="0" cellspacing="0" border="0">
         <tr v-if="$store.state.editMode && !$store.state.previewMode">
           <td class="selector">
             <span>{{ selectedDisplayName }}</span>
