@@ -64,7 +64,14 @@
                     border="0"
                     alt=""
                     img-style="display:block; width:79px; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;"
-                  />
+                  >
+                    <p>
+                      <small>
+                        Image width must be 158px, height should be the same or
+                        close.
+                      </small>
+                    </p>
+                  </ImageSelector>
                 </td>
               </tr>
               <tr>

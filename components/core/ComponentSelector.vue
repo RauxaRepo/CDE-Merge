@@ -6,6 +6,7 @@
       edit: $store.state.editMode && !$store.state.previewMode,
       selected: $store.state.editingId === component.id
     }"
+    :data-name="selectedDisplayName"
   >
     <td style="width:100%;display:table;">
       <table style="width:100%;" role="presentation">

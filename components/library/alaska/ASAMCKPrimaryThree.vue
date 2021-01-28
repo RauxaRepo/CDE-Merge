@@ -53,6 +53,7 @@
         </div>
       </div>
       <h4>Background</h4>
+      <p><small>Image size should be 1000 x 920px.</small></p>
     </ImageSelector>
     <table
       cellpadding="0"
@@ -68,25 +69,24 @@
           :background="
             typeof fields.file === 'string'
               ? fields.file
-              : $store.state.editMode
-              ? fields.file
-                ? fields.file.src
-                : ''
+              : $store.state.editMode && fields.file
+              ? fields.file.src
               : `./images/${fields.file ? fields.file.name : ''}`
           "
           :style="
-            `max-width:500px; height: 460px;padding-top: 60px; padding-bottom: 60px;${
-              $store.state.editMode
+            `max-width:500px; padding-top: 60px; padding-bottom: 60px;${
+              $store.state.editMode || !fields.file
                 ? ''
                 : `background-image: url(${
                     typeof fields.file === 'string'
                       ? fields.file
                       : `./images/${fields.file ? fields.file.name : ''}`
                   });`
-            }background-size: cover; background-position: center; background-repeat: no-repeat;`
+            }
+            ${fields.file ? 'background-size: cover; background-position: center; background-repeat: no-repeat;height: 460px;' : ''}`
           "
         >
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode && fields.file">
             {{ backgroundSnippet }}
           </fragment>
           <table

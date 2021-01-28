@@ -253,7 +253,7 @@
                         <tr>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#48A9C5;"
                           >
                             <TextInput
                               v-model.lazy="fields.amountOne"
@@ -266,7 +266,7 @@
                             align="center"
                             height="66"
                             valign="top"
-                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#48A9C5;"
                           >
                             <TextInput
                               v-model.lazy="fields.amountOfferOne"
@@ -291,13 +291,13 @@
                         <tr>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:14px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:14px;text-align:center; font-weight: bold;color:#48A9C5;"
                           >
                             up<br />to
                           </td>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#48A9C5;"
                           >
                             <TextInput
                               v-model.lazy="fields.bagsAmountOne"
@@ -311,7 +311,7 @@
                             align="center"
                             height="66"
                             valign="top"
-                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#48A9C5;"
                           >
                             checked bags<span
                               style="font-size:55%; line-height:6px; vertical-align:6px;"
@@ -325,7 +325,7 @@
                   <tr v-if="!fields.bagsOne">
                     <td
                       align="center"
-                      style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                      style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#48A9C5;"
                     >
                       <TextInput
                         v-model.lazy="fields.amountOne"
@@ -338,7 +338,7 @@
                       align="center"
                       valign="top"
                       height="66"
-                      style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                      style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#48A9C5;"
                     >
                       <TextInput
                         v-if="fields.showAmountOfferOne"
@@ -558,7 +558,7 @@
                         <tr>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#53B390;"
                           >
                             <TextInput
                               v-model.lazy="fields.amountTwo"
@@ -571,7 +571,7 @@
                             align="center"
                             height="66"
                             valign="top"
-                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#53B390;"
                           >
                             <TextInput
                               v-model.lazy="fields.amountOfferTwo"
@@ -596,13 +596,13 @@
                         <tr>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:14px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:14px;text-align:center; font-weight: bold;color:#53B390;"
                           >
                             up<br />to
                           </td>
                           <td
                             align="center"
-                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                            style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#53B390;"
                           >
                             <TextInput
                               v-model.lazy="fields.bagsAmountTwo"
@@ -616,7 +616,7 @@
                             align="center"
                             height="66"
                             valign="top"
-                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                            style="height:66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#53B390;"
                           >
                             checked bags<span
                               style="font-size:55%; line-height:6px; vertical-align:6px;"
@@ -630,7 +630,7 @@
                   <tr v-if="!fields.bagsTwo">
                     <td
                       align="center"
-                      style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;"
+                      style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:48px;line-height:48px;text-align:center; font-weight: bold;color:#53B390;"
                     >
                       <TextInput
                         v-model.lazy="fields.amountTwo"
@@ -643,7 +643,7 @@
                       align="center"
                       valign="top"
                       height="66"
-                      style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;"
+                      style="height: 66px; vertical-align:top; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;text-align:center; font-weight: bold;color:#53B390;"
                     >
                       <TextInput
                         v-if="fields.showAmountOfferTwo"

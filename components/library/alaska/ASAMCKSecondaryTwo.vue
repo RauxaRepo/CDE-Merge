@@ -18,8 +18,8 @@
         </b-checkbox>
       </b-field>
       <b-field v-if="fields.showIcon">
-        <b-checkbox v-model="fields.fixedIconWidth">
-          Fixed Icon Width
+        <b-checkbox v-model="fields.smallIcon">
+          Small Icon
         </b-checkbox>
       </b-field>
       <b-field>
@@ -76,8 +76,20 @@
                   placeholder="/images/location_icon.png"
                   border="0"
                   alt=""
-                  :img-style="`display:block; width: ${fields.fixedIconWidth ? '49px' : 'auto'}; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;`"
-                />
+                  :width="fields.smallIcon ? '49' : '229'"
+                  :img-style="
+                    `display:block; width: ${
+                      fields.smallIcon ? '49px' : '229px'
+                    }; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;`
+                  "
+                >
+                  <p>
+                    <small
+                      >Image width must be {{ fields.smallIcon ? '49px' : '229px' }}, height should be the same or
+                      close.
+                    </small>
+                  </p>
+                </ImageSelector>
               </td>
             </tr>
             <tr v-if="fields.showHeadline">
@@ -228,7 +240,7 @@ export default {
       ],
       fields: {
         showIcon: true,
-        fixedIconWidth: true,
+        smallIcon: true,
         file: null,
         bgColor: '#53B390',
         showHeadline: true,

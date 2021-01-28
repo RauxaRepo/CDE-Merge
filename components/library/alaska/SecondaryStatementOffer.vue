@@ -52,7 +52,9 @@
                   height="72"
                   :img-style="`display:block;border:0;outline:0;padding:0;width:72%;max-width:72px;height:auto;`"
                   aria-hidden="true"
-                />
+                >
+                  <p><small>Image width must be 144px, height should be the same or close.</small></p>
+                </ImageSelector>
               </td>
               <td
                 style="padding: 0 25px 0 25px;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;font-size:16px; line-height:24px;text-align:left;color:#3c3b3f;"
