@@ -85,8 +85,7 @@
                 >
                   <p>
                     <small
-                      >Image width must be {{ fields.smallIcon ? '49px' : '229px' }}, height should be the same or
-                      close.
+                      >Image width must be {{ fields.smallIcon ? '98px' : '458px' }}, height should be the same or close.
                     </small>
                   </p>
                 </ImageSelector>
