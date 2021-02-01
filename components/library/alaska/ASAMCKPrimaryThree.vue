@@ -83,7 +83,7 @@
                       : `./images/${fields.file ? fields.file.name : ''}`
                   });`
             }
-            ${fields.file ? 'background-size: cover; background-position: center; background-repeat: no-repeat;height: 460px;' : ''}`
+            ${fields.file ? 'background-size: cover; background-position: center; background-repeat: no-repeat;' : ''}`
           "
         >
           <fragment v-if="!$store.state.editMode && fields.file">
