@@ -35,7 +35,7 @@
                       style=" padding-top: 20px; padding-bottom:20px;font-size:0;"
                       class="center_mob"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ openTableSnippet }}
                       </fragment>
                       <div
@@ -105,7 +105,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ middleTableSnippet }}
                       </fragment>
                       <div
@@ -126,7 +126,7 @@
                               style="height:44px;text-align:center;"
                               class="mbl-padding-top"
                             >
-                              <fragment v-if="!$store.state.editMode">
+                              <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                                 {{ ctaSnippet }}
                               </fragment>
                               <table
@@ -179,7 +179,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ closeTableSnippet }}
                       </fragment>
                     </td>
@@ -205,7 +205,7 @@
                       style=" padding-top: 20px; padding-bottom:20px;font-size:0;"
                       class="center_mob"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ openTableSnippet }}
                       </fragment>
                       <div
@@ -275,7 +275,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ middleTableSnippet }}
                       </fragment>
                       <div
@@ -296,7 +296,7 @@
                               style="height:44px;text-align:center;"
                               class="mbl-padding-top"
                             >
-                              <fragment v-if="!$store.state.editMode">
+                              <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                                 {{ ctaSnippet }}
                               </fragment>
                               <table
@@ -349,7 +349,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ closeTableSnippet }}
                       </fragment>
                     </td>
@@ -376,7 +376,7 @@
                       style=" padding-top: 20px; padding-bottom:20px;font-size:0;"
                       class="center_mob"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ openTableSnippet }}
                       </fragment>
                       <div
@@ -446,7 +446,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ middleTableSnippet }}
                       </fragment>
                       <div
@@ -467,7 +467,7 @@
                               style="height:44px;text-align:center;"
                               class="mbl-padding-top"
                             >
-                              <fragment v-if="!$store.state.editMode">
+                              <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                                 {{ ctaSnippet }}
                               </fragment>
                               <table
@@ -520,7 +520,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ closeTableSnippet }}
                       </fragment>
                     </td>
@@ -547,7 +547,7 @@
                       style=" padding-top: 20px; padding-bottom:20px;font-size:0;"
                       class="center_mob"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ openTableSnippet }}
                       </fragment>
                       <div
@@ -617,7 +617,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ middleTableSnippet }}
                       </fragment>
                       <div
@@ -638,7 +638,7 @@
                               style="height:44px;text-align:center;"
                               class="mbl-padding-top"
                             >
-                              <fragment v-if="!$store.state.editMode">
+                              <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                                 {{ ctaSnippet }}
                               </fragment>
                               <table
@@ -691,7 +691,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ closeTableSnippet }}
                       </fragment>
                     </td>
@@ -703,7 +703,7 @@
                       style="padding:30px 0 45px;"
                       align="center"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ borderCtaSnippet }}
                       </fragment>
                       <table

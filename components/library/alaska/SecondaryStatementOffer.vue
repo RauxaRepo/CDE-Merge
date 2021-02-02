@@ -3,7 +3,7 @@
     :key="$store.state.editMode ? `${component.id}_Edit` : component.id"
     align="center"
   >
-    <fragment v-if="!$store.state.editMode">
+    <fragment v-if="!$store.state.editMode || $store.state.emailMode">
       {{ tableOneOpeningSnippet }}
     </fragment>
     <table
@@ -71,7 +71,7 @@
       </tr>
     </table>
 
-    <fragment v-if="!$store.state.editMode">
+    <fragment v-if="!$store.state.editMode || $store.state.emailMode">
       {{ tableOneClosingSnippet }}
     </fragment>
   </td>

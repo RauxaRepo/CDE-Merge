@@ -30,7 +30,7 @@
           >
             <TextInput v-model.lazy="fields.preheader" inline="true" />
           </a>
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ hackSnippet }}
           </fragment>
           &nbsp;|&nbsp;
