@@ -418,7 +418,7 @@ export default {
       let rawHtml = this.$refs.emailContainer.innerHTML
         .replace(/data-v-[0-9a-z]*=""/g, '')
         .replace(/fragment="[0-9a-z]*"/g, '')
-        .replace(/&lt/g, '<')
+        .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&amp;/g, '&')
         .replace(/&quot;/g, "'")
