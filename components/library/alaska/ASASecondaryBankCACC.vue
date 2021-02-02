@@ -356,7 +356,7 @@
                 align="center"
                 style="font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; font-size:16px;line-height:19px;color:#48A9C5; font-weight: bold;"
               >
-                <fragment v-if="!$store.state.editMode">
+                <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                   {{ ctaSnippet }}
                 </fragment>
                 <table

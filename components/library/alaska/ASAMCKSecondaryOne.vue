@@ -102,7 +102,7 @@
       </tr>
       <tr v-if="fields.showCta && !fields.ghostCta">
         <td align="center" style="padding-top:20px; padding-bottom:40px;">
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ ctaSnippet }}
           </fragment>
           <table
@@ -145,7 +145,7 @@
       </tr>
       <tr v-if="fields.showCta && fields.ghostCta">
         <td align="center" style="padding-top:20px; padding-bottom:40px;">
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ borderCtaSnippet }}
           </fragment>
           <table role="presentation" cellpadding="0" cellspacing="0" border="0">

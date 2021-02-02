@@ -58,7 +58,7 @@
             }background-size: cover; background-position: center; background-repeat: no-repeat;`
           "
         >
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ backgroundSnippet }}
           </fragment>
           <div>
@@ -117,7 +117,7 @@
                   >
                     <tr>
                       <td align="center">
-                        <fragment v-if="!$store.state.editMode">
+                        <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                           {{ ctaSnippet }}
                         </fragment>
                         <table
@@ -170,7 +170,7 @@
               </tr>
             </table>
           </div>
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ closingBackgroundSnippet }}
           </fragment>
         </td>

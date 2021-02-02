@@ -146,7 +146,7 @@
             </tr>
             <tr v-if="fields.showCta">
               <td align="center" style="padding-top: 20px;">
-                <fragment v-if="!$store.state.editMode">
+                <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                   {{ ctaSnippet }}
                 </fragment>
                 <table

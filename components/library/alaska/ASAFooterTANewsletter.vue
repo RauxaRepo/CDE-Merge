@@ -47,7 +47,7 @@
                 >
                   <tr>
                     <td align="center" style="font-size:0;vertical-align:top;">
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableOneOpeningSnippet }}
                       </fragment>
                       <div
@@ -91,7 +91,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableOneMiddleSnippet }}
                       </fragment>
                       <div
@@ -136,7 +136,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableOneClosingSnippet }}
                       </fragment>
                     </td>
@@ -196,7 +196,7 @@
                 >
                   <tr>
                     <td align="left" style="font-size:0;vertical-align:top;">
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableTwoOpeningSnippet }}
                       </fragment>
 
@@ -221,7 +221,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableTwoMiddleSnippet }}
                       </fragment>
                       <div
@@ -248,7 +248,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableTwoClosingSnippet }}
                       </fragment>
                     </td>

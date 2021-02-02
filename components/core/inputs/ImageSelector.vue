@@ -2,7 +2,7 @@
   <fragment>
     <fragment v-if="!controlsId">
       <div
-        v-if="$store.state.editMode"
+        v-if="$store.state.editMode || $store.state.inlineImages"
         :class="{
           edit: !$store.state.previewMode,
           selected: $store.state.editingId === id

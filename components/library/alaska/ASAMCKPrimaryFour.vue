@@ -75,7 +75,7 @@
             }}`
           "
         >
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ backgroundSnippet }}
           </fragment>
           <div>
@@ -206,7 +206,7 @@
               </tr>
             </table>
           </div>
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ closingBackgroundSnippet }}
           </fragment>
         </td>

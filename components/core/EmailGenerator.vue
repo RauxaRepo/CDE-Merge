@@ -23,22 +23,71 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <!-- <b-button
-        class="button action-element"
-        icon-right="content-save"
-        @click="handleSave"
-      >
-        Save
-      </b-button> -->
       <b-button
-        v-if="selectedTemplate"
-        class="button"
+        v-if="!loading && selectedTemplate"
+        class="button action-element"
         icon-right="export"
         @click="handleExportHTML"
       >
         Export
       </b-button>
+      <b-button
+        v-else
+        loading
+        class="button action-element"
+        icon-right="export"
+      >
+        Loading
+      </b-button>
+      <b-button
+        class="button action-element"
+        @click="isEmailModalActive = true"
+      >
+        <b-icon icon="email"></b-icon>
+      </b-button>
     </div>
+    <b-modal v-model="isEmailModalActive">
+      <div class="send-email">
+        <b-field
+          label="Send email to:"
+          :type="sendAttempted && !sendEmail ? 'is-danger' : ''"
+          :message="sendAttempted && !sendEmail ? 'Email is required' : ''"
+        >
+          <b-autocomplete
+            v-model="sendEmail"
+            rounded
+            :data="filteredSavedEmails"
+            placeholder="Email address"
+            icon="magnify"
+            clearable
+            @select="option => (selected = option)"
+          >
+            <template slot="empty">
+              <span>No results found</span>
+            </template>
+          </b-autocomplete>
+        </b-field>
+        <b-field>
+          <div class="control">
+            <b-checkbox v-model="rememberEmail">
+              Remember Email
+            </b-checkbox>
+          </div>
+        </b-field>
+        <div class="button-container">
+          <b-button
+            v-if="!loading"
+            class="button merge-button secondary"
+            @click="handleSendEmail"
+          >
+            Send
+          </b-button>
+          <b-button v-else loading class="merge-button secondary">
+            Loading
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
     <main v-if="selectedTemplate">
       <div class="template-wrapper">
         <nav class="tabs sticky">
@@ -97,9 +146,17 @@
                 {{ phone.name }}
               </b-button>
             </div>
-            <div :class="{ ['phone']: mode === 'preview' && $store.state.mobilePreview }">
+            <div
+              :class="{
+                ['phone']: mode === 'preview' && $store.state.mobilePreview
+              }"
+            >
               <style
-                v-if="$store.state.editMode && mode === 'preview' && $store.state.mobilePreview"
+                v-if="
+                  $store.state.editMode &&
+                    mode === 'preview' &&
+                    $store.state.mobilePreview
+                "
                 v-html="mobileStyle"
               ></style>
               <div
@@ -159,7 +216,8 @@ import pretty from 'pretty'
 import { saveAs } from 'file-saver'
 import { component as VueCodeHighlight } from 'vue-code-highlight'
 import 'vue-code-highlight/themes/prism-tomorrow.css'
-import { comb } from "email-comb"
+import { comb } from 'email-comb'
+import axios from 'axios'
 
 export default {
   components: {
@@ -168,12 +226,17 @@ export default {
   props: ['emailId', 'email'],
   data: function() {
     return {
+      loading: false,
       client: null,
       mode: 'edit',
       code: '',
       name: '',
+      sendEmail: '',
+      savedEmails: [],
+      rememberEmail: true,
+      sendAttempted: false,
       saveAttempted: false,
-      isImageModalActive: false,
+      isEmailModalActive: false,
       selectedTemplate: null,
       selectedTemplateName: null,
       phones: [
@@ -209,6 +272,14 @@ export default {
   computed: {
     currentEmail() {
       return JSON.stringify(this.$store.state.currentEmail)
+    },
+    filteredSavedEmails() {
+      return this.savedEmails.filter(option =>
+        option
+          .toString()
+          .toLowerCase()
+          .includes(this.sendEmail.toLowerCase())
+      )
     },
     componentInstance() {
       const template = this.selectedTemplate
@@ -269,6 +340,16 @@ export default {
       template => template.id === this.selectedTemplate
     )
     this.selectedTemplateName = templateData.name
+    // Saved emails
+    this.savedEmails = []
+    try {
+      const saveEmailsItem = localStorage.getItem('savedEmails')
+      if (saveEmailsItem) {
+        this.savedEmails = JSON.parse(saveEmailsItem).savedEmails
+      }
+    } catch (error) {
+      console.log(error)
+    }
   },
   methods: {
     getClient: function() {
@@ -328,7 +409,9 @@ export default {
           console.log(error)
         }
       })
-      return pretty(comb(`${client.preHTML}${rawHtml}${client.postHTML}`).result)
+      return pretty(
+        comb(`${client.preHTML}${rawHtml}${client.postHTML}`).result
+      )
     },
     toggleMode: function(mode) {
       this.mode = mode
@@ -355,9 +438,9 @@ export default {
 
       if (this.selectedTemplate && this.name) {
         this.$store.commit('toggleEditMode')
+        this.loading = true
         setTimeout(() => {
           const html = this.getHtml()
-          console.log(html)
           const emailName = this.name
           const zip = new JSZip()
           zip.file(`${emailName}.html`, html)
@@ -378,6 +461,73 @@ export default {
             saveAs(content, `${emailName}.zip`)
           })
           this.$store.commit('toggleEditMode')
+          this.loading = false
+        }, 500)
+      }
+    },
+    handleSendEmail: function() {
+      this.sendAttempted = true
+      if (this.selectedTemplate && this.sendEmail) {
+        this.$store.commit('setPreviewMode', true)
+        this.$store.commit('toggleEmailMode')
+        this.loading = true
+        setTimeout(() => {
+          const html = this.getHtml()
+          const emailName = this.name
+          axios
+            .post('/api/send-email', {
+              email: this.sendEmail.toLowerCase(),
+              name: emailName,
+              html
+            })
+            .then(response => {
+              if (
+                this.rememberEmail &&
+                !this.savedEmails.includes(this.sendEmail.toLowerCase())
+              ) {
+                this.savedEmails = [
+                  ...this.savedEmails,
+                  this.sendEmail.toLowerCase()
+                ]
+                localStorage.setItem(
+                  'savedEmails',
+                  JSON.stringify({
+                    savedEmails: this.savedEmails
+                  })
+                )
+              } else {
+                this.savedEmails = this.savedEmails.filter(
+                  email => email !== this.sendEmail.toLowerCase()
+                )
+                localStorage.setItem(
+                  'savedEmails',
+                  JSON.stringify({
+                    savedEmails: this.savedEmails
+                  })
+                )
+              }
+              this.$buefy.toast.open({
+                duration: 5000,
+                message: 'Email successfully sent!',
+                position: 'is-bottom',
+                type: 'is-success'
+              })
+            })
+            .catch(error => {
+              console.log(error)
+              this.$buefy.toast.open({
+                duration: 5000,
+                message: 'Error sending the email',
+                position: 'is-bottom',
+                type: 'is-danger'
+              })
+            })
+            .finally(() => {
+              this.loading = false
+              this.isEmailModalActive = false
+            })
+          this.$store.commit('setPreviewMode', false)
+          this.$store.commit('toggleEmailMode')
         }, 500)
       }
     },
@@ -447,6 +597,11 @@ h1 {
     @media screen and (min-width: $small) {
       margin-right: 1rem;
       margin-bottom: 0;
+    }
+  }
+  button.action-element {
+    @media screen and (min-width: $small) {
+      margin-bottom: 1rem;
     }
   }
 }
@@ -580,6 +735,21 @@ main {
     }
     .field {
       // max-width: 308px;
+    }
+  }
+}
+.send-email {
+  padding: 30px;
+  background: $white;
+  max-width: 400px;
+  margin: 0 auto;
+  .button-container {
+    text-align: center;
+    .button {
+      max-width: 250px;
+      margin: 0 auto;
+      width: 100%;
+      margin-bottom: 0;
     }
   }
 }

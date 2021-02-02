@@ -160,7 +160,7 @@
           >
             <tr>
               <td align="center" style="padding: 0 0 40px 0;">
-                <fragment v-if="!$store.state.editMode">
+                <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                   {{ ctaSnippet }}
                 </fragment>
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0">

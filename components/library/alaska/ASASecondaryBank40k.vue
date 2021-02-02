@@ -180,7 +180,7 @@
                       align="center"
                       style="padding-top:30px; padding-bottom:10px;"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ ctaSnippet }}
                       </fragment>
                       <table

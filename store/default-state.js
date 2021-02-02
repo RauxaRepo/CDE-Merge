@@ -5,9 +5,11 @@ import rauxa from './rauxa'
 export default {
   presetTemplate: 'ExecLetter',
   multiComponents: false,
+  inlineImages: false,
   editMode: true,
   editingId: null,
   previewMode: false,
+  emailMode: false,
   mobilePreview: false,
   currentClient: null,
   currentEmail: {

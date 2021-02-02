@@ -90,6 +90,12 @@ export default {
   toggleEditMode(state) {
     state.editMode = !state.editMode
   },
+  toggleInlineImages(state) {
+    state.toggleInlineImages = !state.toggleInlineImages
+  },
+  toggleEmailMode(state) {
+    state.emailMode = !state.emailMode
+  },
   setEditingId(state, id) {
     state.editingId = id
   },

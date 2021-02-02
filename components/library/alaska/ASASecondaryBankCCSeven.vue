@@ -38,7 +38,7 @@
         </b-checkbox>
       </b-field>
     </portal>
-    <fragment v-if="!$store.state.editMode">
+    <fragment v-if="!$store.state.editMode || $store.state.emailMode">
       {{ openTableSnippet }}
     </fragment>
     <table
@@ -134,7 +134,7 @@
             </tr>
             <tr v-if="fields.showCta">
               <td align="center" style="padding: 0 0 50px 0;">
-                <fragment v-if="!$store.state.editMode">
+                <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                   {{ ctaSnippet }}
                 </fragment>
                 <table
@@ -205,7 +205,7 @@
       </tr>
     </table>
 
-    <fragment v-if="!$store.state.editMode">
+    <fragment v-if="!$store.state.editMode || $store.state.emailMode">
       {{ closeTableSnippet }}
     </fragment>
   </td>

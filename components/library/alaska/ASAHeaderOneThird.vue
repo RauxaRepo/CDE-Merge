@@ -107,7 +107,7 @@
     >
       <tr>
         <td align="center">
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ tableOneOpeningSnippet }}
           </fragment>
           <table
@@ -133,7 +133,7 @@
                       align="center"
                       style="font-size:0;vertical-align:top; padding-top: 15px;"
                     >
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableTwoOpeningSnippet }}
                       </fragment>
                       <div
@@ -180,7 +180,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ tableTwoMiddleSnippet }}
                       </fragment>
                       <div
@@ -227,7 +227,7 @@
                           </tr>
                         </table>
                       </div>
-                      <fragment v-if="!$store.state.editMode">
+                      <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                         {{ closingSnippet }}
                       </fragment>
                     </td>
@@ -237,7 +237,7 @@
             </tr>
           </table>
 
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ closingSnippet }}
           </fragment>
         </td>

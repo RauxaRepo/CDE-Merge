@@ -86,7 +86,7 @@
             ${fields.file ? 'background-size: cover; background-position: center; background-repeat: no-repeat;' : ''}`
           "
         >
-          <fragment v-if="!$store.state.editMode && fields.file">
+          <fragment v-if="(!$store.state.editMode || $store.state.emailMode) && fields.file">
             {{ backgroundSnippet }}
           </fragment>
           <table
@@ -208,7 +208,7 @@
                 align="center"
                 :style="`padding-top: ${fields.showAmount ? '0' : '20'}px;`"
               >
-                <fragment v-if="!$store.state.editMode">
+                <fragment v-if="!$store.state.editMode || $store.state.emailMode">
                   {{ ctaSnippet }}
                 </fragment>
                 <table
@@ -321,7 +321,7 @@
             </tr>
           </table>
 
-          <fragment v-if="!$store.state.editMode">
+          <fragment v-if="!$store.state.editMode || $store.state.emailMode">
             {{ closingBackgroundSnippet }}
           </fragment>
         </td>

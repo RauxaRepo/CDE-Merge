@@ -47,9 +47,15 @@ export default {
     if (!this.$store.state.auth.user.admin) {
       const user = this.$auth.$storage.getLocalStorage('user')
       if (user && user.clients) {
-        this.$router.push(`/clients/${user.clients[0] }`)
+        this.$router.push(`/clients/${user.clients[0]}`)
+      }
+    } else {
+      const currentClient = this.$auth.$storage.getLocalStorage('currentClient')
+      if (currentClient) {
+        this.$router.push(`/clients/${currentClient.id}`)
       }
     }
+
     this.$store.commit('clearCurrentEmail')
     this.$store.commit('clearCurrentClient')
   },
