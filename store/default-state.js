@@ -1,6 +1,7 @@
 import asaComponents from './asa-components'
+import rauxaComponents from './rauxa-radar-components'
 import alaska from './alaska'
-import rauxa from './rauxa'
+import rauxaRadar from './rauxa-radar'
 
 export default {
   presetTemplate: 'ExecLetter',
@@ -17,14 +18,17 @@ export default {
     assets: []
   },
   clients: {
-    list: [rauxa, alaska, { id: 'test', name: 'Test Client' }]
+    list: [rauxaRadar, alaska, { id: 'test', name: 'Test Client' }]
   },
   templates: {
     list: [
       { id: 'HeroTwoCol', name: 'Hero Two Col', clientId: 'test', tag: 'Two Col' },
       { id: 'HeroOneCol', name: 'Hero One Col', clientId: 'test', tag: 'Single Col' },
       { id: 'ExecLetter', name: 'Exec Letter', clientId: 'alaska', tag: 'Letters', img: 'exec-letter.png' },
-      { id: 'MCKOffer', name: 'ASA BAU', clientId: 'alaska', tag: 'Internal', img: 'mck-offer.png' }
+      { id: 'MCKOffer', name: 'ASA BAU', clientId: 'alaska', tag: 'Internal', img: 'mck-offer.png' },
+      { id: 'RauxaRadar', name: 'Rauxa Radar', clientId: 'rauxa', tag: 'Rauxa Radar', img: 'rauxa-radar_thumb.png' },
+      { id: 'RauxaAll', name: 'Rauxa All', clientId: 'rauxa', tag: 'Rauxa All' },
+      { id: 'XIO', name: 'XIO', clientId: 'rauxa', tag: 'XIO' },
     ]
   },
   emails: {
@@ -33,6 +37,7 @@ export default {
   components: {
     list: [
       ...asaComponents,
+      ...rauxaComponents,
       {
         name: 'SingleImage',
         type: 'hero'
