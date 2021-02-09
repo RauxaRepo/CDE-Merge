@@ -1,5 +1,5 @@
 import asaComponents from './asa-components'
-import rauxaComponents from './rauxa-radar-components'
+import rauxaRadarComponents from './rauxa-radar-components'
 import alaska from './alaska'
 import rauxaRadar from './rauxa-radar'
 
@@ -37,7 +37,7 @@ export default {
   components: {
     list: [
       ...asaComponents,
-      ...rauxaComponents,
+      ...rauxaRadarComponents,
       {
         name: 'SingleImage',
         type: 'hero'
