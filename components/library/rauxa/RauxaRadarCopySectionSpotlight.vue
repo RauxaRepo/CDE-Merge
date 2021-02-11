@@ -228,7 +228,9 @@
                                 <TextInput
                                   v-model.lazy="fields.cta"
                                   inline="true"
-                                />
+                                >
+                                  <LinkField v-model="fields.ctaLink" />
+                                </TextInput>
                               </span>
                             </div>
                           </td>
@@ -252,7 +254,6 @@
     </table>
     <portal v-if="$store.state.editingId === component.id" to="controls">
       <h2>{{ containerText }}</h2>
-      <LinkField v-model="fields.ctaLink" />
       <div class="field">
         <b-checkbox v-model="fields.showBody2">
           Body 2

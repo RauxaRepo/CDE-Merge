@@ -92,7 +92,9 @@
                           class="resetBorder"
                           target="_blank"
                         >
-                          <TextInput v-model.lazy="fields.cta" inline="true" />
+                          <TextInput v-model.lazy="fields.cta" inline="true">
+                            <LinkField v-model="fields.ctaLink" />
+                          </TextInput>
                         </span>
                       </div>
                     </td>
@@ -115,10 +117,6 @@
         ></td>
       </tr>
     </table>
-    <portal v-if="$store.state.editingId === component.id" to="controls">
-      <h2>{{ containerText }}</h2>
-      <LinkField v-model="fields.ctaLink" />
-    </portal>
   </td>
 </template>
 
@@ -143,9 +141,6 @@ export default {
       },
       fallback: '<!--[if gte mso 9]><style>.cta {border: 1px solid #ffffff !important;padding: 12px 30px !important;border-collapse: collapse !important;}.resetBorder {border: none !important;}</style><![endif]-->'
     }
-  },
-  mounted: function () {
-    this.$emit("has-controls")
   },
 }
 </script>

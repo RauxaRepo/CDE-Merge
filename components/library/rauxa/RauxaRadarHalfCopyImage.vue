@@ -267,7 +267,9 @@
                                   <TextInput
                                     v-model.lazy="fields.cta"
                                     inline="true"
-                                  />
+                                  >
+                                    <LinkField v-model="fields.ctaLink" />
+                                  </TextInput>
                                 </span>
                               </div>
                             </td>
