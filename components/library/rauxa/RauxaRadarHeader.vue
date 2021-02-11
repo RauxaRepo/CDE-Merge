@@ -45,7 +45,10 @@
     >
       <tr>
         <td align="left" style="padding: 22px 0 24px 24px">
-          <a :href="fields.link" target="_blank">
+          <a
+          v-if="(!$store.state.editMode || $store.state.previewMode) && fields.link"
+          :href="fields.link"
+          target="_blank">
             <ImageSelector
               v-model="fields.file"
               placeholder="/images/rauxa/rr_vz-rauxa.png"
@@ -60,8 +63,27 @@
                 font: 14px Avenir, Helvetica, Arial, sans-serif;
               "
               alt="Verizon + Rauxa"
-            ></ImageSelector>
+            />
           </a>
+          <span v-else>
+            <ImageSelector
+              v-model="fields.file"
+              placeholder="/images/rauxa/rr_vz-rauxa.png"
+              width="232"
+              height="25"
+              border="0"
+              img-style="
+                width: 232px;
+                max-height: 25px;
+                display: block;
+                color: #ffffff;
+                font: 14px Avenir, Helvetica, Arial, sans-serif;
+              "
+              alt="Verizon + Rauxa"
+            >
+              <LinkField v-model="fields.link" />
+            </ImageSelector>
+          </span>
         </td>
       </tr>
       <tr>
@@ -74,10 +96,6 @@
           &nbsp;
         </td>
       </tr>
-      <portal v-if="$store.state.editingId === component.id" to="controls">
-        <h2>{{ containerText }}</h2>
-        <LinkField v-model="fields.link" />
-      </portal>
     </table>
   </td>
 </template>
@@ -103,9 +121,6 @@ export default {
       },
       preheaderFallback: '<!--[if !mso]><!--><div style="display:none;font-size:1px;color:#333333;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div><!--<![endif]-->',
     }
-  },
-  mounted: function () {
-    this.$emit("has-controls")
   },
 }
 </script>

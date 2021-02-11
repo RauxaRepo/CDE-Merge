@@ -8,8 +8,6 @@
       :container-text="`${containerText}`"
       :controls-id="component.id"
     >
-      <LinkField v-model="fields.link" />
-      <h4>Background</h4>
       <p><small>Image size must be 1440px x 720px.</small></p>
     </ImageSelector>
     <table
@@ -67,7 +65,12 @@
                     valign="middle"
                     style="height: 360px; vertical-align: middle"
                   >
-                    <a :href="fields.link" target="_blank">
+                    <a
+                    v-if="(!$store.state.editMode ||
+                      $store.state.previewMode) &&
+                      fields.link"
+                    :href="fields.link"
+                    target="_blank">
                       <ImageSelector
                         v-model="fields.file"
                         placeholder="images/rauxa/rr_logo.png"
@@ -80,11 +83,30 @@
                           display: block;
                           font-family: Helvetica, sans-serif;
                           font-size: 20px;
-                          color: #ffffff;
-              "
+                          color: #ffffff;"
                         alt="Rauxa Radar"
                       ></ImageSelector>
                     </a>
+                    <span v-else>
+                    <ImageSelector
+                        v-model="fields.file"
+                        placeholder="images/rauxa/rr_logo.png"
+                        width="313"
+                        height="52"
+                        border="0"
+                        img-style="
+                          width: 313px;
+                          height: 52px;
+                          display: block;
+                          font-family: Helvetica, sans-serif;
+                          font-size: 20px;
+                          color: #ffffff;"
+                        alt="Rauxa Radar"
+                        container-text="Hero Logo"
+                      >
+                        <LinkField v-model="fields.link" />
+                      </ImageSelector>
+                    </span>
                     <table
                       cellpadding="0"
                       cellspacing="0"
