@@ -1,14 +1,5 @@
 <template>
   <td :key="$store.state.editMode ? `${component.id}_Edit` : component.id">
-    <table
-      class="w360"
-      cellpadding="0"
-      cellspacing="0"
-      border="0"
-      role="presentation"
-      bgcolor="#000000"
-      style="width: 100%; min-width: 360px; max-width: 720px"
-    >
     <ImageSelector
       v-model="fields.bg"
       placeholder="/images/rauxa/rr_hero-bg.png"
@@ -21,6 +12,15 @@
       <h4>Background</h4>
       <p><small>Image size must be 1440px x 720px.</small></p>
     </ImageSelector>
+    <table
+      class="w360"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      role="presentation"
+      bgcolor="#000000"
+      style="width: 100%; min-width: 360px; max-width: 720px"
+    >
       <tr>
         <td
           height="360"
