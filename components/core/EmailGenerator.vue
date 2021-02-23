@@ -23,13 +23,13 @@
       >
         <b-input v-model="name"></b-input>
       </b-field>
-      <!-- <b-button
+      <b-button
         class="button action-element"
         icon-right="content-save"
         @click="handleSave"
       >
         Save
-      </b-button> -->
+      </b-button>
       <b-button
         v-if="selectedTemplate"
         class="button"
