@@ -1,7 +1,7 @@
 <template>
   <b-field :label="label">
     <b-slider
-    v-model="rangeVal"
+    v-model="rangeEditorValue"
     :custom-formatter="val => val + 'px'"
     :min="minVal"
     :max="maxVal"
@@ -11,17 +11,41 @@
 </template>
 
 <script>
+import { debounce } from 'lodash'
+
 export default {
   props: [
-    "value",
-    "label",
-    "minVal",
-    "maxVal"
+    'value',
+    'label',
+    'minVal',
+    'maxVal',
+    'itemIndex'
   ],
   data() {
     return {
       rangeVal: 0,
     }
+  },
+  computed: {
+    rangeEditorValue: {
+      get() {
+        return this.itemIndex !== undefined
+          ? this.value[this.itemIndex].range
+          : this.value
+      },
+      set: debounce(function(newValue) {
+        if (this.itemIndex !== undefined) {
+          this.$emit(
+            'input',
+            this.value.map((item, i) =>
+              this.itemIndex === i ? { ...item, range: newValue } : item
+            )
+          )
+        } else {
+          this.$emit('input', newValue)
+        }
+      }, 400)
+    },
   },
   watch: {
     rangeVal: function () {
