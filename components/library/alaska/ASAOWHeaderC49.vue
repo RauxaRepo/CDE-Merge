@@ -267,7 +267,7 @@ export default {
       userRow: "<#if MEMBER_NUM?has_content && (LOYALTY_STATUS !='Inactive' && LOYALTY_STATUS !='Merged' )><#if FIRST_NAME?has_content>${FIRST_NAME?capitalize}</#if> <#if MEMBER_NUM?has_content>&nbsp;|&nbsp;<a href='${clickthrough('preheader_signin','linkname=preheader_signin')}' style='text-decoration: underline; color: #2774ae;'>Sign In</a></#if><br /><#if CURRENT_TIER?has_content>${CURRENT_TIER}:<#elseif CURRENT_TIER=='Regular'>Mileage Plan Member:</#if><#if MEMBER_NUM?has_content && MEMBER_NUM?c?string?length gt 4>xxxx${MEMBER_NUM?c?string?substring(hiddenMemNum,MemNumLength)}<#elseif MEMBER_NUM?has_content && MEMBER_NUM?c?string?length lte 4>xxxx${MEMBER_NUM?c}</#if></#if>",
       msoStart: "<!--[if !mso]><!-->",
       msoEnd: "<!--<![endif]-->",
-      responsysInclude: '<#include "cms://contentlibrary/globalassets/asa_ow/ASAOW_hdr_c49_500.htm">',
+      responsysInclude: '<#include "cms://contentlibrary/globalassets/asa_ow/asaow_hdr_c49_500.htm">',
       fields: {
         file: null,
       },
