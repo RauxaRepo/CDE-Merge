@@ -1,7 +1,7 @@
 <template>
   <section class="columns">
     <aside class="column is-one-quarter-tablet">
-      <!-- <EmailList :emails="clientEmails" /> -->
+      <EmailList :emails="clientEmails" />
       <b-upload accept=".json" class="file-label" @input="handleInput">
         <span class="file-cta">
           <b-icon class="file-icon" icon="upload"></b-icon>
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-// import EmailList from '@/components/core/EmailList.vue'
+import EmailList from '@/components/core/EmailList.vue'
 import { groupBy } from 'lodash'
 
 export default {
   components: {
-    // EmailList
+    EmailList
   },
   data: function() {
     return {
