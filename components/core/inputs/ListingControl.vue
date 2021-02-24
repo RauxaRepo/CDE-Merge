@@ -3,11 +3,11 @@
     <!-- <b-field :label="label || 'Listing Length'">
       <b-numberinput v-model.lazy="count" :min="0"></b-numberinput>
     </b-field> -->
-    <h4>Listing</h4>
+    <h4>{{ label ? label : 'Listing' }}</h4>
     <draggable v-model="listingItems">
       <div v-for="(item, index) in value" :key="index" class="listing-item">
         <span v-html="item.text"></span>
-        <button @click="deleteItem(index)">
+        <button v-if="count > 1" @click="deleteItem(index)">
           <b-icon icon="delete"></b-icon>
         </button>
       </div>
@@ -53,11 +53,13 @@ export default {
   },
   methods: {
     deleteItem: function(index) {
-      this.count--
-      this.$emit(
-        'input',
-        this.value.filter((item, i) => index !== i)
-      )
+      if (this.count > 1) {
+        this.count--
+        this.$emit(
+          'input',
+          this.value.filter((item, i) => index !== i)
+        )
+      }
     },
     addItem() {
       this.count++
@@ -67,8 +69,8 @@ export default {
           return this.value[i]
             ? this.value[i]
             : this.listingDefaults && this.listingDefaults[i]
-            ? { text: this.listingDefaults[i] }
-            : { text: 'Lorem, ipsum dolor sit amet' }
+            ? { text: this.listingDefaults[i].text, range: this.listingDefaults[i].range }
+            : { text: 'Lorem, ipsum dolor sit amet', range: 79 }
         })
       )
     }
