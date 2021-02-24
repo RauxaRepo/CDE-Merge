@@ -104,7 +104,6 @@ import ImageSelector from '@/components/core/inputs/ImageSelector'
 import { libComponentMixin } from '@/shared/mixins'
 import Range from '@/components/core/inputs/Range'
 
-
 const defaultListing = [
   {
     text: `<p>No change fees. Ever.</p><p><a href="\${clickthrough('secondary_a_peaceofmind_learnmore_text','linkname=secondary_a_peaceofmind_learnmore_text||2020_CV_AW||')}" >Learn more</a></p>`,

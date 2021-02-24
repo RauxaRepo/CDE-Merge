@@ -117,7 +117,9 @@
                           <fragment v-if="!$store.state.editMode">
                             {{ userRow }}
                           </fragment>
-                          <fragment v-else> {FirstName} </fragment>
+                          <fragment v-else>
+                            {FirstName}
+                          </fragment>
                         </p>
                       </div>
                     </div>
@@ -170,7 +172,9 @@
                       <fragment v-if="!$store.state.editMode">
                         {{ userRow }}
                       </fragment>
-                      <fragment v-else> {FirstName} </fragment>
+                      <fragment v-else>
+                        {FirstName}
+                      </fragment>
                     </td>
                   </tr>
                 </table>
@@ -238,7 +242,9 @@
                   <fragment v-if="!$store.state.editMode">
                     {{ userRow }}
                   </fragment>
-                  <fragment v-else> {FirstName} </fragment>
+                  <fragment v-else>
+                    {FirstName}
+                  </fragment>
                 </td>
               </tr>
             </table>
