@@ -224,4 +224,10 @@ export default [
     text: 'One World Club 49',
     client: 'alaska'
   },
+  {
+    name: 'ASAOWFooterEZ',
+    type: 'asa-footer',
+    text: 'Footer One World EZ (Promotional / Transactional)',
+    client: 'alaska'
+  },
 ]
