@@ -255,9 +255,15 @@
         {{ msoEnd }}
       </fragment>
     </table>
-    <fragment v-else>
+    <table
+      v-else
+      role="presentation"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      style="width: 100%;">
       {{ responsysInclude }}
-    </fragment>
+    </table>
   </td>
 </template>
 
