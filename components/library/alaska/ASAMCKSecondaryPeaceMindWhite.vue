@@ -82,7 +82,7 @@
                     v-model="fields.listing"
                     :item-index="i"
                     :placeholder="listingIconsDefaults[i]"
-                    :width="fields.listing[i].range + 'px'"
+                    :width="fields.listing[i].range"
                     border="0"
                     alt=""
                     :img-style="`display:block; width:${
@@ -93,7 +93,7 @@
                     v-model="fields.listing"
                     label="Image width"
                     :min-val="25"
-                    :max-val="200"
+                    :max-val="250"
                     :item-index="i" />
                   </ImageSelector>
                 </td>
