@@ -257,6 +257,7 @@ export default {
     if (this.emailId) {
       this.name = this.$store.state.currentEmail.name
       this.selectedTemplate = this.$store.state.currentEmail.template
+      this.hasPartialSnippet = this.$store.state.currentEmail.hasPartialSnippet
     } else if (this.$route.query.template) {
       this.selectedTemplate = this.$route.query.template
     } else if (this.$store.state.currentClient) {
@@ -288,7 +289,7 @@ export default {
           ) || emptyClient
         : emptyClient
     },
-    getHtml: function() {
+    getCleanHTML: function(dirtyHtml) {
       function componentToHex(c) {
         const hex = parseInt(c).toString(16)
         return hex.length === 1 ? '0' + hex : hex
@@ -297,8 +298,7 @@ export default {
       function rgbToHex(r, g, b) {
         return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b)
       }
-      const client = this.getClient()
-      let rawHtml = this.$refs.emailContainer.innerHTML
+      let cleanHtml = dirtyHtml
         .replace(/data-v-[0-9a-z]*=""/g, '')
         .replace(/fragment="[0-9a-z]*"/g, '')
         .replace(/&lt;/g, '<')
@@ -307,7 +307,10 @@ export default {
         .replace(/&quot;/g, "'")
         .replace(/<!---->/g, '')
         .replace(/ class=""/g, '')
-      const colors = [...new Set(rawHtml.match(/rgba?\([^)]*\)/g))]
+        .replace(/#{--snippet-start--}/g, '')
+        .replace(/{--snippet-end--}#/g, '')
+
+      const colors = [...new Set(cleanHtml.match(/rgba?\([^)]*\)/g))]
       colors.forEach(element => {
         try {
           /* eslint-disable */
@@ -323,12 +326,12 @@ export default {
             / /g,
             ''
           )
-          rawHtml = rawHtml.replace(re, hex)
+          cleanHtml = cleanHtml.replace(re, hex)
         } catch (error) {
           console.log(error)
         }
       })
-      return pretty(comb(`${client.preHTML}${rawHtml}${client.postHTML}`).result)
+      return pretty(comb(`${cleanHtml}`).result)
     },
     toggleMode: function(mode) {
       this.mode = mode
@@ -336,7 +339,12 @@ export default {
       if (mode === 'code') {
         this.$store.commit('toggleEditMode')
         setTimeout(() => {
-          this.code = this.getHtml()
+          const client = this.getClient()
+          const preHTML = client.preHTML
+          const postHTML = client.postHTML
+          const midHTML = this.$refs.emailContainer.innerHTML
+          
+          this.code = this.getCleanHTML(`${preHTML}${midHTML}${postHTML}`)
           this.$store.commit('toggleEditMode')
         }, 500)
       } else {
@@ -354,12 +362,31 @@ export default {
       this.saveAttempted = true
 
       if (this.selectedTemplate && this.name) {
+        const emailName = this.name
+        const zip = new JSZip()
+        const client = this.getClient()
+
         this.$store.commit('toggleEditMode')
         setTimeout(() => {
-          const html = this.getHtml()
+          const preHTML = client.preHTML
+          const postHTML = client.postHTML
+          const midHTML = this.$refs.emailContainer.innerHTML
+          const hasPartialSnippet = this.$store.state.currentEmail.hasPartialSnippet
+          let html = this.getCleanHTML(`${preHTML}${midHTML}${postHTML}`)
+
+          // if email has snippet
+          if(hasPartialSnippet) {
+            const regex = /#{--snippet-start--}([\s\S]*?){--snippet-end--}#/gmi
+            const snippetContent = midHTML.match(regex)[0]
+            const midHtmlWithoutSnippet = midHTML.replace(snippetContent, '')
+            // TODO: add loop in case multiple snippets exist
+
+            // get snippet and creating separate html file
+            zip.file(`${emailName}_dc.htm`, this.getCleanHTML(snippetContent))
+
+            html = this.getCleanHTML(`${preHTML}${midHtmlWithoutSnippet}${postHTML}`)
+          }
           console.log(html)
-          const emailName = this.name
-          const zip = new JSZip()
           zip.file(`${emailName}.html`, html)
           zip.file(
             `${emailName}.json`,
