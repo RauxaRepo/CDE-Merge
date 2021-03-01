@@ -71,7 +71,7 @@
                   placeholder="/images/location_icon.png"
                   border="0"
                   alt=""
-                  :width="fields.rangeVal + 'px'"
+                  :width="fields.rangeVal"
                   :img-style="
                     `display:block; width: ${
                       fields.rangeVal + 'px'

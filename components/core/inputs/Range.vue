@@ -35,12 +35,7 @@ export default {
       },
       set: debounce(function(newValue) {
         if (this.itemIndex !== undefined) {
-          this.$emit(
-            'input',
-            this.value.map((item, i) =>
-              this.itemIndex === i ? { ...item, range: newValue } : item
-            )
-          )
+          this.$emit('input', this.value.map((item, i) => this.itemIndex === i ? { ...item, range: newValue } : item))
         } else {
           this.$emit('input', newValue)
         }
@@ -51,9 +46,6 @@ export default {
     rangeVal: function () {
       this.$emit("input", this.rangeVal)
     },
-  },
-  mounted: function () {
-    this.rangeVal = this.value
   },
 }
 </script>
