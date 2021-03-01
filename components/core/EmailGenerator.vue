@@ -376,14 +376,15 @@ export default {
 
           // if email has snippet
           if(hasPartialSnippet) {
-            const regex = /#{--snippet-start--}([\s\S]*?){--snippet-end--}#/gmi
-            const snippetContent = midHTML.match(regex)[0]
+            const snippetRegex = /#{--snippet-start--}([\s\S]*?){--snippet-end--}#/gmi
+            const snippetContent = midHTML.match(snippetRegex) ? midHTML.match(snippetRegex)[0] : ''
             const midHtmlWithoutSnippet = midHTML.replace(snippetContent, '')
             // TODO: add loop in case multiple snippets exist
 
             // get snippet and creating separate html file
-            zip.file(`${emailName}_dc.htm`, this.getCleanHTML(snippetContent))
-
+            if (snippetContent !== '') {
+              zip.file(`${emailName}_dc.htm`, this.getCleanHTML(snippetContent))
+            }
             html = this.getCleanHTML(`${preHTML}${midHtmlWithoutSnippet}${postHTML}`)
           }
           console.log(html)
