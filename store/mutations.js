@@ -77,6 +77,7 @@ export default {
     state.currentEmail = {
       name: '',
       template: null,
+      hasPartialSnippet: null,
       containers: [],
       assets: []
     }
@@ -103,5 +104,8 @@ export default {
     if (state.auth) {
       state.auth.user = user
     }
-  }
+  },
+  setHasPartialSnippet(state, value) {
+    state.currentEmail.hasPartialSnippet = value
+  },
 }
