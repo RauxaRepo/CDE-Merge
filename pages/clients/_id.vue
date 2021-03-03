@@ -1,7 +1,7 @@
 <template>
   <section class="columns">
     <aside class="column is-one-quarter-tablet">
-      <!-- <EmailList :emails="clientEmails" /> -->
+      <EmailList :emails="clientEmails" />
       <b-upload accept=".json" class="file-label" @input="handleInput">
         <span class="file-cta">
           <b-icon class="file-icon" icon="upload"></b-icon>
@@ -9,7 +9,7 @@
         </span>
       </b-upload>
       <div v-if="errorFileName" class="error">
-        The file {{ errorFileName }} could not be uploaded. Please verify that
+        The file {{ errorFileName }} could not be uploaded or the email template "{{ errorTemplate }}" does not exist. Please verify that
         the file is the correct format.
       </div>
     </aside>
@@ -48,16 +48,17 @@
 </template>
 
 <script>
-// import EmailList from '@/components/core/EmailList.vue'
+import EmailList from '@/components/core/EmailList.vue'
 import { groupBy } from 'lodash'
 
 export default {
   components: {
-    // EmailList
+    EmailList
   },
   data: function() {
     return {
       errorFileName: '',
+      errorTemplate: '',
       emails: [],
       templateGroups: [],
       clientTemplates: []
@@ -98,9 +99,12 @@ export default {
       const reader = new FileReader()
       reader.readAsText(file)
       reader.onloadend = () => {
+        const json = JSON.parse(reader.result)
+
         try {
-          const json = JSON.parse(reader.result)
-          if (json.name && json.template && json.containers) {
+          const clientTemplateIDs = this.clientTemplates.map(template => template.id)
+
+          if (json.name && json.template && json.containers && clientTemplateIDs.includes(json.template)) {
             delete json.id
             this.$store.dispatch('saveEmail', {
               newEmail: json,
@@ -111,6 +115,7 @@ export default {
           }
         } catch (error) {
           this.errorFileName = file.name
+          this.errorTemplate = json.template
         }
       }
     }

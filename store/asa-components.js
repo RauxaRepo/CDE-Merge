@@ -218,4 +218,16 @@ export default [
     text: 'Footer TA Newsletter',
     client: 'alaska'
   },
+  {
+    name: 'ASAOWHeaderC49',
+    type: 'asa-header',
+    text: 'One World Club 49',
+    client: 'alaska'
+  },
+  {
+    name: 'ASAOWFooterEZ',
+    type: 'asa-footer',
+    text: 'Footer One World EZ (Promotional / Transactional)',
+    client: 'alaska'
+  },
 ]

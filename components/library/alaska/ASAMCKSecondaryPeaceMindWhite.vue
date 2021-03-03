@@ -82,17 +82,19 @@
                     v-model="fields.listing"
                     :item-index="i"
                     :placeholder="listingIconsDefaults[i]"
-                    width="79"
+                    :width="fields.listing[i].range"
                     border="0"
                     alt=""
-                    img-style="display:block; width:79px; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#2774ae;"
+                    :img-style="`display:block; width:${
+                      fields.listing[i].range + 'px'
+                    }; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#2774ae;`"
                   >
-                    <p>
-                      <small
-                        >Image width must be 158px, height should be the same or
-                        close.</small
-                      >
-                    </p>
+                    <Range
+                    v-model="fields.listing"
+                    label="Image width"
+                    :min-val="25"
+                    :max-val="250"
+                    :item-index="i" />
                   </ImageSelector>
                 </td>
               </tr>
@@ -121,13 +123,16 @@
 import TextInput from '@/components/core/inputs/TextInput'
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import { libComponentMixin } from '@/shared/mixins'
+import Range from '@/components/core/inputs/Range'
 
 const defaultListing = [
   {
-    text: `<p>No change fees. Ever.</p><p><a href="\${clickthrough('secondary_a_peaceofmind_learnmore_text','linkname=secondary_a_peaceofmind_learnmore_text||2020_CV_AW||')}" >Learn more</a></p>`
+    text: `<p>No change fees. Ever.</p><p><a href="\${clickthrough('secondary_a_peaceofmind_learnmore_text','linkname=secondary_a_peaceofmind_learnmore_text||2020_CV_AW||')}" >Learn more</a></p>`,
+    range: 79
   },
   {
-    text: `<p><a href="\${clickthrough('secondary_a_peaceofmind_masks_text','linkname=secondary_a_peaceofmind_masks_text||2020_CV_AW||')}" >Masks required</a> for all guests</p><p>over age&nbsp;2.<sup>&dagger;</sup></p>`
+    text: `<p><a href="\${clickthrough('secondary_a_peaceofmind_masks_text','linkname=secondary_a_peaceofmind_masks_text||2020_CV_AW||')}" >Masks required</a> for all guests</p><p>over age&nbsp;2.<sup>&dagger;</sup></p>`,
+    range: 60
   }
 ]
 
@@ -135,7 +140,8 @@ export default {
   name: 'ASAMCKSecondaryPeaceMindWhite',
   components: {
     ImageSelector,
-    TextInput
+    TextInput,
+    Range
   },
   mixins: [libComponentMixin],
   data: function() {

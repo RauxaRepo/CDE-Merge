@@ -17,11 +17,6 @@
           Icon
         </b-checkbox>
       </b-field>
-      <b-field v-if="fields.showIcon">
-        <b-checkbox v-model="fields.smallIcon">
-          Small Icon
-        </b-checkbox>
-      </b-field>
       <b-field>
         <b-checkbox v-model="fields.showHeadline">
           Headline
@@ -76,18 +71,14 @@
                   placeholder="/images/location_icon.png"
                   border="0"
                   alt=""
-                  :width="fields.smallIcon ? '49' : '229'"
+                  :width="fields.rangeVal"
                   :img-style="
                     `display:block; width: ${
-                      fields.smallIcon ? '49px' : '229px'
+                      fields.rangeVal + 'px'
                     }; height:auto; font-family:Helvetica, sans-serif; font-size:20px; color:#ffffff;`
                   "
                 >
-                  <p>
-                    <small
-                      >Image width must be {{ fields.smallIcon ? '98px' : '458px' }}, height should be the same or close.
-                    </small>
-                  </p>
+                  <Range v-model="fields.rangeVal" label="Image width" :min-val="25" :max-val="200" />
                 </ImageSelector>
               </td>
             </tr>
@@ -203,6 +194,7 @@ import ColorSelector from '@/components/core/inputs/ColorSelector'
 import ImageSelector from '@/components/core/inputs/ImageSelector'
 import { libComponentMixin } from '@/shared/mixins'
 import LinkField from '@/components/core/inputs/LinkField'
+import Range from '@/components/core/inputs/Range'
 
 export default {
   name: 'ASAMCKSecondaryTwo',
@@ -210,7 +202,8 @@ export default {
     ColorSelector,
     ImageSelector,
     LinkField,
-    TextInput
+    TextInput,
+    Range
   },
   mixins: [libComponentMixin],
   data: function() {
@@ -239,8 +232,8 @@ export default {
       ],
       fields: {
         showIcon: true,
-        smallIcon: true,
         file: null,
+        rangeVal: 49,
         bgColor: '#53B390',
         showHeadline: true,
         headline: '<p>Headline up to 32</p><p>character&nbsp;max</p>',
